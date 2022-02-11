@@ -31,7 +31,7 @@
   .nav-menu {
     position: fixed;
     background: #fff;
-    padding: 1em;
+    padding: 1em 0;
     top: 0;
     left: -100%;
     width: 100%;
@@ -46,7 +46,7 @@
         margin: 2.5em 0 1em 0;
         //padding: 1em;
         //background: #bcc;
-        @include flexRegular(row, space-between);
+        width: 100%;
         .me-logo {
           @include flexRegular(row, center);
           width: 100%;
@@ -58,6 +58,7 @@
         .closeMenu {
           position: absolute;
           left: 90%;
+          top: 2%;
           img {
             width: 35px;
           }
@@ -93,7 +94,7 @@
           @include buttonRegular($blueMain, 60vw, 7vh);
           max-width: 425px;
           color: #fff;
-          font-size: 1.26em;
+          font-size: 1.2em;
         }
       }
     }
@@ -104,7 +105,7 @@
       .menuContent {
         .menuBody {
           margin-top: 6em;
-          font-size: 1.5em;
+          font-size: 1.4em;
         }
         // .menuBtns {
         //   button {
@@ -129,6 +130,13 @@
       .menuContent {
         .menuBody {
           font-size: 1.35em;
+        }
+        .menuTop {
+          .closeMenu {
+            img {
+              width: 25px;
+            }
+          }
         }
       }
     }
