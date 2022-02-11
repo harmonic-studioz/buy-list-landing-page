@@ -1,0 +1,79 @@
+@import '../../variables';
+@import '../../mixins';
+
+.navContainerMobile {
+  display: none;
+}
+.navContainer {
+  position: fixed;
+  z-index: 3;
+  width: 100%;
+  padding: 2em 1em;
+  background: #fff;
+}
+.navContent {
+  width: 90%;
+  max-width: 1350px;
+  margin: auto;
+  //background: rgb(120, 120, 168);
+  @include flexRegular(row, space-between);
+  .logoBox {
+    width: 25%;
+    //background: cornsilk;
+    img {
+      width: 170px;
+    }
+  }
+  .navMid {
+    width: 40%;
+    margin-right: 2%;
+    //background: cornsilk;
+    @include flexRegular(row, space-between);
+    li {
+      margin-right: 1em;
+      font-size: 0.9em;
+    }
+  }
+  .navRight {
+    width: 30%;
+    //background: cornsilk;
+    @include flexRegular(row, center);
+    p {
+      color: $blueMain;
+      //margin-right: 2em;
+      font-size: 0.9em;
+    }
+    button:nth-of-type(1) {
+      @include buttonRegular(none, 20vw, 48px);
+      max-width: 150px;
+      border: 2px solid $blueMain;
+      color: $blueMain;
+      margin-right: 2em;
+      &:hover {
+        background: $blueMain;
+        color: #fff;
+      }
+    }
+    button:nth-of-type(2) {
+      @include buttonRegular($blueMain, 20vw, 48px);
+      max-width: 150px;
+      color: #fff;
+      &:hover {
+        background: #2b96cf;
+      }
+    }
+  }
+}
+@media (max-width: 1080px) {
+  .navContent {
+    width: 100%;
+  }
+}
+@media (max-width: 820px) {
+  .navContainer {
+    display: none;
+  }
+  .navContainerMobile {
+    display: block;
+  }
+}
