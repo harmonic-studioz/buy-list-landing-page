@@ -10,8 +10,9 @@
   .navContentM {
     @include flexRegular(row, space-between);
     align-items: center;
-    width: 100%;
+    width: 93%;
     //background: pink;
+    margin: auto;
     .logoBoxM {
       width: 50%;
       img {
@@ -42,7 +43,7 @@
     .menuContent {
       .menuTop {
         position: relative;
-        margin: 1.5em 0 1em 0;
+        margin: 2.5em 0 1em 0;
         //padding: 1em;
         //background: #bcc;
         @include flexRegular(row, space-between);
@@ -56,7 +57,7 @@
         }
         .closeMenu {
           position: absolute;
-          left: 92%;
+          left: 90%;
           img {
             width: 35px;
           }

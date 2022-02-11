@@ -255,6 +255,12 @@
       width: 90%;
       margin: 0 auto 7.5em auto;
       padding: 2.5em 1em;
+      .stepImg {
+        img {
+          width: 44px;
+          height: 44px;
+        }
+      }
       .stepTxt {
         p {
           width: 100%;
