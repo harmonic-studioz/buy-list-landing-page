@@ -9,7 +9,7 @@ const Steps = () => {
     <div className="stepsContainer">
       <div className="stepsContent">
         <h2>How it works</h2>
-        <div className="stepBox" data-aos="fade-up" data-aos-delay="300">
+        <div className="stepBox" data-aos="fade-up">
           <div className="stepImg">
             <img src={List} alt="list" />
           </div>
@@ -20,14 +20,14 @@ const Steps = () => {
               the spot.
             </p>
           </div>
-          <div className="stepCard" data-aos-delay="600">
+          <div className="stepCard" data-aos-delay="300">
             <img src={Lcard} alt="list whitelist?" />
           </div>
         </div>
         <div className="stepCardM">
           <img src={Lcard} alt="list whitelist?" />
         </div>
-        <div className="stepBox" data-aos="fade-up" data-aos-delay="300">
+        <div className="stepBox" data-aos="fade-up">
           <div className="stepImg">
             <img src={Buy} alt="list" />
           </div>
@@ -37,14 +37,14 @@ const Steps = () => {
               Find a project you like and buy a whitelist spot in this project.
             </p>
           </div>
-          <div className="stepCard" data-aos-delay="600">
+          <div className="stepCard" data-aos-delay="300">
             <img src={Bcard} alt="list whitelist?" />
           </div>
         </div>
         <div className="stepCardM">
           <img src={Bcard} alt="list whitelist?" />
         </div>
-        <div className="stepBox" data-aos="fade-up" data-aos-delay="300">
+        <div className="stepBox" data-aos="fade-up">
           <div className="stepImg">
             <img src={Monitor} alt="list" />
           </div>
@@ -54,7 +54,7 @@ const Steps = () => {
               Curate a list of projects you like and keep tabs on their drops.
             </p>
           </div>
-          <div className="stepCard" data-aos-delay="600">
+          <div className="stepCard" data-aos-delay="300">
             <img src={Bcard} alt="list whitelist?" />
           </div>
         </div>
