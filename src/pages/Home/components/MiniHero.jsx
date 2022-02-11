@@ -4,7 +4,7 @@ import Rocket from '../../../assets/images/rocket.svg'
 const MiniHero = () => {
   return (
     <div className="mHeroContainer">
-      <div className="mHeroContent">
+      <div data-aos="zoom-in" className="mHeroContent">
         <motion.img
           className="mStar"
           src={Star}
