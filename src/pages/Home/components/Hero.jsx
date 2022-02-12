@@ -9,13 +9,18 @@ const Hero = () => {
       <div className="heroContent">
         <div className="heroIntro">
           <div className="heroTextBox">
-            <h1>
+            {/* <h1>
               Buy a <span> whitelist </span> spot without grinding now!
+            </h1> */}
+            <h1>
+              Buy and Sell
+              <span> NFT </span>
+              whitelist spots easily in a fair market.
             </h1>
             <p>
-              We want to make entry to NFT project Whitelists much more
-              accessible to enthusiasts and NFT traders around the world by
-              creating a marketplace for buying and selling whitlist spots.
+              Grind for a whitelist spot and easily sell on BuyList, buy in
+              simple steps without grinding, curate upcoming mints and set
+              reminders.
             </p>
           </div>
           <div className="heroBtns">

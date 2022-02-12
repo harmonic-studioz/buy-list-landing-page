@@ -64,7 +64,7 @@ const FAQ = () => {
             </div>
           </div>
           <div className="faqContentBx">
-            <div className="faqLabel">What is a NFT whitelist? </div>
+            <div className="faqLabel">What is an NFT whitelist? </div>
             <div className="faqContent">
               <p>
                 * An NFT whitelist is a list of eligible Hash addresses that
@@ -109,6 +109,20 @@ const FAQ = () => {
                 <br />
                 <br />* It helps promote the NFT project and creates demand and
                 supply through public appeal
+              </p>
+            </div>
+          </div>
+          <div className="faqContentBx">
+            <div className="faqLabel">Can I sell above mint price? </div>
+            <div className="faqContent">
+              <p>
+                * No, you cannot sell above mint price .
+                <br />
+                <br />* List ads are only valid if sell price is set at 50% less
+                than mint price .
+                <br />
+                <br />* This allows risk-sharing and helps Buylist ensure an
+                ethical and fair market.
               </p>
             </div>
           </div>

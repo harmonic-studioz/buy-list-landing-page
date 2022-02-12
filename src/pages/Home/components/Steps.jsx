@@ -15,10 +15,15 @@ const Steps = () => {
           </div>
           <div className="stepTxt">
             <h3>List your whitelist spot</h3>
-            <p>
-              Upload whitelist spot to the marketplace by adding details about
-              the spot.
-            </p>
+            {/* <p>bla bla bla</p> */}
+            <ul>
+              <li>Connect wallet </li>
+              <li>Update profile. </li>
+              <li>
+                List whitelist spot on the marketplace by uploading relevant
+                details.{' '}
+              </li>
+            </ul>
           </div>
           <div className="stepCard" data-aos-delay="300">
             <img src={Lcard} alt="list whitelist?" />
@@ -33,9 +38,14 @@ const Steps = () => {
           </div>
           <div className="stepTxt">
             <h3>Buy a whitelist spot</h3>
-            <p>
+            {/* <p>
               Find a project you like and buy a whitelist spot in this project.
-            </p>
+            </p> */}
+            <ul>
+              <li>Connect wallet.</li>
+              <li>Update profile.</li>
+              <li>Engage with whitelist-spot sell ads of interest.</li>
+            </ul>
           </div>
           <div className="stepCard" data-aos-delay="300">
             <img src={Bcard} alt="list whitelist?" />
@@ -51,7 +61,8 @@ const Steps = () => {
           <div className="stepTxt">
             <h3>Monitor upcoming mints</h3>
             <p>
-              Curate a list of projects you like and keep tabs on their drops.
+              Keep tabs on your favorite NFT projects by putting on push
+              notification.
             </p>
           </div>
           <div className="stepCard" data-aos-delay="300">

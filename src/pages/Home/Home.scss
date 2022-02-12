@@ -214,6 +214,15 @@
         font-size: 0.9em;
         margin-top: 1em;
       }
+      ul {
+        padding-left: 2em;
+        font-weight: lighter;
+        width: 100%;
+        font-size: 0.9em;
+        margin-top: 1em;
+        //background: pink;
+        //list-style-type: decimal;
+      }
     }
     .stepCard {
       bottom: -90px;
@@ -242,6 +251,9 @@
         p {
           width: 65%;
         }
+        ul {
+          width: 65%;
+        }
       }
     }
   }
@@ -262,7 +274,9 @@
         }
       }
       .stepTxt {
-        p {
+        p,
+        ul {
+          padding-left: 0;
           width: 100%;
         }
       }
