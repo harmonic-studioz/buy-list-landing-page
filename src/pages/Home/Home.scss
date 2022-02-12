@@ -83,6 +83,7 @@
       }
     }
     .shape2 {
+      cursor: grab;
       margin-top: 6em;
     }
   }
@@ -325,6 +326,7 @@
     left: 0;
     top: -110px;
     width: 133px;
+    cursor: grab;
   }
   .mHeroTxt {
     @include flexRegular(column, center);
@@ -354,6 +356,7 @@
     right: 180px;
     top: -85px;
     width: 170px;
+    cursor: grab;
   }
 }
 @media (max-width: 1080px) {

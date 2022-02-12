@@ -17,10 +17,10 @@ const Footer = () => {
             <p className="hvr-underline-from-left">About us</p>
           </Link>
           <Link to="/">
-            <p className="hvr-underline-from-left">Whitelist pool</p>
+            <p className="hvr-underline-from-left">How it works</p>
           </Link>
           <Link to="/">
-            <p className="hvr-underline-from-left">Upcoming NFTs</p>
+            <p className="hvr-underline-from-left">Contact us</p>
           </Link>
         </div>
         <div className="footIcons">
@@ -57,10 +57,10 @@ const Footer = () => {
             <p className="hvr-underline-from-left">About us</p>
           </Link>
           <Link to="/">
-            <p className="hvr-underline-from-left">Whitelist pool</p>
+            <p className="hvr-underline-from-left">How it works</p>
           </Link>
           <Link to="/">
-            <p className="hvr-underline-from-left">Upcoming NFTs</p>
+            <p className="hvr-underline-from-left">Contact us</p>
           </Link>
         </div>
       </div>

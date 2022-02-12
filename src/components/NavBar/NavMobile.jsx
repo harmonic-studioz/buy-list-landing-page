@@ -77,8 +77,8 @@ const NavMobile = () => {
           <div className="menuBody">
             <ul className="menuLinks">
               <li>About us</li>
-              <li>Whitelist pool</li>
-              <li>Upcoming NFTs</li>
+              <li>How it works</li>
+              <li>About us</li>
             </ul>
           </div>
           <div className="menuBtns" id="menuBtns">

@@ -16,10 +16,10 @@ const NavWeb = () => {
             <li className="hvr-underline-from-left">About us</li>
           </Link>
           <Link to="/">
-            <li className="hvr-underline-from-left">Whitelist pool</li>
+            <li className="hvr-underline-from-left">How it works </li>
           </Link>
           <Link to="/">
-            <li className="hvr-underline-from-left">Upcoming NFTS</li>
+            <li className="hvr-underline-from-left">Contact us</li>
           </Link>
         </ul>
         <div className="navRight">
