@@ -78,7 +78,10 @@ const NavMobile = () => {
             <ul className="menuLinks">
               <li>About us</li>
               <li>How it works</li>
-              <li>About us</li>
+              <li>
+                {' '}
+                <a href="mailto:support@buylistnft.com">Contact us</a>
+              </li>
             </ul>
           </div>
           <div className="menuBtns" id="menuBtns">

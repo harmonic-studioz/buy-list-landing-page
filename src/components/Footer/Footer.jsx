@@ -19,9 +19,9 @@ const Footer = () => {
           <Link to="/">
             <p className="hvr-underline-from-left">How it works</p>
           </Link>
-          <Link to="/">
+          <a href="mailto:support@buylistnft.com">
             <p className="hvr-underline-from-left">Contact us</p>
-          </Link>
+          </a>
         </div>
         <div className="footIcons">
           <Link to="/">

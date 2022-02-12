@@ -18,9 +18,9 @@ const NavWeb = () => {
           <Link to="/">
             <li className="hvr-underline-from-left">How it works </li>
           </Link>
-          <Link to="/">
+          <a href="mailto:support@buylistnft.com">
             <li className="hvr-underline-from-left">Contact us</li>
-          </Link>
+          </a>
         </ul>
         <div className="navRight">
           <button>Connect wallet</button>
