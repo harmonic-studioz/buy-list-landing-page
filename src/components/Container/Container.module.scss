@@ -1,5 +1,7 @@
 /* Container */
 .container {
+  position: relative;
+  z-index: 2;
   padding: 1em 0;
   transition: 0.5s ease-in-out;
   background: radial-gradient(

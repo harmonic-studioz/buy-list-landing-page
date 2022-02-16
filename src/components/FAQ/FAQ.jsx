@@ -14,7 +14,7 @@ const FAQ = () => {
 
   return (
     <div className="faqContainer">
-      <div className="faqCont">
+      <div className="faqCont" id="faq">
         <h1>Have questions? We’ve got you</h1>
         <div className="faqBox">
           <div className="faqContentBx">

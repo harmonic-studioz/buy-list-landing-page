@@ -22,6 +22,9 @@ const NavMobile = () => {
       '-=0.2',
     )
     let menuItems = document.querySelectorAll('.menuLinks > li')
+    let link1 = document.getElementById('link1')
+    let link2 = document.getElementById('link2')
+    let link3 = document.getElementById('link3')
     t1.staggerFrom(
       menuItems,
       0.6,
@@ -43,6 +46,17 @@ const NavMobile = () => {
     mo.onclick = function () {
       t1.reversed(!t1.reversed())
     }
+    //
+    link1.onclick = function () {
+      t1.reversed(!t1.reversed())
+    }
+    link2.onclick = function () {
+      t1.reversed(!t1.reversed())
+    }
+    link3.onclick = function () {
+      t1.reversed(!t1.reversed())
+    }
+    //
     let mc = document.querySelector('.closeMenu')
     mc.onclick = function () {
       t1.reversed(!t1.reversed())
@@ -76,16 +90,24 @@ const NavMobile = () => {
           </div>
           <div className="menuBody">
             <ul className="menuLinks">
-              <li>About us</li>
-              <li>How it works</li>
-              <li>
+              <li className="mlink" id="link1">
+                {' '}
+                <a href="/#works">How it works </a>
+              </li>
+
+              <li className="mlink" id="link2">
+                {' '}
+                <a href="/#faq">FAQs </a>
+              </li>
+
+              <li className="mlink" id="link3">
                 {' '}
                 <a href="mailto:support@buylistnft.com">Contact us</a>
               </li>
             </ul>
           </div>
           <div className="menuBtns" id="menuBtns">
-            <button>Buy spot</button>
+            <button>Connect Wallet</button>
           </div>
         </div>
       </nav>

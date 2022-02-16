@@ -1,21 +1,17 @@
 import './Home.scss'
 import NavBar from '../../components/NavBar/NavBar'
 import Container from '../../components/Container/Container'
-import Hero from './components/Hero'
-import Steps from './components/Steps'
-import MiniHero from './components/MiniHero'
-import FAQ from '../../components/FAQ/FAQ'
+import Hero from './components/Hero3'
+import Spots from './components/Spots'
 import Footer from '../../components/Footer/Footer'
 
 const Home = () => {
   return (
     <>
-      <NavBar />
+      <NavBar className="navContent" />
+      <Hero />
       <Container>
-        <Hero />
-        <Steps />
-        <MiniHero />
-        <FAQ />
+        <Spots />
         <Footer />
       </Container>
     </>

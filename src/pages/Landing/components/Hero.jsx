@@ -9,9 +9,6 @@ const Hero = () => {
       <div className="heroContent">
         <div className="heroIntro">
           <div className="heroTextBox">
-            {/* <h1>
-              Buy a <span> whitelist </span> spot without grinding now!
-            </h1> */}
             <h1>
               Buy and Sell
               <span> NFT </span>
@@ -24,8 +21,8 @@ const Hero = () => {
             </p>
           </div>
           <div className="heroBtns">
-            <button className="btnOutline">Buy spot</button>
-            <button className="btnFill">Sell a spot</button>
+            <button className="btnOutline">Buy Spot</button>
+            <button className="btnFill">Sell Spot</button>
           </div>
           <div className="shapeBox1">
             <motion.img
@@ -75,7 +72,6 @@ const Hero = () => {
                 visible: {
                   scale: 1,
                   opacity: 1,
-                  x: 0,
                   y: [50, 0, 50],
                   transition: {
                     //delay: 1.8,

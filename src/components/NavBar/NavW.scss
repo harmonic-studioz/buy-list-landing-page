@@ -12,20 +12,77 @@
   background: #fff;
 }
 .navContent {
+  width: 94%;
+  max-width: 1350px;
+  margin: auto;
+  //background: rgb(220, 221, 218);
+  @include flexRegular(row, space-between);
+  .logoBox {
+    width: 30%;
+    img {
+      width: 170px;
+    }
+  }
+  .navMid {
+    width: 30%;
+    margin-right: 2%;
+    @include flexRegular(row, space-between);
+    li {
+      margin-right: 1em;
+      font-size: 0.9em;
+    }
+  }
+  .navRight {
+    width: 35%;
+    max-width: 400px;
+    //background: cornsilk;
+    @include flexRegular(row, space-between);
+    padding-left: 1em;
+    .nav_Connect {
+      @include buttonRegular($blueMain, 20vw, 48px);
+      max-width: 145px;
+      color: #fff;
+      &:hover {
+        background: #2b96cf;
+      }
+    }
+    .navSearch {
+      position: relative;
+      input {
+        @include buttonRegular(none, 22vw, 48px);
+        max-width: 210px;
+        font-size: 0.85em;
+        border: 2px solid #ebedef;
+        box-sizing: border-box;
+        box-shadow: 0px 10px 10px rgba(95, 90, 247, 0.03);
+        border-radius: 24px;
+        padding-left: 1em;
+      }
+      img {
+        position: absolute;
+        cursor: pointer;
+        right: 1em;
+        top: 10px;
+        z-index: 1;
+      }
+    }
+  }
+}
+.navContentLanding {
   width: 90%;
   max-width: 1350px;
   margin: auto;
-  //background: rgb(120, 120, 168);
+  //background: rgb(227, 227, 245);
   @include flexRegular(row, space-between);
   .logoBox {
-    width: 25%;
+    width: 35%;
     //background: cornsilk;
     img {
       width: 170px;
     }
   }
   .navMid {
-    width: 40%;
+    width: 32%;
     margin-right: 2%;
     //background: cornsilk;
     @include flexRegular(row, space-between);
@@ -37,35 +94,36 @@
   .navRight {
     width: 30%;
     //background: cornsilk;
-    @include flexRegular(row, center);
-    p {
-      color: $blueMain;
-      //margin-right: 2em;
-      font-size: 0.9em;
-    }
-    button:nth-of-type(1) {
-      @include buttonRegular(none, 20vw, 48px);
-      max-width: 150px;
-      border: 2px solid $blueMain;
-      color: $blueMain;
-      margin-right: 2em;
-      &:hover {
-        background: $blueMain;
-        color: #fff;
-      }
-    }
-    button:nth-of-type(2) {
+    @include flexRegular(row, flex-end);
+    //
+    // .nav_Connect {
+    //   @include buttonRegular(none, 20vw, 48px);
+    //   max-width: 150px;
+    //   border: 2px solid $blueMain;
+    //   color: $blueMain;
+    //   margin-right: 2em;
+    //   &:hover {
+    //     background: $blueMain;
+    //     color: #fff;
+    //   }
+    // }
+    //
+    .nav_Connect {
       @include buttonRegular($blueMain, 20vw, 48px);
-      max-width: 150px;
+      max-width: 185px;
       color: #fff;
       &:hover {
         background: #2b96cf;
       }
     }
+    .navSearch {
+      display: none;
+    }
   }
 }
 @media (max-width: 1080px) {
-  .navContent {
+  .navContent,
+  .navContentLanding {
     width: 100%;
   }
 }
