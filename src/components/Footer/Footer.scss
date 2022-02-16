@@ -27,6 +27,9 @@
     img {
       margin-right: 1em;
     }
+    .nu-icons {
+      margin-top: -5px;
+    }
   }
 }
 @media (max-width: 770px) {
@@ -37,7 +40,7 @@
     display: block;
     @include flexRegular(row, space-between);
     .footLeftM {
-      width: 40%;
+      width: 55%;
       //background: pink;
       @include flexRegular(column, flex-start);
       align-items: flex-start;
@@ -49,14 +52,24 @@
       }
       .footIconsM {
         margin-top: 3em;
-        @include flexRegular(row, space-between);
+        @include flexRegular(row, flex-start);
+        align-items: center;
+        //background: cornsilk;
+
         img {
-          margin-right: 2em;
+          margin-right: 1em;
+          //width: 11px;
+          //background: red;
+          height: 100%;
+          //width: 100%;
+        }
+        .nu-icons {
+          margin-top: -6px;
         }
       }
     }
     .footRightM {
-      width: 40%;
+      width: 35%;
       //background: pink;
       padding-left: 2em;
       @include flexRegular(column, space-between);
