@@ -30,6 +30,17 @@ textarea {
 button {
   cursor: pointer;
 }
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.display-off {
+  display: none !important;
+}
+.opaque {
+  opacity: 0;
+  pointer-events: none;
+}
 /* ul {
   list-style: none;
 } */

@@ -3,7 +3,7 @@
 
 .authContainer {
   position: relative;
-  padding-top: 4em;
+  padding-top: 3em;
   background: radial-gradient(
     76.91% 98.11% at 66.15% 86.6%,
     #e6faff 0%,
@@ -24,7 +24,6 @@
     @include flexRegular(column, flex-start);
     align-items: flex-start;
     .authLogo {
-      //background: lavender;
       img {
         width: 173px;
         height: 39px;
@@ -68,12 +67,21 @@
     .coTop_txt {
       text-align: center;
       //background: pink;
+      width: 100%;
       h1 {
         font-family: $fontAlt;
         font-size: 1.5em;
         //font-size: 24px;
         line-height: 42px;
         font-weight: 600;
+      }
+      h5 {
+        font-family: $fontAlt;
+        font-size: 1.5em;
+        //font-size: 24px;
+        line-height: 42px;
+        font-weight: 600;
+        text-align: center;
       }
       span {
         color: $blueMain;
@@ -98,7 +106,27 @@
       p {
         font-weight: 600;
       }
+      .connectWallet {
+        width: 25px;
+        height: 25px;
+      }
     }
+  }
+  .coTop_txt2 {
+    margin-top: 1em;
+    text-align: center;
+    p {
+      font-weight: lighter;
+      span {
+        color: $blueMain;
+        cursor: pointer;
+      }
+    }
+  }
+  .errorMsg {
+    text-align: center;
+    margin-top: 0.5em;
+    color: #ed2e7e;
   }
   .connectInputs {
     margin: 3em 0;
@@ -141,6 +169,8 @@
       height: 45px;
       width: 16vw;
       max-width: 250px;
+      padding: auto 0.5em;
+      overflow: hidden;
       p {
         font-size: 15px;
         color: #20709b;
@@ -155,6 +185,7 @@
   button {
     @include buttonRegular($blueMain, 24vw, 50px);
     max-width: 330px;
+    font-size: 0.88em;
     //margin-bottom: 7em;
     color: #fff;
     &:disabled {
@@ -198,7 +229,18 @@
     }
   }
 }
-@media (max-width: 850px) {
+@media (max-width: 820px) {
+  .authContent {
+    @include flexRegular(row, center);
+    .authLeft {
+      display: none;
+    }
+    .authRight {
+      width: 90%;
+    }
+  }
+}
+@media (max-width: 450px) {
   .authContainer {
     padding: 0;
     background: #fff;
@@ -206,9 +248,6 @@
   .authContent {
     width: 100%;
     max-width: none;
-    .authLeft {
-      display: none;
-    }
     .authRight {
       width: 100%;
       .authBox {
