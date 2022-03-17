@@ -1,14 +1,15 @@
-@import '../../variables';
-@import '../../mixins';
+@import "../../variables";
+@import "../../mixins";
 
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700&family=Space+Grotesk&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700&family=Space+Grotesk&display=swap");
 .inputBx_v1 {
   margin-top: 1em;
-  font-family: 'Raleway';
+  font-family: "Raleway";
   font-weight: 400;
   font-size: 0.95em;
   //background: lavender;
-  input {
+  input,
+  select {
     margin: 0.5em 0;
     width: 30vw;
     max-width: 390px;
@@ -16,16 +17,25 @@
     border-radius: 32px;
     border: 2px solid #ebedef;
     font-size: 0.9em;
-    font-family: 'Raleway';
+    font-family: "Raleway";
     box-shadow: 0px 10px 10px rgba(95, 90, 247, 0.03);
     background: #fff;
     padding: 0 1.2em;
     outline: none;
   }
+  select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    background-image: url("../../assets/icons/select.svg");
+    background-repeat: no-repeat;
+    background-position: right 18px top 20px;
+  }
 }
 @media (max-width: 1080px) {
   .inputBx_v1 {
-    input {
+    input,
+    select {
       width: 37vw;
       max-width: 490px;
     }
@@ -33,7 +43,8 @@
 }
 @media (max-width: 850px) {
   .inputBx_v1 {
-    input {
+    input,
+    select {
       width: 80vw;
       max-width: none;
     }
@@ -41,14 +52,14 @@
 }
 .inputBx_v2 {
   margin: 2em 0;
-  font-family: 'Raleway';
+  font-family: "Raleway";
   font-weight: 400;
   font-size: 0.95em;
 }
 .fileBox_v1 {
   //position: relative;
   margin: 0.5em 0;
-  font-family: 'Raleway';
+  font-family: "Raleway";
   font-size: 0.9em;
   text-align: center;
   width: 30vw;

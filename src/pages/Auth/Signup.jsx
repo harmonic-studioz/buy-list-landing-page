@@ -1,80 +1,88 @@
-import { useState, useContext } from 'react'
-import TextInput from '../../components/Inputs/TextInput'
+import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import TextInput from "../../components/Inputs/TextInput";
 
-import Arrow from '../../assets/icons/arrow1.svg'
-import Connect from './Connect'
-import { TransactionContext } from '../../context/TransactionContext'
-import { AuthContext } from '../../context/AuthContext'
-import { publicRequest } from '../../utils/requestMethods'
-import { logger } from '../../utils/logger'
-import { CircularProgress } from '@material-ui/core'
-import { capitalizeFirstLetter } from '../../utils/shortenAddress'
+import Arrow from "../../assets/icons/arrow1.svg";
+import Connect from "./Connect";
+//import { TransactionContext } from '../../context/TransactionContext'
+import UniContext from "../../context/UniContext";
+import { AuthContext } from "../../context/AuthContext";
+import { publicRequest } from "../../utils/requestMethods";
+import { logger } from "../../utils/logger";
+import { CircularProgress } from "@material-ui/core";
+import { capitalizeFirstLetter } from "../../utils/shortenAddress";
 
 const Signup = () => {
-  const [currentScreen, setCurrentScreen] = useState('Signup')
+  let navigate = useNavigate();
+  const [currentScreen, setCurrentScreen] = useState("Signup");
   const [userInput, setUserInput] = useState({
-    email: '',
-    username: '',
-  })
+    email: "",
+    username: "",
+  });
   const [response, setResponse] = useState({
-    error: '',
-    success: '',
-  })
-  const { currentAccount } = useContext(TransactionContext)
-  const [authState, setAuthState] = useContext(AuthContext)
+    error: "",
+    success: "",
+  });
+  //const { currentAccount } = useContext(TransactionContext)
+  const { currentAccount } = useContext(UniContext);
+  const [authState, setAuthState] = useContext(AuthContext);
 
   const inputHandler = (event) => {
     setUserInput({
       ...userInput,
       [event.target.name]: event.target.value,
-    })
-  }
+    });
+  };
 
   const handleSubmit = async (event) => {
-    event.preventDefault()
+    event.preventDefault();
     setAuthState({
       ...authState,
       isFetching: true,
-    })
+    });
     setResponse({
       ...response,
-      error: '',
-    })
+      error: "",
+    });
     try {
       const newUser = {
         username: userInput.username,
         email: userInput.email,
         walletAddress: currentAccount,
-      }
-      const signupReq = await publicRequest.post('auth/create-account', newUser)
-      logger('REQ RESPONSE: ', signupReq)
+      };
+      const signupReq = await publicRequest.post(
+        "auth/create-account",
+        newUser
+      );
+      logger("REQ RESPONSE: ", signupReq);
       setAuthState({
         ...authState,
         isFetching: false,
         error: false,
-      })
-       //navigate('/auth/verify')
+      });
+      localStorage.setItem("usermail", userInput.email);
+      navigate("/auth/verify");
     } catch (err) {
       setAuthState({
         ...authState,
         isFetching: false,
         error: false,
-      })
-      logger(' ERROR::: ', err)
+      });
+      logger(" ERROR::: ", err);
       setResponse({
         error: err?.response.data.error,
-        success: '',
-      })
+        success: "",
+      });
     }
-  }
+  };
 
   return (
     <>
-      {currentScreen === 'Signup' ? (
+      {currentScreen === "Signup" ? (
         <>
           <div className="connectTop">
             <img
-              onClick={() => setCurrentScreen('Connect')}
+              onClick={() => setCurrentScreen("Connect")}
               src={Arrow}
               alt="back"
             />
@@ -110,7 +118,7 @@ const Signup = () => {
               {authState.isFetching ? (
                 <CircularProgress color="inherit" size="25px" />
               ) : (
-                'Save'
+                "Save"
               )}
             </button>
           </div>
@@ -120,7 +128,7 @@ const Signup = () => {
         <Connect />
       )}
     </>
-  )
-}
+  );
+};
 
-export default Signup
+export default Signup;

@@ -1,16 +1,12 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import NavBar from "../../components/NavBar/NavBar";
 import AcceptBtn from "../../components/AcceptBtn/AcceptBtn";
 import Arrow from "../../assets/icons/arrow1.svg";
-import "./SaleComplete.scss";
-import { CircularProgress } from "@material-ui/core";
+
 import Transaction from "../BuySpot/components/Transaction";
 import Modal01 from "../../components/Modals/Modal1";
 import ChatIcon from "../../assets/icons/chat.svg";
-import { TransactionContext } from "../../context/TransactionContext";
-import { userRequest } from "../../utils/requestMethods";
-import Alert from "../../assets/icons/alert.svg";
 
 const SaleComplete = () => {
   useEffect(() => {
@@ -19,64 +15,13 @@ const SaleComplete = () => {
 
   const [chatView, setChatView] = useState(false);
   const [complete, setComplete] = useState(false);
-  const singleSpot = JSON.parse(localStorage.getItem("spotToBuy"));
-  const [isLoading, setIsLoading] = useState(false);
-  const { approvePay } = useContext(TransactionContext);
-  const [err, setErr] = useState("");
-  const [chatMessage, setChatMessage] = useState("");
 
-  const handleRelease = async () => {
-    try {
-      setIsLoading(true);
-      const release = await approvePay(singleSpot.id);
-      console.log(release);
-      if (release.code === -32603) {
-        setErr("Sorry an error occured.");
-      } else {
-        //setComplete(true);
-      }
-      setIsLoading(false);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const storeRelease = async () => {
-    try {
-      setIsLoading(true);
-      const id = {
-        id: singleSpot.id,
-      };
-      const saveReq = await userRequest.post("transaction/release-fund", id);
-      console.log(saveReq);
-      setIsLoading(false);
-    } catch (err) {
-      console.log(err);
-      setIsLoading(false);
-      //setErr(err.data)
-    }
-  };
-
-  const handleDispute = () => {};
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
+    console.log("ty");
     e.preventDefault();
-    // eslint-disable-next-line
-    const release = await handleRelease();
-    // eslint-disable-next-line
-    const save = await storeRelease();
     setComplete(true);
   };
 
-  const sendMessage = () => {
-    if (chatMessage) {
-      try {
-        alert("sent");
-      } catch (err) {
-        console.log(err);
-      }
-    }
-  };
   const handleClose = () => {
     setComplete(false);
   };
@@ -87,13 +32,13 @@ const SaleComplete = () => {
       {chatView === false ? (
         <div className=" animate__animated animate__fadeIn bsContainer ">
           <div className="bsContent">
-            <form className="bsBox" onSubmit={handleSubmit}>
+            <form className="bsBox">
               <div className="bsBox-Top">
                 <div className="bsb-title">
                   <Link to="/home">
                     <img src={Arrow} alt="back" />
                   </Link>
-                  <h1>Buy whitelist Spot</h1>
+                  <h1>Sell whitelist Spot</h1>
                   <div className="chatIcBox">
                     <img
                       onClick={() => setChatView(!chatView)}
@@ -103,29 +48,17 @@ const SaleComplete = () => {
                   </div>
                 </div>
               </div>
-              <Transaction singleSpot={singleSpot} />
+              <Transaction />
               <div className="bsBtn">
                 <div className="bs-confirm">
                   <AcceptBtn />
                   <p>I have confirmed whitelist spot</p>
                 </div>
-                <button
-                //</div>onClick={handleRelease}
-                >
-                  {isLoading ? (
-                    <CircularProgress color="inherit" size="25px" />
-                  ) : (
-                    "Release funds"
-                  )}
-                </button>
-                {err !== "" && (
-                  <div className="errorDesc2 animate__animate animate__fadeIn">
-                    <img src={Alert} alt="alert" />
-                    <p>{err} </p>
-                  </div>
-                )}
+
+                <button onClick={handleSubmit}>Release funds</button>
               </div>
-              <div className="bsDisp" onClick={handleDispute}>
+
+              <div className="bsDisp">
                 <p>Open dispute</p>
               </div>
             </form>
@@ -140,7 +73,7 @@ const SaleComplete = () => {
                   <Link to="/buySpot">
                     <img src={Arrow} alt="back" />
                   </Link>
-                  <h1>Buy whitelist Spot</h1>
+                  <h1>Sell whitelist Spot</h1>
                   <div className="chatIcBox">
                     {!chatView && (
                       <img
@@ -152,27 +85,13 @@ const SaleComplete = () => {
                   </div>
                 </div>
               </div>
-              <Transaction singleSpot={singleSpot} />
+              <Transaction />
               <div className="bs-confirm">
                 <AcceptBtn />
                 <p>I have confirmed whitelist spot</p>
               </div>
               <div className="bsBtn">
-                <button
-                //</div>onClick={handleSubmit}
-                >
-                  {isLoading ? (
-                    <CircularProgress color="inherit" size="25px" />
-                  ) : (
-                    "Release funds"
-                  )}
-                </button>
-                {err !== "" && (
-                  <div className="errorDesc2 animate__animate animate__fadeIn">
-                    <img src={Alert} alt="alert" />
-                    <p>{err} </p>
-                  </div>
-                )}
+                <button onClick={handleSubmit}>Release funds</button>
               </div>
 
               <div className="bsDisp">
@@ -213,21 +132,7 @@ const SaleComplete = () => {
                 </div>
                 <div className="scc-bottom">
                   <div className="scc-inputBox">
-                    <input
-                      type="text"
-                      placeholder="Type message here"
-                      onChange={(e) => setChatMessage(e.target.value)}
-                      value={chatMessage}
-                      // onKeyPress={(event) =>
-                      //   event.key === "Enter" ? sendMessage : null
-                      // }
-                      onKeyPress={(event) => {
-                        if (event.key === "Enter") {
-                          event.preventDefault();
-                          sendMessage();
-                        }
-                      }}
-                    />
+                    <input type="text" placeholder="Type message here" />
                   </div>
                 </div>
               </div>
@@ -237,12 +142,7 @@ const SaleComplete = () => {
       )}
       {complete && (
         <Modal01
-          message={
-            "Congratulations, you have bought WL spot #" +
-            singleSpot.id +
-            " on " +
-            singleSpot.projectName
-          }
+          message="Congratulations, you have bought WL spot #203 on crypto chunkz"
           handleClose={handleClose}
         />
       )}

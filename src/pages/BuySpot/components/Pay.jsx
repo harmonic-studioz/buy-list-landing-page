@@ -1,14 +1,14 @@
 //import { useContext } from 'react'
-import Spot from '../../../components/Spot/Spot'
+import Spot from "../../../components/Spot/Spot";
 
-import Busd from '../../../assets/icons/busd.svg'
+import Busd from "../../../assets/icons/busd.svg";
 
 //import { TransactionContext } from '../../../context/TransactionContext'
-import { shortenAddress } from '../../../utils/shortenAddress'
+import { shortenAddress } from "../../../utils/shortenAddress";
 
 const Pay = (props) => {
   //const { currentAccount } = useContext(TransactionContext)
-  const currentAccount = localStorage.getItem('currentAccount')
+  const currentAccount = localStorage.getItem("currentAccount");
   return (
     <div className="bs-payContent">
       <div className="bsp-top">
@@ -18,7 +18,7 @@ const Pay = (props) => {
           spotWidth="spot_Width"
         />
         <p>
-          The transaction amount will be held until you confirm whielist spot
+          The transaction amount will be held until you confirm whitelist spot
         </p>
       </div>
       <div className="bsp-body">
@@ -38,7 +38,7 @@ const Pay = (props) => {
 
       </div> */}
     </div>
-  )
-}
+  );
+};
 
-export default Pay
+export default Pay;

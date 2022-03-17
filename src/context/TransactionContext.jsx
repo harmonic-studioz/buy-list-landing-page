@@ -1,8 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 //import { useNavigate } from 'react-router-dom'
 import { ethers } from "ethers";
-import { contractABI, contractAddress } from "../utils/constants";
-import { approveABI, approveAddress } from "../utils/constants";
+// import { contractABI, contractAddress } from "../utils/constants";
+// import { approveABI, approveAddress } from "../utils/constants";
+import { usdc as usdcAbi } from "../utils/abi";
+import { usdc as usdcCon } from "../utils/contracts";
+import { master as masterContract } from "../utils/contracts";
+import { master as masterAbi } from "../utils/abi";
 //import { userRequest } from '../utils/requestMethods'
 import { logger } from "../utils/logger";
 
@@ -14,44 +18,42 @@ const createEthereumContract = () => {
   const provider = new ethers.providers.Web3Provider(ethereum);
   const signer = provider.getSigner();
   const transactionsContract = new ethers.Contract(
-    contractAddress,
-    contractABI,
+    masterContract,
+    masterAbi,
     signer
-  ); // 3 tools to etch contract
+  );
   return transactionsContract;
 };
 
 const createApproveContract = () => {
   const provider = new ethers.providers.Web3Provider(ethereum);
   const signer = provider.getSigner();
-  const approvalContract = new ethers.Contract(
-    approveAddress,
-    approveABI,
-    signer
-  ); // // 3 tools to etch contract
+  const approvalContract = new ethers.Contract(usdcCon, usdcAbi, signer);
   return approvalContract;
 };
 
 export const TransactionsProvider = ({ children }) => {
-  const [currentAccount, setCurrentAccount] = useState("");
+  // const [currentAccount, setCurrentAccount] = useState(
+  //   localStorage.getItem("currentAccount") || undefined
+  // );
   const [transactionLoading, setTransactionLoading] = useState(false);
-  //const [contractListened, setContractListened] = useState()
+  const currentAccount = localStorage.getItem("currentAccount");
 
-  const connectWallet = async () => {
-    try {
-      if (!ethereum) return alert("Please install MetaMask.");
+  // const connectWallet = async () => {
+  //   try {
+  //     if (!ethereum) return alert("Please install MetaMask.");
 
-      const accounts = await ethereum.request({
-        method: "eth_requestAccounts",
-      });
-      localStorage.setItem("currentAccount", accounts[0]);
-      setCurrentAccount(localStorage.getItem("currentAccount"));
-    } catch (error) {
-      logger(error);
+  //     const accounts = await ethereum.request({
+  //       method: "eth_requestAccounts",
+  //     });
+  //     localStorage.setItem("currentAccount", accounts[0]);
+  //     setCurrentAccount(localStorage.getItem("currentAccount"));
+  //   } catch (error) {
+  //     logger(error);
 
-      throw new Error("No ethereum object");
-    }
-  };
+  //     throw new Error("No ethereum object");
+  //   }
+  // };
 
   const createSpotInContract = async (inputs) => {
     try {
@@ -64,32 +66,10 @@ export const TransactionsProvider = ({ children }) => {
         );
         setTransactionLoading(true);
         await newSpot.wait();
-        //logger(newSpot)
         setTransactionLoading(false);
         return newSpot;
       } else {
         logger("No eth Object");
-      }
-    } catch (err) {
-      logger(err);
-      setTransactionLoading(false);
-      return err;
-    }
-  };
-
-  const initiateBuy = async (spotId) => {
-    try {
-      setTransactionLoading(true);
-      if (ethereum) {
-        const transactionsContract = createEthereumContract();
-        //const approvalContract = createApproveContract();
-        //approvalContract.approve(contractAddress, "100");
-        const buySpot = await transactionsContract.initiateBuy(spotId);
-
-        await buySpot.wait();
-        logger(buySpot);
-        setTransactionLoading(false);
-        return buySpot;
       }
     } catch (err) {
       logger(err);
@@ -104,12 +84,61 @@ export const TransactionsProvider = ({ children }) => {
       if (ethereum) {
         const approvalContract = createApproveContract();
         const approvePayment = await approvalContract.approve(
-          contractAddress,
+          masterContract,
           input
         );
         await approvePayment.wait();
-        //console.log(approvePayment);
-        console.log(currentAccount.balance);
+        console.log(approvePayment);
+        //console.log(currentAccount.balance);
+        //setTransactionLoading(false);
+        return approvePayment;
+      }
+    } catch (err) {
+      logger(err);
+      //setTransactionLoading(false);
+      return err;
+    }
+  };
+
+  const initiateBuy = async (id) => {
+    try {
+      setTransactionLoading(true);
+      if (ethereum) {
+        const transactionsContract = createEthereumContract();
+        await ethereum.request({
+          method: "eth_sendTransaction",
+          params: [
+            {
+              from: currentAccount,
+              to: masterContract,
+              gas: "0x5208", //hexadecimal for eth network
+              //value: parsedAmount._hex,
+            },
+          ],
+        });
+        const buySpot = await transactionsContract.initiateBuy(id);
+        // await buySpot.wait();
+        console.log(buySpot);
+        return buySpot;
+      }
+      setTransactionLoading(false);
+    } catch (err) {
+      logger(err);
+      setTransactionLoading(false);
+      return err;
+    }
+  };
+
+  const approvePay = async (spotId) => {
+    try {
+      setTransactionLoading(true);
+      if (ethereum) {
+        const transactionsContract = createEthereumContract();
+        const approvePayment = await transactionsContract.approvePayment(
+          spotId
+        );
+        await approvePayment.wait();
+        logger(approvePayment);
         setTransactionLoading(false);
         return approvePayment;
       }
@@ -120,81 +149,17 @@ export const TransactionsProvider = ({ children }) => {
     }
   };
 
-  // const approveTransaction = async (spotId) => {
-  //   try{
-  //     setTransactionLoading(true)
-  //     if (ethereum) {
-  //       const transactionsContract = createEthereumContract()
-  //       const approvePayment = await transactionsContract.approvePayment(
-  //        spotId
-  //       )
-  //       await approvePayment.wait()
-  //       logger(approvePayment)
-  //       setTransactionLoading(false)
-  //       return approvePayment
-  //     }
-  //   }catch (err) {
-  //     logger(err)
-  //     setTransactionLoading(false)
-  //     return err
-  //   }
-  // }
-
-  useEffect(() => {
-    const onWalletChange = async () => {
-      ethereum.on("accountsChanged", async (accounts) => {
-        //setCurrentAccount(accounts[0])
-        localStorage.setItem("currentAccount", accounts[0]);
-        setCurrentAccount(localStorage.getItem("currentAccount"));
-        //logger(accounts[0])
-        if (accounts[0] === undefined) {
-          try {
-            // const logOutReq = await userRequest.post('user/logout')
-            // logger('REQ RESPONSE: ', logOutReq)
-            localStorage.removeItem("user");
-            localStorage.removeItem("currentAccount");
-            window.location = "/auth";
-          } catch (err) {
-            logger(err);
-          }
-        }
-      });
-    };
-    onWalletChange();
-
-    // const oncreateSpotInContract = async () => {
-    //   const transactionContract = createEthereumContract()
-    //   transactionContract.on(
-    //     'SpotStateChanged',
-    //     (spotId, fromState, toState) => {
-    //       const spotIdValue = Number(spotId)
-    //       setEv({
-    //         spotIdValue,
-    //         fromState,
-    //         toState,
-    //       })
-    //     },
-    //   )
-    //   // setContractListened(transactionContract)
-    //   // return () => {
-    //   //   contractListened.removeAllListeners()
-    //   // }
-    //   logger(ev)
-    // }
-    // oncreateSpotInContract()
-  }, [currentAccount]);
-
   return (
     <TransactionContext.Provider
       value={{
-        connectWallet,
+        //connectWallet,
         createEthereumContract,
-        currentAccount,
-        createSpotInContract,
+        //currentAccount,
         transactionLoading,
+        createSpotInContract,
         approveSpend,
         initiateBuy,
-        //approveTransaction
+        approvePay,
       }}
     >
       {children}

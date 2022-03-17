@@ -1,5 +1,5 @@
-@import '../../variables';
-@import '../../mixins';
+@import "../../variables";
+@import "../../mixins";
 
 // Hero Section
 .heroHomeContainer {
@@ -141,6 +141,12 @@
   color: $blueMain;
   padding: 1em;
 }
+.spotsLoading-t {
+  @include flexRegular(column, center);
+  color: $blueMain;
+  padding: 0.2em 2em;
+  background: pink;
+}
 .spotsContent {
   h2 {
     color: $blueMain;
@@ -278,6 +284,17 @@
               .spotBell {
                 //background: cornsilk;
                 margin-left: 3em;
+                cursor: pointer;
+                transition: 0.4s ease-in;
+                // &:focus {
+                //   transform: scale(1.2);
+                // }
+                // img {
+                //   cursor: pointer;
+                // }
+              }
+              .spotBell:focus {
+                transform: scale(1.2);
               }
             }
           }

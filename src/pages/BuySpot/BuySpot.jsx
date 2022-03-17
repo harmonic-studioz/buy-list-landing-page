@@ -1,21 +1,24 @@
 import { useState, useEffect, useContext } from "react";
-import useStateRef from "react-usestateref";
+//import useStateRef from "react-usestateref";
 import { Link, useNavigate } from "react-router-dom";
 import { useParams } from "react-router";
 import "./BuySpot.scss";
 import NavBar from "../../components/NavBar/NavBar";
 
 import { CircularProgress } from "@material-ui/core";
-import { publicRequest } from "../../utils/requestMethods";
+import { publicRequest, userRequest } from "../../utils/requestMethods";
 import { logger } from "../../utils/logger";
 
 import Arrow from "../../assets/icons/arrow1.svg";
+import Alert from "../../assets/icons/alert.svg";
 import Buy from "./components/Buy";
 import Pay from "./components/Pay";
-import Transaction from "./components/Transaction";
+//import Transaction from "./components/Transaction";
 import PayComplete from "./components/PayComplete";
+import SaleComplete from "../SellSpot/SellSpotx";
 
 import { TransactionContext } from "../../context/TransactionContext";
+//import UniContext from "../../context/UniContext";
 //import { AuthContext } from "../../context/AuthContext";
 
 const BuySpot = () => {
@@ -28,15 +31,17 @@ const BuySpot = () => {
   const [singleSpot, setSingleSpot] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [isLoadingTr, setIsLoadingTr] = useState(false);
-  const [ev, setEv, evRef] = useStateRef([]);
+  const [err, setErr] = useState("");
+  //const [ev, setEv, evRef] = useStateRef([]);
 
   const {
-    initiateBuy,
-    transactionLoading,
-    //createEthereumContract,
     approveSpend,
+    initiateBuy,
+    //transactionLoading,
+    //createEthereumContract,
   } = useContext(TransactionContext);
   //const [authState] = useContext(AuthContext);
+  //const { initiateBuy } = useContext(UniContext);
 
   let navigate = useNavigate();
 
@@ -54,57 +59,70 @@ const BuySpot = () => {
     getSpot();
   }, [spotId]);
 
-  // useEffect(() => {
-  //   const onBuySpot = async () => {
-  //     const transactionsContract =  await createEthereumContract()
-  //     transactionsContract.on(
-  //       'SpotStateChanged',
-  //       (spotId, fromState, toState) => {
-  //        const spotIdValue = spotId.toString()
-  //         setEv({
-  //           spotIdValue,
-  //           fromState,
-  //           toState,
-  //         })
-  //       },
-  //     )
-  //   }
-  //   onBuySpot()
-  // }, [createEthereumContract, setEv, transactionLoading, isLoading])
-
   const handleBuy = async () => {
-    setIsLoadingTr(true);
-    // const approve = await approveSpend(200)
-    // console.log(approve)
-    // setIsLoadingTr(true)
-    setTimeout(() => {
-      initiateBuy(spotId);
-    }, 1500);
-    // const approvePayment = await approveTransaction(spotId)
-    // console.log(approvePayment)
-    // if (approvePayment.data.code !== 3) {
-    //   const buySpot = await initiateBuy(spotId)
-    //   console.log(buySpot.data.message)
-    // }
+    try {
+      setIsLoadingTr(true);
+      const buy = await initiateBuy(spotId);
+
+      if (buy.code === -32603) {
+        setIsLoadingTr(false);
+        setErr(buy.data.message);
+      }
+    } catch (err) {
+      console.log(err);
+      setIsLoadingTr(false);
+      //setErr(err?.data.message);
+    }
     setIsLoadingTr(false);
   };
 
-  const handleSubmit = (e) => {
+  const storeTransaction = async () => {
+    try {
+      setIsLoadingTr(true);
+      const id = {
+        spotId,
+      };
+      const saveReq = await userRequest.post("transaction/create", id);
+      console.log(saveReq);
+      setIsLoadingTr(false);
+    } catch (err) {
+      console.log(err);
+      setIsLoadingTr(false);
+      //setErr(err.data)
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // if (step >= 1 && step < 3) {
     //   setStep(step + 1)
     // }
     if (step === 1) {
       setIsLoadingTr(true);
-      const approve = approveSpend(Number(singleSpot.whiteListPrice) * 1000000);
+      const approve = await approveSpend(
+        Number(singleSpot.whiteListPrice) * 1000000 + 20000000
+      );
       console.log(approve);
-      setTimeout(() => {
-        setStep(step + 1);
-      }, 3500);
+      if (approve.code !== 4001) {
+        if (!isLoadingTr) {
+          setStep(step + 1);
+        }
+        setIsLoadingTr(false);
+      } else {
+        setIsLoadingTr(false);
+      }
     }
     if (step === 2) {
-      handleBuy();
-      //setStep(step + 1)
+      // eslint-disable-next-line
+      const buy = await handleBuy();
+      // eslint-disable-next-line
+      const save = await storeTransaction();
+      if (!err) {
+        localStorage.setItem("spotToBuy", JSON.stringify(singleSpot));
+        if (!isLoadingTr && !isLoading) {
+          setStep(step + 1);
+        }
+      }
     }
     if (step === 3) {
       // redirect
@@ -149,24 +167,34 @@ const BuySpot = () => {
                 ) : step === 3 ? (
                   <PayComplete singleSpot={singleSpot} />
                 ) : (
-                  <Transaction singleSpot={singleSpot} />
+                  <SaleComplete singleSpot={singleSpot} />
                 )}
 
                 <div className="bsBtn">
-                  <button onClick={handleSubmit}>
-                    {step === 1
-                      ? "Buy"
-                      : step === 2
-                      ? "Complete payment"
-                      : step === 3
-                      ? "Proceed to chat"
-                      : step >= 4
-                      ? "Release funds"
-                      : "Release funds"}
-                    {isLoadingTr && (
+                  {isLoadingTr && (
+                    <button onClick={handleSubmit}>
                       <CircularProgress color="inherit" size="25px" />
-                    )}
-                  </button>
+                    </button>
+                  )}
+                  {!isLoadingTr && (
+                    <button onClick={handleSubmit}>
+                      {step === 1
+                        ? "Buy"
+                        : step === 2
+                        ? "Complete payment"
+                        : step === 3
+                        ? "Proceed to chat"
+                        : step >= 4
+                        ? "Release funds"
+                        : "Release funds"}
+                    </button>
+                  )}
+                  {err !== "" && (
+                    <div className="errorDesc2 animate__animate animate__fadeIn">
+                      <img src={Alert} alt="alert" />
+                      <p>{err}</p>
+                    </div>
+                  )}
                 </div>
               </form>
             )}

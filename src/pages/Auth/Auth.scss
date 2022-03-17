@@ -1,5 +1,5 @@
-@import '../../variables';
-@import '../../mixins';
+@import "../../variables";
+@import "../../mixins";
 
 .authContainer {
   position: relative;
@@ -127,6 +127,11 @@
     text-align: center;
     margin-top: 0.5em;
     color: #ed2e7e;
+  }
+  .successMsg {
+    text-align: center;
+    margin-top: 0.5em;
+    color: #599c45;
   }
   .connectInputs {
     margin: 3em 0;

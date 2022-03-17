@@ -1,33 +1,33 @@
-import './SellSpot.scss'
-import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
-import { Link } from 'react-router-dom'
-import NavBar from '../../components/NavBar/NavBar'
-import AcceptBtn from '../../components/AcceptBtn/AcceptBtn'
+import "./SellSpot.scss";
+import { useState, useEffect } from "react";
+//import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import NavBar from "../../components/NavBar/NavBar";
+import AcceptBtn from "../../components/AcceptBtn/AcceptBtn";
 
-import Saly from '../../assets/images/saly02.svg'
-import Arrow from '../../assets/icons/arrow1.svg'
-import Avatar from '../../assets/images/avatar.png'
-import Busd from '../../assets/icons/busd.svg'
-import Eth from '../../assets/icons/eth.svg'
-import Discord from '../../assets/icons/discord2.svg'
-import Instagram from '../../assets/icons/ig2.svg'
-import Twitter from '../../assets/icons/twitter2.svg'
-import Modal01 from '../../components/Modals/Modal1'
+//import Saly from "../../assets/images/saly02.svg";
+import Arrow from "../../assets/icons/arrow1.svg";
+import Avatar from "../../assets/images/avatar.png";
+import Busd from "../../assets/icons/busd.svg";
+import Eth from "../../assets/icons/eth.svg";
+import Discord from "../../assets/icons/discord2.svg";
+import Instagram from "../../assets/icons/ig2.svg";
+import Twitter from "../../assets/icons/twitter2.svg";
+import Modal01 from "../../components/Modals/Modal1";
 
 const SellSpot = () => {
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
-  const [complete, setComplete] = useState(false)
+    window.scrollTo(0, 0);
+  }, []);
+  const [complete, setComplete] = useState(false);
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    setComplete(true)
-  }
+    e.preventDefault();
+    setComplete(true);
+  };
   const handleClose = () => {
-    setComplete(false)
-  }
+    setComplete(false);
+  };
   return (
     <>
       <NavBar className="navContent" />
@@ -40,7 +40,7 @@ const SellSpot = () => {
       <div className="bsContainer">
         <div className="bsContent">
           <div className="bsLeft">
-            <div className="bsImg">
+            {/* <div className="bsImg">
               <motion.img
                 src={Saly}
                 alt="illustration"
@@ -64,7 +64,7 @@ const SellSpot = () => {
                   },
                 }}
               />
-            </div>
+            </div> */}
           </div>
           <div className="bsRight">
             <form className="bsBox">
@@ -127,7 +127,7 @@ const SellSpot = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default SellSpot
+export default SellSpot;

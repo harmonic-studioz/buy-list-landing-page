@@ -1,5 +1,5 @@
-@import '../../variables';
-@import '../../mixins';
+@import "../../variables";
+@import "../../mixins";
 
 .lsContainer {
   position: relative;
@@ -57,7 +57,7 @@
         .lsb-title {
           @include flexRegular(row, center);
           // background: coral;
-          font-family: 'Montserrat';
+          font-family: "Montserrat";
           position: relative;
           img {
             // margin-right: 2em;
@@ -88,7 +88,7 @@
           //background: pink;
           margin-bottom: 2em;
           h2 {
-            font-family: 'Montserrat';
+            font-family: "Montserrat";
             text-align: center;
             font-size: 1.2em;
             font-weight: 500;
@@ -214,5 +214,16 @@
         }
       }
     }
+  }
+}
+.errorDesc2 {
+  margin-top: 1em;
+  @include flexRegular(row, flex-start);
+  img {
+    margin-right: 0.6em;
+  }
+  p {
+    font-size: 14px;
+    color: #ed2e7e;
   }
 }

@@ -1,44 +1,62 @@
-import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
-import './Auth.scss'
-import Logo from '../../assets/logo.png'
-import Saly from '../../assets/images/saly02.svg'
-import { CircularProgress } from '@material-ui/core'
-import Arrow from '../../assets/icons/arrow1.svg'
-import Check from '../../assets/icons/checkmark.svg'
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import "./Auth.scss";
+import Logo from "../../assets/logo.png";
+import Saly from "../../assets/images/saly02.svg";
+import { CircularProgress } from "@material-ui/core";
+import Arrow from "../../assets/icons/arrow1.svg";
+import Check from "../../assets/icons/checkmark.svg";
+import { publicRequest } from "../../utils/requestMethods";
 
 const Verification = () => {
+  const [res, setRes] = useState("");
   const [linkReq, setLinkReq] = useState({
     isLoading: false,
     onHold: false,
-    response: '',
-  })
+    response: "",
+  });
   useEffect(() => {
     if (linkReq.onHold) {
       setTimeout(() => {
         setLinkReq({
           ...linkReq,
           unHold: false,
-        })
-      }, 5 * 60 * 1000)
+        });
+      }, 5 * 60 * 1000);
+      //}, 100);
     }
-  }, [linkReq])
+  }, [linkReq]);
 
   const handleSubmit = async () => {
     setLinkReq({
       ...linkReq,
       isLoading: true,
       onHold: true,
-    })
-  }
+    });
+    const userMail = localStorage.getItem("usermail");
+    try {
+      const verifyReq = await publicRequest.get(
+        `auth/re-generate-verification-code?email=${userMail}`
+      );
+      console.log(verifyReq);
+      setRes("Link was resent!");
+      setLinkReq({
+        ...linkReq,
+        isLoading: false,
+        onHold: true,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div className="authContainer">
       <div className="authContent">
         <div className="authLeft">
           <div className="authLogo">
-            {' '}
+            {" "}
             <img src={Logo} alt="logo" />
           </div>
 
@@ -99,16 +117,17 @@ const Verification = () => {
                   {linkReq.isLoading ? (
                     <CircularProgress color="inherit" size="25px" />
                   ) : (
-                    'Resend Link'
+                    "Resend Link"
                   )}
                 </button>
               </div>
+              <p className="successMsg">{res}</p>
             </div>
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Verification
+export default Verification;

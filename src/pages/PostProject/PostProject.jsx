@@ -1,46 +1,47 @@
-import { useState } from 'react'
-import { motion } from 'framer-motion'
-import { Link } from 'react-router-dom'
-import NavBar from '../../components/NavBar/NavBar'
-import TextInput from '../../components/Inputs/TextInput'
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import NavBar from "../../components/NavBar/NavBar";
+import TextInput from "../../components/Inputs/TextInput";
+import Select from "../../components/Inputs/Select01";
 
-import Saly from '../../assets/images/saly02.svg'
-import Arrow from '../../assets/icons/arrow1.svg'
-import { CircularProgress } from '@material-ui/core'
+import Saly from "../../assets/images/saly02.svg";
+import Arrow from "../../assets/icons/arrow1.svg";
+import { CircularProgress } from "@material-ui/core";
 
 //import { TransactionContext } from '../../context/TransactionContext'
-import { userRequest } from '../../utils/requestMethods'
-import { logger } from '../../utils/logger'
+import { userRequest } from "../../utils/requestMethods";
+import { logger } from "../../utils/logger";
 
 const PostProject = () => {
   const [inputs, setInputs] = useState({
-    projectName: '',
-    discordLink: '',
-    twitterLink: '',
-    mintPrice: '',
-    mintToken: '',
-    mintDate: '',
-  })
+    projectName: "",
+    discordLink: "",
+    twitterLink: "",
+    mintPrice: "",
+    mintToken: "",
+    mintDate: "",
+  });
   const [response, setResponse] = useState({
-    error: '',
-    success: '',
-  })
-  const [isLoading, setIsLoading] = useState(false)
+    error: "",
+    success: "",
+  });
+  const [isLoading, setIsLoading] = useState(false);
 
   const inputHandler = (event) => {
     setInputs({
       ...inputs,
       [event.target.name]: event.target.value,
-    })
-  }
+    });
+  };
 
   const handleSubmit = async (e) => {
-    setIsLoading(true)
-    e.preventDefault()
+    setIsLoading(true);
+    e.preventDefault();
     setResponse({
       ...response,
-      error: '',
-    })
+      error: "",
+    });
 
     try {
       const listDetails = {
@@ -50,34 +51,34 @@ const PostProject = () => {
         mintPrice: inputs.mintPrice,
         mintToken: inputs.mintToken,
         mintDate: inputs.mintDate,
-      }
+      };
       // const createProjectReq = await axios.post(
       //   `${process.env.REACT_APP_BASE_URL}projects/create-project`,
       //   listDetails,
       //   body,
       // )
       const createProjectReq = await userRequest.post(
-        'projects/create-project',
-        listDetails,
-      )
-      logger('REQ RESPONSE: ', createProjectReq)
-      setIsLoading(false)
+        "projects/create-project",
+        listDetails
+      );
+      logger("REQ RESPONSE: ", createProjectReq);
+      setIsLoading(false);
       setInputs({
-        projectName: '',
-        discordLink: '',
-        twitterLink: '',
-        mintPrice: '',
-        mintToken: '',
-        mintDate: '',
-      })
+        projectName: "",
+        discordLink: "",
+        twitterLink: "",
+        mintPrice: "",
+        mintToken: "",
+        mintDate: "",
+      });
     } catch (err) {
-      logger(' ERROR::: ', err)
+      logger(" ERROR::: ", err);
       setResponse({
         error: err?.response.data.error,
-        success: '',
-      })
+        success: "",
+      });
     }
-  }
+  };
 
   return (
     <div className="postProContent">
@@ -153,12 +154,10 @@ const PostProject = () => {
                 value={inputs.mintPrice}
                 inputHandler={inputHandler}
               />
-              <TextInput
+
+              <Select
                 label="Mint token"
-                type="text"
-                PH="token"
                 inputName="mintToken"
-                value={inputs.mintToken}
                 inputHandler={inputHandler}
               />
               <TextInput
@@ -180,7 +179,7 @@ const PostProject = () => {
                   {isLoading ? (
                     <CircularProgress color="inherit" size="25px" />
                   ) : (
-                    'Save'
+                    "Save"
                   )}
                 </button>
               </div>
@@ -189,7 +188,7 @@ const PostProject = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default PostProject
+export default PostProject;

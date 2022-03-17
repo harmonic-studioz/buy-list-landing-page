@@ -1,5 +1,5 @@
-@import '../../variables';
-@import '../../mixins';
+@import "../../variables";
+@import "../../mixins";
 
 .notificationBox {
   position: fixed;
@@ -98,6 +98,27 @@
       @include buttonRegular($blueMain, 60vw, 45px);
       max-width: 700px;
       color: #fff;
+    }
+  }
+  .notificationBox {
+    width: 70%;
+    max-width: none;
+    padding: 2em 0;
+    right: 1em;
+    background: radial-gradient(
+      76.91% 98.11% at 66.15% 86.6%,
+      #e6faff 0%,
+      #fff1f1 55.21%,
+      #fefdf8 100%
+    );
+    //background: red;
+    border: 2px solid #35aeef;
+    box-sizing: border-box;
+    border-radius: 8px;
+    p {
+      color: #6e7191;
+      text-align: center;
+      //font-weight: lighter;
     }
   }
 }

@@ -1,4 +1,5 @@
-import TextInput from '../../../components/Inputs/TextInput'
+import TextInput from "../../../components/Inputs/TextInput";
+import Select from "../../../components/Inputs/Select01";
 
 const Details1 = (props) => {
   return (
@@ -12,6 +13,7 @@ const Details1 = (props) => {
           value={props.projectName}
           inputHandler={props.inputHandler}
         />
+
         <TextInput
           label="Discord channel link"
           type="text"
@@ -36,12 +38,17 @@ const Details1 = (props) => {
           value={props.mintPrice}
           inputHandler={props.inputHandler}
         />
-        <TextInput
+        {/* <TextInput
           label="Mint token"
           type="text"
           PH="token"
           inputName="mintToken"
           value={props.mintToken}
+          inputHandler={props.inputHandler}
+        /> */}
+        <Select
+          label="Mint token"
+          inputName="mintToken"
           inputHandler={props.inputHandler}
         />
         <TextInput
@@ -54,7 +61,7 @@ const Details1 = (props) => {
         />
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Details1
+export default Details1;

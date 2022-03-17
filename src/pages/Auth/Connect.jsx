@@ -7,29 +7,30 @@ import Wc from "../../assets/icons/wc.png";
 import Check from "../../assets/icons/checkmark.svg";
 import { CircularProgress } from "@material-ui/core";
 
-import { TransactionContext } from "../../context/TransactionContext";
+//import { TransactionContext } from "../../context/TransactionContext";
+import UniContext from "../../context/UniContext";
 import { AuthContext } from "../../context/AuthContext";
-import { shortenAddress } from "../../utils/shortenAddress";
+import {
+  capitalizeFirstLetter,
+  shortenAddress,
+} from "../../utils/shortenAddress";
 import { publicRequest } from "../../utils/requestMethods";
 import { logger } from "../../utils/logger";
 
-import Web3 from "web3";
-import Web3Modal from "web3modal";
-import WalletConnectProvider from "@walletconnect/web3-provider";
-import useWalletConnect from "../../hooks/walletConnect";
-import UniContext from "../../context/UniContext";
-
 const Connect = () => {
   let navigate = useNavigate();
-  const { enableWalletConnect, connectToMetaMask } = useContext(UniContext);
+
   const [currentScreen, setCurrentScreen] = useState("Connect");
   const [connected, setConnected] = useState(false);
   const [response, setResponse] = useState({
     error: "",
     success: "",
   });
-  const { connectWallet, currentAccount } = useContext(TransactionContext);
+  const { enableWalletConnect, connectToMetaMask, currentAccount } =
+    useContext(UniContext);
+  //const { connectWallet, currentAccount } = useContext(TransactionContext);
   const [authState, setAuthState] = useContext(AuthContext);
+  //const currentAccount = localStorage.getItem("currentAccount");
 
   const handlePrevScreen = () => {
     if (connected) {
@@ -38,49 +39,6 @@ const Connect = () => {
       navigate("/");
     }
   };
-
-  // const connectWalletFunc = async () => {
-  //   // Using Wallet Connect
-  //   try {
-  //     const providerOptions = {
-  //       walletconnect: {
-  //         package: WalletConnectProvider, // required
-  //         options: {
-  //           infuraId: "INFURA_ID", // required
-  //         },
-  //       },
-  //     };
-  //     const web3Modal = new Web3Modal({
-  //       //network: "mainnet", // optional
-  //       cacheProvider: true, // optional
-  //       providerOptions, // required
-  //     });
-  //     const provider = await web3Modal.connectTo("walletconnect");
-  //     // eslint-disable-next-line
-  //     const web = new Web3(provider);
-  //     //resolve(web)
-  //     setConnected(true);
-  //     console.log(web.accounts[0]);
-  //   } catch (err) {
-  //     console.log(err);
-  //     //console.log(web)
-  //   }
-
-  //   // const EnableWalletConnect = () => {
-  //   //   return new Promise(async (reject, resolve) => {
-  //   //     try {
-  //   //       const provider = new WalletConnectProvider({
-  //   //         infuraId: "27e484dcd9e3efcfd25a83a78777cdf1",
-  //   //       });
-  //   //       await provider.enable();
-  //   //       const web3 = new Web3(provider);
-  //   //       resolve(web3);
-  //   //     } catch (error) {
-  //   //       reject(error);
-  //   //     }
-  //   //   });
-  //   // };
-  // };
 
   const handleLogin = async () => {
     if (currentAccount) {
@@ -151,23 +109,28 @@ const Connect = () => {
               <div
                 className="connectBtn"
                 //onClick={() => setConnected(true)}
-                //onClick={metamaskConnect}
-                onClick={connectToMetaMask}>
+                onClick={connectToMetaMask}
+              >
                 <p>Metamask</p>
                 <img className="metamaskIcon" src={Metamask} alt="metamask" />
               </div>
               <div
                 className="connectBtn"
                 //onClick={() => setConnected(true)}
-                onClick={enableWalletConnect}>
+                onClick={enableWalletConnect}
+              >
                 <p>WalletConnect</p>
                 <img className="connectWallet" src={Wc} alt="metamask" />
               </div>
             </div>
           )}
           {currentAccount && (
-            <div className="connectCompleteBx animate__animated animate__zoomIn">
-              <img src={Check} alt="" />
+            <div className="connectCompleteBx ">
+              <img
+                src={Check}
+                alt=""
+                className="animate__animated animate__zoomIn"
+              />
               <p className="connectedtxt">
                 Congratulations, You have connected your wallet, proceed to buy
                 a whitelist spot
@@ -180,7 +143,8 @@ const Connect = () => {
           <div className="loginBx">
             <button
               disabled={!currentAccount || authState.isFetching}
-              onClick={handleSubmit}>
+              onClick={handleSubmit}
+            >
               {authState.isFetching ? (
                 <CircularProgress color="inherit" size="25px" />
               ) : (
@@ -196,8 +160,7 @@ const Connect = () => {
               </p>
             </div>
           )}
-
-          <p className="errorMsg">{response.error}</p>
+          <p className="errorMsg">{capitalizeFirstLetter(response.error)}</p>
           <p>{response.success}</p>
         </>
       )}

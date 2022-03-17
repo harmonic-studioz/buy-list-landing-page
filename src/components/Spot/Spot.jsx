@@ -1,10 +1,10 @@
-import Avatar from '../../assets/images/avatar.png'
-import Arrow from '../../assets/icons/spot_arrow.svg'
-import Busd from '../../assets/icons/busd.svg'
-import Bell from '../../assets/icons/bell.svg'
-import Eth from '../../assets/icons/eth.svg'
+import Avatar from "../../assets/images/avatar.png";
+import Arrow from "../../assets/icons/spot_arrow.svg";
+import Busd from "../../assets/icons/busd.svg";
+import Bell from "../../assets/icons/bell.svg";
+import Eth from "../../assets/icons/eth.svg";
 
-import './Spot.scss'
+import "./Spot.scss";
 
 const SpotRegular = (props) => {
   return (
@@ -19,8 +19,11 @@ const SpotRegular = (props) => {
           </div>
           <div className="spot_SingleContent">
             <div className="spotTxt">
-              <p className="spotTitle">{props.singleSpot.projectName} (Eth)</p>
-              {props.type === 'regular' ? (
+              <p className="spotTitle">
+                {props.singleSpot.projectName} (
+                {props.singleSpot.mintToken || "Eth"})
+              </p>
+              {props.type === "regular" ? (
                 <div className="spotDesc">
                   <p>WL #{props.singleSpot.id}</p>
                   <div className="spotAmt">
@@ -47,7 +50,7 @@ const SpotRegular = (props) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default SpotRegular
+export default SpotRegular;

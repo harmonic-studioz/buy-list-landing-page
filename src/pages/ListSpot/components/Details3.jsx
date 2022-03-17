@@ -1,18 +1,18 @@
-import TextInput from '../../../components/Inputs/TextInput'
-import Alert from '../../../assets/icons/alert.svg'
+import TextInput from "../../../components/Inputs/TextInput";
+import Alert from "../../../assets/icons/alert.svg";
 
 const Details3 = (props) => {
   return (
     <>
       <div className="connectInputs">
-        <TextInput
+        {/* <TextInput
           label="Whitelist number"
           type="text"
           PH="WL no"
           inputName="wlNumber"
           value={props.wlNumber}
           inputHandler={props.inputHandler}
-        />
+        /> */}
         <TextInput
           label="Whitelist price"
           type="text"
@@ -29,7 +29,7 @@ const Details3 = (props) => {
         )}
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Details3
+export default Details3;

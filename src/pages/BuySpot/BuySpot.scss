@@ -1,5 +1,5 @@
-@import '../../variables';
-@import '../../mixins';
+@import "../../variables";
+@import "../../mixins";
 
 .bsContainer {
   position: relative;
@@ -34,7 +34,7 @@
       .bsb-title {
         @include flexRegular(row, center);
         // background: coral;
-        font-family: 'Montserrat';
+        font-family: "Montserrat";
         position: relative;
         img {
           // margin-right: 2em;
@@ -49,7 +49,7 @@
       }
     }
     .bsBtn {
-      margin: 5em 0 1em 0;
+      margin: 1em 0 1em 0;
       //background: pink;
       @include flexRegular(column, center);
       button {
@@ -66,6 +66,7 @@
       font-weight: 600;
       text-align: center;
       margin-top: 0.5em;
+      //background: pink;
     }
     .bs-confirm {
       margin: 1em 0;
@@ -129,7 +130,7 @@
       .bsb-title {
         @include flexRegular(row, center);
         // background: coral;
-        font-family: 'Montserrat';
+        font-family: "Montserrat";
         position: relative;
         img {
           // margin-right: 2em;
@@ -144,7 +145,7 @@
       }
     }
     .bsBtn {
-      margin: 5em 0 1em 0;
+      margin: 2em 0 1em 0;
       button {
         @include buttonRegular($blueMain, 37vw, 50px);
         // max-width: 460px;
@@ -159,6 +160,8 @@
       font-weight: 600;
       text-align: center;
       margin-top: 0.5em;
+      //background: pink;
+      width: 94%;
     }
     .bs-confirm {
       margin: 1em 0;
@@ -515,7 +518,7 @@
 .bst-walletDesc {
   margin-top: 1em;
   p {
-    font-family: 'Montserrat';
+    font-family: "Montserrat";
     color: #4e4b66;
   }
   .copyBx {
@@ -533,7 +536,7 @@
   @include flexRegular(column, center);
 }
 .bst-timeBx {
-  margin-top: 2em;
+  margin: 1em 0;
   @include flexRegular(row, center);
   border: 1px solid #20709b;
   box-sizing: border-box;
