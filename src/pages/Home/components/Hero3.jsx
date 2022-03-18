@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import shape1 from '../../../assets/shapes/topology2.svg'
 import shape2 from '../../../assets/shapes/star3.svg'
 import Rocket from '../../../assets/images/rocket.svg'
@@ -73,10 +74,10 @@ const Hero3 = () => {
           <p className="hhTxt">
             Welcome to the worlds first digital whitelist marketplace
           </p>
-          <div className="hhBtn">
+          <Link to="/listSpot" className="hhBtn">
             <p>List a whitelist spot</p>
             <img src={Arrow} alt="next" />
-          </div>
+          </Link>
         </div>
         <div className="hhShape2">
           <motion.img
