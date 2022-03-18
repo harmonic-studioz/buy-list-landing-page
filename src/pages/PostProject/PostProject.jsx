@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import NavBar from "../../components/NavBar/NavBar";
 import TextInput from "../../components/Inputs/TextInput";
 import Select from "../../components/Inputs/Select01";
@@ -14,6 +15,7 @@ import { userRequest } from "../../utils/requestMethods";
 import { logger } from "../../utils/logger";
 
 const PostProject = () => {
+  let navigate = useNavigate();
   const [inputs, setInputs] = useState({
     projectName: "",
     discordLink: "",
@@ -71,6 +73,9 @@ const PostProject = () => {
         mintToken: "",
         mintDate: "",
       });
+      setTimeout(() => {
+        navigate("/home");
+      }, 1000);
     } catch (err) {
       logger(" ERROR::: ", err);
       setResponse({

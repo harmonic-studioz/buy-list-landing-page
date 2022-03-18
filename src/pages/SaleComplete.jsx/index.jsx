@@ -9,10 +9,14 @@ import Transaction from "../BuySpot/components/Transaction";
 import Modal01 from "../../components/Modals/Modal1";
 import ChatIcon from "../../assets/icons/chat.svg";
 import { TransactionContext } from "../../context/TransactionContext";
+import { AuthContext } from "../../context/AuthContext";
 import { userRequest } from "../../utils/requestMethods";
 import Alert from "../../assets/icons/alert.svg";
 
 const SaleComplete = () => {
+  const [authState] = useContext(AuthContext);
+  const userId = authState.user.id;
+  console.log("user", userId);
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -24,6 +28,9 @@ const SaleComplete = () => {
   const { approvePay } = useContext(TransactionContext);
   const [err, setErr] = useState("");
   const [chatMessage, setChatMessage] = useState("");
+  const [messages, setMessages] = useState([]);
+  const [count, setCount] = useState(1);
+  const transactionId = localStorage.getItem("currentTransactionId");
 
   const handleRelease = async () => {
     try {
@@ -40,6 +47,21 @@ const SaleComplete = () => {
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    const loadMessages = async () => {
+      try {
+        const loadReq = await userRequest.get(
+          `chat?transactionId=${transactionId}`
+        );
+        console.log(loadReq);
+        setMessages(loadReq.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    loadMessages();
+  }, [transactionId, count]);
 
   const storeRelease = async () => {
     try {
@@ -68,10 +90,17 @@ const SaleComplete = () => {
     setComplete(true);
   };
 
-  const sendMessage = () => {
+  const sendMessage = async () => {
     if (chatMessage) {
       try {
-        alert("sent");
+        const details = {
+          text: chatMessage,
+          transactionId: localStorage.getItem("currentTransactionId"),
+        };
+        const sendReq = await userRequest.post("chat", details);
+        console.log(sendReq);
+        setChatMessage("");
+        setCount(count + 1);
       } catch (err) {
         console.log(err);
       }
@@ -190,26 +219,26 @@ const SaleComplete = () => {
                   />
                 </div>
                 <div className="scc-body">
-                  <div className="receiveContent">
-                    <div className="receiveBox">
-                      <p>Send Wallet address</p>
-                    </div>
-                  </div>
-                  <div className="sentContent">
-                    <div className="sentBox">
-                      <p>0xb2367019ccf</p>
-                    </div>
-                  </div>
-                  <div className="receiveContent">
-                    <div className="receiveBox">
-                      <p>Send Wallet address</p>
-                    </div>
-                  </div>
-                  <div className="sentContent">
-                    <div className="sentBox">
-                      <p>0xb2367019ccf</p>
-                    </div>
-                  </div>
+                  {messages.map(
+                    (msg) =>
+                      msg.id === userId && (
+                        <div className="receiveContent">
+                          <div className="receiveBox">
+                            <p> {msg.text}</p>
+                          </div>
+                        </div>
+                      )
+                  )}
+                  {messages.map(
+                    (msg) =>
+                      msg.id !== userId && (
+                        <div className="sentContent">
+                          <div className="sentBox">
+                            <p> {msg.text}</p>
+                          </div>
+                        </div>
+                      )
+                  )}
                 </div>
                 <div className="scc-bottom">
                   <div className="scc-inputBox">

@@ -19,7 +19,7 @@ import SaleComplete from "../SellSpot/SellSpotx";
 
 import { TransactionContext } from "../../context/TransactionContext";
 //import UniContext from "../../context/UniContext";
-//import { AuthContext } from "../../context/AuthContext";
+import { AuthContext } from "../../context/AuthContext";
 
 const BuySpot = () => {
   useEffect(() => {
@@ -40,8 +40,9 @@ const BuySpot = () => {
     //transactionLoading,
     //createEthereumContract,
   } = useContext(TransactionContext);
-  //const [authState] = useContext(AuthContext);
+  const [authState] = useContext(AuthContext);
   //const { initiateBuy } = useContext(UniContext);
+  const hasPaidOneTimeFee = authState.user.hasPaidOneTimeFee;
 
   let navigate = useNavigate();
 
@@ -63,10 +64,13 @@ const BuySpot = () => {
     try {
       setIsLoadingTr(true);
       const buy = await initiateBuy(spotId);
-
       if (buy.code === -32603) {
         setIsLoadingTr(false);
         setErr(buy.data.message);
+      } else {
+        setIsLoadingTr(false);
+        localStorage.setItem("spotToBuy", JSON.stringify(singleSpot));
+        setStep(step + 1);
       }
     } catch (err) {
       console.log(err);
@@ -84,6 +88,8 @@ const BuySpot = () => {
       };
       const saveReq = await userRequest.post("transaction/create", id);
       console.log(saveReq);
+      console.log(saveReq.data.id);
+      localStorage.setItem("currentTransactionId", saveReq.data.id);
       setIsLoadingTr(false);
     } catch (err) {
       console.log(err);
@@ -99,17 +105,30 @@ const BuySpot = () => {
     // }
     if (step === 1) {
       setIsLoadingTr(true);
-      const approve = await approveSpend(
-        Number(singleSpot.whiteListPrice) * 1000000 + 20000000
-      );
-      console.log(approve);
-      if (approve.code !== 4001) {
-        if (!isLoadingTr) {
-          setStep(step + 1);
+      if (!hasPaidOneTimeFee) {
+        const approve = await approveSpend(
+          Number(singleSpot.whiteListPrice) * 1000000 + 20000000
+        );
+        if (approve.code !== 4001) {
+          if (!isLoadingTr) {
+            setStep(step + 1);
+          }
+          setIsLoadingTr(false);
+        } else {
+          setIsLoadingTr(false);
         }
-        setIsLoadingTr(false);
       } else {
-        setIsLoadingTr(false);
+        const approve = await approveSpend(
+          Number(singleSpot.whiteListPrice) * 1000000
+        );
+        if (approve.code !== 4001) {
+          if (!isLoadingTr) {
+            setStep(step + 1);
+          }
+          setIsLoadingTr(false);
+        } else {
+          setIsLoadingTr(false);
+        }
       }
     }
     if (step === 2) {
@@ -117,12 +136,12 @@ const BuySpot = () => {
       const buy = await handleBuy();
       // eslint-disable-next-line
       const save = await storeTransaction();
-      if (!err) {
-        localStorage.setItem("spotToBuy", JSON.stringify(singleSpot));
-        if (!isLoadingTr && !isLoading) {
-          setStep(step + 1);
-        }
-      }
+      // if (!err) {
+      //   localStorage.setItem("spotToBuy", JSON.stringify(singleSpot));
+      //   if (!isLoadingTr && !isLoading) {
+      //     setStep(step + 1);
+      //   }
+      // }
     }
     if (step === 3) {
       // redirect
@@ -172,7 +191,7 @@ const BuySpot = () => {
 
                 <div className="bsBtn">
                   {isLoadingTr && (
-                    <button onClick={handleSubmit}>
+                    <button onClick={handleSubmit} disabled="true">
                       <CircularProgress color="inherit" size="25px" />
                     </button>
                   )}

@@ -25,8 +25,12 @@ const NavWeb = (props) => {
   const currentAccount = localStorage.getItem("currentAccount");
 
   const BASE_URL = process.env.REACT_APP_BASE_URL;
-  const user = JSON.parse(localStorage.getItem("user"));
-  const TOKEN = user?.tokens?.token;
+  //const user = JSON.parse(localStorage.getItem("user"));
+  const TOKEN =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJheW8yIiwiZW1haWwiOiJheW9jaGlsbHNAZ21haWwuY29tIiwid2FsbGV0QWRkcmVzcyI6IjB4YjA4YjQxZGYzZDAwZGJjNjM2NDBmNTY0ZGZmMjM0MzA4YjJmNjQwOCIsImlhdCI6MTY0NzQzNzY5N30.53GnpvhA774KRPsaz474YkiMo8BIe_fVHJUO8isoBP8";
+  //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJheW8xIiwiZW1haWwiOiJheW9vbGFuaXlpOTVAZ21haWwuY29tIiwid2FsbGV0QWRkcmVzcyI6IjB4NmFhNjg3ZmZiYjAwOGMxNjFhNDgxYmYyMDQyZWQ4ZWViODcyZWE3YSIsImlhdCI6MTY0NzQzNzEwMn0.JWWo6gK6ti1ODT4zXFZYm9asSAcKY6sd2Pn-L19CJeQ";
+  //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJheW8xIiwiZW1haWwiOiJheW9vbGFuaXlpOTVAZ21haWwuY29tIiwid2FsbGV0QWRkcmVzcyI6IjB4NmFhNjg3ZmZiYjAwOGMxNjFhNDgxYmYyMDQyZWQ4ZWViODcyZWE3YSIsImlhdCI6MTY0NzQzNzEwMn0.JWWo6gK6ti1ODT4zXFZYm9asSAcKY6sd2Pn-L19CJeQ"
+  //  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJheW8xIiwiZW1haWwiOiJheW9vbGFuaXlpOTVAZ21haWwuY29tIiwid2FsbGV0QWRkcmVzcyI6IjB4NmFhNjg3ZmZiYjAwOGMxNjFhNDgxYmYyMDQyZWQ4ZWViODcyZWE3YSIsImlhdCI6MTY0NzQzNzEwMn0.JWWo6gK6ti1ODT4zXFZYm9asSAcKY6sd2Pn-L19CJeQ"
 
   useEffect(() => {
     // const sendIn = {
@@ -45,6 +49,7 @@ const NavWeb = (props) => {
       headers
     );
     console.log(socket);
+    //console.log(user);
 
     socket.on("subscribed", (msg) => {
       console.log(msg);

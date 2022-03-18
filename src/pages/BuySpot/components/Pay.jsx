@@ -1,12 +1,15 @@
-//import { useContext } from 'react'
+import { useContext } from "react";
 import Spot from "../../../components/Spot/Spot";
 
 import Busd from "../../../assets/icons/busd.svg";
 
 //import { TransactionContext } from '../../../context/TransactionContext'
 import { shortenAddress } from "../../../utils/shortenAddress";
+import { AuthContext } from "../../../context/AuthContext";
 
 const Pay = (props) => {
+  const [authState] = useContext(AuthContext);
+  const hasPaidOneTimeFee = authState.user.hasPaidOneTimeFee;
   //const { currentAccount } = useContext(TransactionContext)
   const currentAccount = localStorage.getItem("currentAccount");
   return (
@@ -29,10 +32,12 @@ const Pay = (props) => {
           <img src={Busd} alt="usdc" />
           <h3>{Number(props.singleSpot.whiteListPrice) + 20} USDC</h3>
         </div>
-        <span>
-          A one time fee of 20 USDC has been added to your charge, subsequent
-          payments will be free
-        </span>
+        {!hasPaidOneTimeFee && (
+          <span>
+            A one time fee of 20 USDC has been added to your charge, subsequent
+            payments will be free
+          </span>
+        )}
       </div>
       {/* <div className="bsp-body2">
 

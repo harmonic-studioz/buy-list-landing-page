@@ -20,7 +20,7 @@ const Home = () => {
 
     const getActiveSpots = async () => {
       try {
-        const spotsReq = await publicRequest.get("spot/get-spots?limit=6");
+        const spotsReq = await publicRequest.get("spot/get-spots?limit=5");
         logger("REQ RESPONSE: ", spotsReq.data.result);
         setActiveSpots(spotsReq.data.result);
         setIsLoading(false);
@@ -33,7 +33,7 @@ const Home = () => {
     const getCollections = async () => {
       try {
         const spotsReq = await publicRequest.get(
-          "projects/get-projects?limit=6"
+          "projects/get-projects?limit=5"
         );
         //logger("REQ RESPONSE: ", spotsReq.data.result);
         setActiveCollections(spotsReq.data.result);

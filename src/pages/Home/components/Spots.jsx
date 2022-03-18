@@ -125,7 +125,7 @@ const Spots = (props) => {
                         ) : (
                           <div className="spotDesc2">
                             <div className="spotAmt">
-                              <img src={Eth} alt="eth" />
+                              {/* <img src={Eth} alt="eth" /> */}
                               <p> {aSpot?.mintPrice} USDC</p>
                             </div>
                             <>

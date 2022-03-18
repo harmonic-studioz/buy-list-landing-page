@@ -62,6 +62,7 @@ const Connect = () => {
           isFetching: false,
           error: false,
         });
+        console.log(authState);
         navigate("/home");
         //logger('REQ RESPONSE: ', authState.user)
       } catch (err) {
