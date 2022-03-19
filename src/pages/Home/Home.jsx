@@ -9,11 +9,42 @@ import { CircularProgress } from "@material-ui/core";
 
 import { publicRequest } from "../../utils/requestMethods";
 import { logger } from "../../utils/logger";
+import { io } from "socket.io-client";
 
 const Home = () => {
   const [activeSpots, setActiveSpots] = useState([]);
   const [activeCollections, setActiveCollections] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
+  const user = JSON.parse(localStorage.getItem("user"));
+  const TOKEN = user?.tokens?.token;
+
+  useEffect(() => {
+    const headers = {
+      "buylist-token": TOKEN,
+    };
+
+    const connectionOptions = {
+      "force new connection": true,
+      reconnectionAttempts: "Infinity",
+      timeout: 10000,
+      transports: ["websocket", "polling", "flashsocket"],
+    };
+    const socket = io(
+      `${BASE_URL}/?token=${TOKEN}`,
+      connectionOptions,
+      headers
+    );
+    console.log(socket);
+  }, []);
+
+  // const socket = (token = TOKEN, query = `token=${TOKEN}`) =>
+  //   io(BASE_URL, {
+  //     ...connectionOptions,
+  //     ...(token && { "buylist-token": { token } }),
+  //     ...(query && { query }),
+  //   });
 
   useEffect(() => {
     window.scrollTo(0, 0);

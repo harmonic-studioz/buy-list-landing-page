@@ -6,21 +6,21 @@ import Search from "../../assets/icons/search.svg";
 import Add from "../../assets/icons/add.svg";
 import { CircularProgress } from "@material-ui/core";
 //import Notification from "../../../components/Modals/Notification";
-import io from "socket.io-client";
 
 //import { TransactionContext } from "../../context/TransactionContext";
 //import UniContext from "../../context/UniContext";
 import { shortenAddress } from "../../utils/shortenAddress";
-import { publicRequest } from "../../utils/requestMethods";
+import { publicRequest, userRequest } from "../../utils/requestMethods";
 import { logger } from "../../utils/logger";
 
-let socket;
+//let socket;
 
 const NavWeb = (props) => {
   const Page = "Landing";
   const [searchTerm, setSearchTerm] = useState("");
   const [searchRes, setSearchRes] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  //const [transactionNew, setTransactionNew] = useState();
 
   const currentAccount = localStorage.getItem("currentAccount");
 
@@ -28,42 +28,59 @@ const NavWeb = (props) => {
   const user = JSON.parse(localStorage.getItem("user"));
   const TOKEN = user?.tokens?.token;
 
+  //useEffect(() => {
+  // const sendIn = {
+  //   baseURL: BASE_URL + "/?token=" + TOKEN,
+  //   headers: {
+  //     Authorization: `Bearer ${TOKEN}`,
+  //     "Content-Type": "application/json",
+  //   },
+  // };
+  // const headers = {
+  //   "buylist-token": TOKEN,
+  // };
+  // const connectionOptions = {
+  //   "force new connection": true,
+  //   reconnectionAttempts: "Infinity",
+  //   timeout: 10000,
+  //   transports: ["websocket", "polling", "flashsocket"],
+  // };
+  // const socket = (token = TOKEN, query = `token=${TOKEN}`) =>
+  //   io(BASE_URL, {
+  //     ...connectionOptions,
+  //     ...(token && { "buylist-token": { token } }),
+  //     ...(query && { query }),
+  //   });
+  // const socket = io(
+  //   `${BASE_URL}/?token=${TOKEN}`,
+  //   connectionOptions,
+  //   headers
+  // );
+  // socket = io(
+  //   `${BASE_URL}/?token=${TOKEN}`,
+  //   { transports: ["websocket"] },
+  //   headers
+  // );
+  // console.log(socket);
+  //console.log(user);
+  // socket.on("subscribed", (msg) => {
+  //   console.log(msg);
+  //   console.log("connected");
+  // });
+  // socket.on("transaction-change", (msg) => {
+  //   console.log(msg);
+  // });
+  // socket.on("new-message", (msg) => {
+  //   console.log(msg);
+  // });
+  // return () => {
+  //   socket.emit("disconnect");
+  //   socket.off();
+  // };
+  //}, [BASE_URL, TOKEN]);
+
   useEffect(() => {
-    // const sendIn = {
-    //   baseURL: BASE_URL + "/?token=" + TOKEN,
-    //   headers: {
-    //     Authorization: `Bearer ${TOKEN}`,
-    //     "Content-Type": "application/json",
-    //   },
-    // };
-    const headers = {
-      "buylist-token": TOKEN,
-    };
-    socket = io(
-      `${BASE_URL}/?token=${TOKEN}`,
-      { transports: ["websocket"] },
-      headers
-    );
-    console.log(socket);
     //console.log(user);
-
-    socket.on("subscribed", (msg) => {
-      console.log(msg);
-    });
-    socket.on("transaction-change", (msg) => {
-      console.log(msg);
-    });
-    socket.on("new-message", (msg) => {
-      console.log(msg);
-    });
-
-    // return () => {
-    //   socket.emit("disconnect");
-    //   socket.off();
-    // };
-  }, [BASE_URL, TOKEN]);
-
-  useEffect(() => {
     const handleSearch = async () => {
       if (searchTerm.length >= 3) {
         setIsLoading(true);
@@ -83,7 +100,7 @@ const NavWeb = (props) => {
     };
     handleSearch();
   }, [searchTerm]);
-  //console.log(socketStatus);
+
   return (
     <div className="navContainer">
       <nav className={props.className}>
