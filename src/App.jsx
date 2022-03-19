@@ -22,15 +22,17 @@ import { AuthContext } from "./context/AuthContext";
 import UniContext from "./context/UniContext";
 import useWalletConnect from "./hooks/walletConnect";
 import Upcoming from "./pages/Upcoming/Upcoming";
+import useSockets from "./hooks/socket";
 
 const App = () => {
+  const values = useSockets();
   useEffect(() => {
     AOS.init();
   }, []);
   const [authState] = useContext(AuthContext);
   const data = useWalletConnect();
   return (
-    <UniContext.Provider value={data}>
+    <UniContext.Provider value={{ ...data, ...values }}>
       <Router>
         <Routes>
           <Route path="/" element={<Landing />}></Route>
@@ -38,8 +40,7 @@ const App = () => {
           <Route path="/auth/verify" element={<Verification />}></Route>
           <Route
             path="/home"
-            element={authState.user ? <Home /> : <Auth />}
-          ></Route>
+            element={authState.user ? <Home /> : <Auth />}></Route>
           <Route path="/pool" element={<Pool />}></Route>
           <Route path="/upcoming" element={<Upcoming />}></Route>
           <Route path="/listSpot" element={<ListSpot />}></Route>

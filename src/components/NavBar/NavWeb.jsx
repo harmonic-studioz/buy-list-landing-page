@@ -28,40 +28,40 @@ const NavWeb = (props) => {
   const user = JSON.parse(localStorage.getItem("user"));
   const TOKEN = user?.tokens?.token;
 
-  useEffect(() => {
-    // const sendIn = {
-    //   baseURL: BASE_URL + "/?token=" + TOKEN,
-    //   headers: {
-    //     Authorization: `Bearer ${TOKEN}`,
-    //     "Content-Type": "application/json",
-    //   },
-    // };
-    const headers = {
-      "buylist-token": TOKEN,
-    };
-    socket = io(
-      `${BASE_URL}/?token=${TOKEN}`,
-      { transports: ["websocket"] },
-      headers
-    );
-    console.log(socket);
-    //console.log(user);
+  // useEffect(() => {
+  // const sendIn = {
+  //   baseURL: BASE_URL + "/?token=" + TOKEN,
+  //   headers: {
+  //     Authorization: `Bearer ${TOKEN}`,
+  //     "Content-Type": "application/json",
+  //   },
+  // };
+  // const headers = {
+  //   "buylist-token": TOKEN,
+  // };
+  // socket = io(
+  //   `${BASE_URL}/?token=${TOKEN}`,
+  //   { transports: ["websocket"] },
+  //   headers
+  // );
+  // console.log(socket);
+  // //console.log(user);
 
-    socket.on("subscribed", (msg) => {
-      console.log(msg);
-    });
-    socket.on("transaction-change", (msg) => {
-      console.log(msg);
-    });
-    socket.on("new-message", (msg) => {
-      console.log(msg);
-    });
+  // socket.on("subscribed", (msg) => {
+  //   console.log(msg);
+  // });
+  // socket.on("transaction-change", (msg) => {
+  //   console.log(msg);
+  // });
+  // socket.on("new-message", (msg) => {
+  //   console.log(msg);
+  // });
 
-    // return () => {
-    //   socket.emit("disconnect");
-    //   socket.off();
-    // };
-  }, [BASE_URL, TOKEN]);
+  // return () => {
+  //   socket.emit("disconnect");
+  //   socket.off();
+  // };
+  // }, [BASE_URL, TOKEN]);
 
   useEffect(() => {
     const handleSearch = async () => {
@@ -152,8 +152,7 @@ const NavWeb = (props) => {
                       <Link
                         to={`/buySpot/${result.id}`}
                         className="sr-single"
-                        key={result.id}
-                      >
+                        key={result.id}>
                         <p>{result.projectName}</p>
                       </Link>
                     ))}

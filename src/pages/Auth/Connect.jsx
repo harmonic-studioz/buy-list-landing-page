@@ -26,8 +26,12 @@ const Connect = () => {
     error: "",
     success: "",
   });
-  const { enableWalletConnect, connectToMetaMask, currentAccount } =
-    useContext(UniContext);
+  const {
+    initSocketFromLogin,
+    enableWalletConnect,
+    connectToMetaMask,
+    currentAccount,
+  } = useContext(UniContext);
   //const { connectWallet, currentAccount } = useContext(TransactionContext);
   const [authState, setAuthState] = useContext(AuthContext);
   //const currentAccount = localStorage.getItem("currentAccount");
@@ -63,6 +67,7 @@ const Connect = () => {
           error: false,
         });
         console.log(authState);
+        initSocketFromLogin(loginReq.data.tokens.token);
         navigate("/home");
         //logger('REQ RESPONSE: ', authState.user)
       } catch (err) {
@@ -110,16 +115,14 @@ const Connect = () => {
               <div
                 className="connectBtn"
                 //onClick={() => setConnected(true)}
-                onClick={connectToMetaMask}
-              >
+                onClick={connectToMetaMask}>
                 <p>Metamask</p>
                 <img className="metamaskIcon" src={Metamask} alt="metamask" />
               </div>
               <div
                 className="connectBtn"
                 //onClick={() => setConnected(true)}
-                onClick={enableWalletConnect}
-              >
+                onClick={enableWalletConnect}>
                 <p>WalletConnect</p>
                 <img className="connectWallet" src={Wc} alt="metamask" />
               </div>
@@ -144,8 +147,7 @@ const Connect = () => {
           <div className="loginBx">
             <button
               disabled={!currentAccount || authState.isFetching}
-              onClick={handleSubmit}
-            >
+              onClick={handleSubmit}>
               {authState.isFetching ? (
                 <CircularProgress color="inherit" size="25px" />
               ) : (
