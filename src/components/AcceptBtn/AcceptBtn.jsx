@@ -1,4 +1,4 @@
-import './AcceptBtn.scss'
+import "./AcceptBtn.scss";
 
 const AcceptBtn = () => {
   return (
@@ -8,13 +8,14 @@ const AcceptBtn = () => {
         name="checkbox"
         value="accept"
         id="checkbox1"
+        required
         //onClick={this.handleCheckBox}
       />
       <span className="radio-btn">
         <i className="las la-check"></i>
       </span>
     </label>
-  )
-}
+  );
+};
 
-export default AcceptBtn
+export default AcceptBtn;

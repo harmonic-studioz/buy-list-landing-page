@@ -7,7 +7,7 @@ import Wc from "../../assets/icons/wc.png";
 import Check from "../../assets/icons/checkmark.svg";
 import { CircularProgress } from "@material-ui/core";
 
-//import { TransactionContext } from "../../context/TransactionContext";
+import { TransactionContext } from "../../context/TransactionContext";
 import UniContext from "../../context/UniContext";
 import { AuthContext } from "../../context/AuthContext";
 import {
@@ -32,7 +32,9 @@ const Connect = () => {
     connectToMetaMask,
     currentAccount,
   } = useContext(UniContext);
+  const chain = localStorage.getItem("chain");
   //const { connectWallet, currentAccount } = useContext(TransactionContext);
+
   const [authState, setAuthState] = useContext(AuthContext);
   //const currentAccount = localStorage.getItem("currentAccount");
 
@@ -54,40 +56,64 @@ const Connect = () => {
         ...response,
         error: "",
       });
-      try {
-        const newUser = {
-          walletAddress: currentAccount,
-        };
-        const loginReq = await publicRequest.post("auth/login", newUser);
-        logger("REQ RESPONSE: ", loginReq);
-        setAuthState({
-          ...authState,
-          user: loginReq.data,
-          isFetching: false,
-          error: false,
-        });
-        console.log(authState);
-        initSocketFromLogin(loginReq.data.tokens.token);
-        navigate("/home");
-        //logger('REQ RESPONSE: ', authState.user)
-      } catch (err) {
+      const chain = localStorage.getItem("chain");
+      console.log("currentChain", chain);
+      if (chain === "0xfa2") {
+        try {
+          const newUser = {
+            walletAddress: currentAccount,
+          };
+          const loginReq = await publicRequest.post("auth/login", newUser);
+          logger("REQ RESPONSE: ", loginReq);
+          setAuthState({
+            ...authState,
+            user: loginReq.data,
+            isFetching: false,
+            error: false,
+          });
+          //console.log(authState);
+          initSocketFromLogin(loginReq.data.tokens.token);
+          navigate("/home");
+
+          //logger('REQ RESPONSE: ', authState.user)
+        } catch (err) {
+          setAuthState({
+            ...authState,
+            isFetching: false,
+            error: true,
+          });
+          logger(" ERROR::: ", err);
+          if (err.response.data.error === "user not found") {
+            setResponse({
+              error: "User not found, please signup",
+              success: "",
+            });
+          } else if (err.response.data.error === "email not verified") {
+            setResponse({
+              error: err?.response.data.error,
+              success: "",
+            });
+            localStorage.setItem("usermail", err?.response.data.userData.email);
+            setTimeout(() => {
+              navigate("/auth/verify");
+            }, 1000);
+          } else {
+            setResponse({
+              error: err?.response.data.error,
+              success: "",
+            });
+          }
+        }
+      } else {
         setAuthState({
           ...authState,
           isFetching: false,
           error: true,
         });
-        logger(" ERROR::: ", err);
-        if (err.response.data.error === "user not found") {
-          setResponse({
-            error: "User not found, please signup",
-            success: "",
-          });
-        } else {
-          setResponse({
-            error: err?.response.data.error,
-            success: "",
-          });
-        }
+        setResponse({
+          error: "Wrong chain, please switch to recommended chain.",
+          success: "",
+        });
       }
     }
   };
@@ -115,14 +141,16 @@ const Connect = () => {
               <div
                 className="connectBtn"
                 //onClick={() => setConnected(true)}
-                onClick={connectToMetaMask}>
+                onClick={connectToMetaMask}
+              >
                 <p>Metamask</p>
                 <img className="metamaskIcon" src={Metamask} alt="metamask" />
               </div>
               <div
                 className="connectBtn"
                 //onClick={() => setConnected(true)}
-                onClick={enableWalletConnect}>
+                onClick={enableWalletConnect}
+              >
                 <p>WalletConnect</p>
                 <img className="connectWallet" src={Wc} alt="metamask" />
               </div>
@@ -147,7 +175,8 @@ const Connect = () => {
           <div className="loginBx">
             <button
               disabled={!currentAccount || authState.isFetching}
-              onClick={handleSubmit}>
+              onClick={handleSubmit}
+            >
               {authState.isFetching ? (
                 <CircularProgress color="inherit" size="25px" />
               ) : (
@@ -155,7 +184,7 @@ const Connect = () => {
               )}
             </button>
           </div>
-          {currentAccount && !authState.error && (
+          {currentAccount && (
             <div className="coTop_txt2">
               <p>
                 Already have an account?{" "}

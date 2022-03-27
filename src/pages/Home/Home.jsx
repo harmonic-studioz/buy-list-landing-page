@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import "./Home.scss";
 import NavBar from "../../components/NavBar/NavBar";
 import Container from "../../components/Container/Container";
@@ -9,19 +9,24 @@ import { CircularProgress } from "@material-ui/core";
 
 import { publicRequest } from "../../utils/requestMethods";
 import { logger } from "../../utils/logger";
+import { AuthContext } from "../../context/AuthContext";
 
 const Home = () => {
   const [activeSpots, setActiveSpots] = useState([]);
   const [activeCollections, setActiveCollections] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [authState, setAuthState] = useContext(AuthContext);
+  const [currentUserName, setCurrentUserName] = useState("");
 
   useEffect(() => {
     window.scrollTo(0, 0);
-
+    setCurrentUserName(authState.user.username);
     const getActiveSpots = async () => {
       try {
-        const spotsReq = await publicRequest.get("spot/get-spots?limit=5");
+        const spotsReq = await publicRequest.get("spot/get-spots");
         logger("REQ RESPONSE: ", spotsReq.data.result);
+        console.log(spotsReq.data.result[0].username);
+        console.log(currentUserName);
         setActiveSpots(spotsReq.data.result);
         setIsLoading(false);
       } catch (err) {
@@ -32,9 +37,7 @@ const Home = () => {
     getActiveSpots();
     const getCollections = async () => {
       try {
-        const spotsReq = await publicRequest.get(
-          "projects/get-projects?limit=5"
-        );
+        const spotsReq = await publicRequest.get("projects/get-projects");
         //logger("REQ RESPONSE: ", spotsReq.data.result);
         setActiveCollections(spotsReq.data.result);
         setIsLoading(false);
@@ -55,14 +58,21 @@ const Home = () => {
             <CircularProgress color="inherit" size="65px" />
           </div>
         ) : (
-          activeSpots && (
+          activeSpots.length >= 1 && (
+            //activeSpots[0].username !== currentUserName &&
             <Spots
+              currentUserName={currentUserName}
               activeSpots={activeSpots}
               title="Whitelist Pool"
               type="regular"
               screen="less"
             />
           )
+        )}
+        {activeSpots.length < 1 && !isLoading && (
+          <div className="spotsLoading">
+            <p> No available spots in whitelist pool...</p>
+          </div>
         )}
         {isLoading ? (
           <div className="spotsLoading">

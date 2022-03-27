@@ -1,62 +1,41 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import "./NavW.scss";
 import Logo from "../../assets/logo.png";
 import Search from "../../assets/icons/search.svg";
 import Add from "../../assets/icons/add.svg";
 import { CircularProgress } from "@material-ui/core";
-//import Notification from "../../../components/Modals/Notification";
-import io from "socket.io-client";
+import Notification from "../../components/Modals/Notification";
 
-//import { TransactionContext } from "../../context/TransactionContext";
-//import UniContext from "../../context/UniContext";
+import { TransactionContext } from "../../context/TransactionContext";
+import UniContext from "../../context/UniContext";
 import { shortenAddress } from "../../utils/shortenAddress";
 import { publicRequest } from "../../utils/requestMethods";
 import { logger } from "../../utils/logger";
 
-let socket;
-
+//let socket;
 const NavWeb = (props) => {
   const Page = "Landing";
   const [searchTerm, setSearchTerm] = useState("");
   const [searchRes, setSearchRes] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [transactionAlert, setTransactionAlert] = useState(false);
+  const [notificationMsg, setNotificationMsg] = useState("");
 
   const currentAccount = localStorage.getItem("currentAccount");
 
-  const BASE_URL = process.env.REACT_APP_BASE_URL;
-  const user = JSON.parse(localStorage.getItem("user"));
-  const TOKEN = user?.tokens?.token;
+  const { newTransaction, newMsg } = useContext(TransactionContext);
+  const { disonnectWallet } = useContext(UniContext);
+
+  const [newTransactionVal, setNewTransactionVal] = newTransaction;
+  const [newMsgVal, setNewMsgVal] = newMsg;
 
   // useEffect(() => {
-  // const sendIn = {
-  //   baseURL: BASE_URL + "/?token=" + TOKEN,
-  //   headers: {
-  //     Authorization: `Bearer ${TOKEN}`,
-  //     "Content-Type": "application/json",
-  //   },
-  // };
-  // const headers = {
-  //   "buylist-token": TOKEN,
-  // };
   // socket = io(
   //   `${BASE_URL}/?token=${TOKEN}`,
   //   { transports: ["websocket"] },
   //   headers
   // );
-  // console.log(socket);
-  // //console.log(user);
-
-  // socket.on("subscribed", (msg) => {
-  //   console.log(msg);
-  // });
-  // socket.on("transaction-change", (msg) => {
-  //   console.log(msg);
-  // });
-  // socket.on("new-message", (msg) => {
-  //   console.log(msg);
-  // });
-
   // return () => {
   //   socket.emit("disconnect");
   //   socket.off();
@@ -64,15 +43,40 @@ const NavWeb = (props) => {
   // }, [BASE_URL, TOKEN]);
 
   useEffect(() => {
+    console.log(newTransactionVal);
+    //if (newTransactionVal) {
+    setNotificationMsg(
+      `Payment has been made for wl #${newTransactionVal?.spotIdValue}`
+    );
+    //}
+    //if (newMsgVal) {
+    setNotificationMsg(`New chat message: "${newMsgVal?.text}"`);
+    localStorage.setItem("currentTransactionId", newMsgVal?.transactionId);
+    //}
+    setTransactionAlert(true);
+  }, [newTransactionVal, newMsgVal]);
+
+  const closeNotification = () => {
+    setNewTransactionVal();
+    setNewMsgVal();
+    //setTransactionAlert(false)
+    prompt("working");
+  };
+
+  useEffect(() => {
     const handleSearch = async () => {
       if (searchTerm.length >= 3) {
         setIsLoading(true);
         try {
-          const searchReq = await publicRequest.get(
+          const searchReq1 = await publicRequest.get(
             `spot/search?projectName=${searchTerm}`
           );
-          logger("REQ RESPONSE: ", searchReq.data);
-          setSearchRes(searchReq.data);
+          logger("REQ RESPONSE: ", searchReq1.data);
+          const searchReq2 = await publicRequest.get(
+            `/projects/search?projectName=${searchTerm}`
+          );
+          logger("REQ RESPONSE: ", searchReq2.data);
+          setSearchRes(searchReq1.data.concat(searchReq2.data));
           setIsLoading(false);
         } catch (err) {
           logger(" ERROR::: ", err);
@@ -83,9 +87,22 @@ const NavWeb = (props) => {
     };
     handleSearch();
   }, [searchTerm]);
-  //console.log(socketStatus);
+
+  const disconnect = async () => {
+    let isDisabled = await disonnectWallet();
+  };
+
   return (
     <div className="navContainer">
+      {(newTransactionVal && newTransactionVal !== "") ||
+        (newMsgVal && newMsgVal !== "" && (
+          <Notification
+            status={transactionAlert}
+            message={notificationMsg}
+            onClick={closeNotification}
+          />
+        ))}
+
       <nav className={props.className}>
         {Page === "Landing" && (
           <Link to="/home" className="logoBox">
@@ -152,7 +169,8 @@ const NavWeb = (props) => {
                       <Link
                         to={`/buySpot/${result.id}`}
                         className="sr-single"
-                        key={result.id}>
+                        key={result.id}
+                      >
                         <p>{result.projectName}</p>
                       </Link>
                     ))}
@@ -162,7 +180,10 @@ const NavWeb = (props) => {
             </div>
           )}
           <Link to="/auth">
-            <button className="nav_Connect">
+            <button
+              className="nav_Connect"
+              //onClick={disconnect}
+            >
               {!currentAccount
                 ? "Connect wallet"
                 : shortenAddress(currentAccount)}

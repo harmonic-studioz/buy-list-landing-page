@@ -40,14 +40,18 @@ const App = () => {
           <Route path="/auth/verify" element={<Verification />}></Route>
           <Route
             path="/home"
-            element={authState.user ? <Home /> : <Auth />}></Route>
+            element={authState.user ? <Home /> : <Auth />}
+          ></Route>
           <Route path="/pool" element={<Pool />}></Route>
           <Route path="/upcoming" element={<Upcoming />}></Route>
           <Route path="/listSpot" element={<ListSpot />}></Route>
           <Route path="/buySpot/:spotId" element={<BuySpot />}></Route>
           <Route path="/sellSpot" element={<SellSpot />}></Route>
           <Route path="/postProject" element={<PostProject />}></Route>
-          <Route path="/saleComplete" element={<SaleComplete />}></Route>
+          <Route
+            path="/saleComplete/:transactionId"
+            element={<SaleComplete />}
+          ></Route>
           <Route path="/userLists" element={<UserLists />}></Route>
         </Routes>
       </Router>

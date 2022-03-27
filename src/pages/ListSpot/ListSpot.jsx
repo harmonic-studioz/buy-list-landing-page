@@ -11,6 +11,7 @@ import {
   TwitterShareButton,
   //WhatsappShareButton,
 } from "react-share";
+
 import "./ListSpot.scss";
 //
 import Saly from "../../assets/images/saly02.svg";
@@ -69,6 +70,9 @@ const ListSpot = () => {
 
   const { createSpotInContract, transactionLoading, createEthereumContract } =
     useContext(TransactionContext);
+
+  const { newTransaction } = useContext(TransactionContext);
+  const [newTransactionVal, setNewTransactionVal] = newTransaction;
   //const { currentAccount, createNewSpot } = useContext(UniContext);
 
   useEffect(() => {
@@ -83,12 +87,22 @@ const ListSpot = () => {
             fromState,
             toState,
           });
+          setTimeout(() => {
+            setNewTransactionVal(evRef.current);
+          }, 1000);
           console.log(evRef.current.spotIdValue, evRef.current);
         }
       );
     };
     onCreateSpotInContract();
-  }, [createEthereumContract, setEv, evRef, transactionLoading, isLoading]);
+  }, [
+    createEthereumContract,
+    setEv,
+    evRef,
+    transactionLoading,
+    isLoading,
+    setNewTransactionVal,
+  ]);
 
   const inputHandler = (event) => {
     setInputs({
@@ -148,10 +162,10 @@ const ListSpot = () => {
       setStep3("complete");
     } catch (err) {
       logger(" ERROR::: ", err);
-      // setResponse({
-      //   error: err?.response?.data?.error,
-      //   success: '',
-      // })
+      setResponse({
+        error: err?.response?.data?.error || "Sorry, something went wrong.",
+        success: "",
+      });
       setIsLoading(false);
     }
   };
@@ -159,14 +173,14 @@ const ListSpot = () => {
   const createListSpot = async () => {
     if (inputs.wlPrice < inputs.mintPrice / 2) {
       const inContract = await createSpotInContract(inputs);
-      setIsLoading(true);
       if (inContract.code !== 4001) {
         setIsLoading(true);
-        // createSpotInDb();
-        setTimeout(() => {
-          createSpotInDb();
+        //await createSpotInDb();
+        setTimeout(async () => {
+          await createSpotInDb();
+          setIsLoading(false);
         }, 2500);
-        console.log("No wahala");
+        console.log("Success");
         setResponse({
           error: "",
           success: "",
@@ -175,7 +189,7 @@ const ListSpot = () => {
       } else {
         setIsLoading(false);
       }
-      setIsLoading(false);
+      //setIsLoading(false);
     } else {
       setIsLoading(false);
       setResponse({
@@ -357,7 +371,7 @@ const ListSpot = () => {
               {step3 === "complete" && (
                 <>
                   <TwitterShareButton
-                    url={"https://buylistnft.com/my-new-listing"}
+                    url={`https://buylistnft.com/buySpot/${newSpot.id}`}
                     className="ls-share"
                   >
                     <img src={Share} alt="share" />

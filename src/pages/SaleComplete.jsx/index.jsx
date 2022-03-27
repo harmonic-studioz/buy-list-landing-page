@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from "react";
+import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import NavBar from "../../components/NavBar/NavBar";
 import AcceptBtn from "../../components/AcceptBtn/AcceptBtn";
@@ -21,7 +22,7 @@ const SaleComplete = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  const [chatView, setChatView] = useState(false);
+  const [chatView, setChatView] = useState(true);
   const [complete, setComplete] = useState(false);
   const singleSpot = JSON.parse(localStorage.getItem("spotToBuy"));
   const [isLoading, setIsLoading] = useState(false);
@@ -30,7 +31,28 @@ const SaleComplete = () => {
   const [chatMessage, setChatMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [count, setCount] = useState(1);
-  const transactionId = localStorage.getItem("currentTransactionId");
+  const [accepted, setAccepted] = useState(false);
+  //const transactionId = localStorage.getItem("currentTransactionId");
+  const transactionId = useParams().transactionId;
+
+  const storeRelease = async () => {
+    try {
+      setIsLoading(true);
+      const id = {
+        id: singleSpot.id,
+      };
+      if (err === "") {
+        const saveReq = await userRequest.post("transaction/release-fund", id);
+        console.log(saveReq);
+        setIsLoading(false);
+        //setComplete(true);
+      }
+    } catch (err) {
+      console.log(err);
+      setIsLoading(false);
+      //setErr(err.data)
+    }
+  };
 
   const handleRelease = async () => {
     try {
@@ -39,8 +61,11 @@ const SaleComplete = () => {
       console.log(release);
       if (release.code === -32603) {
         setErr("Sorry an error occured.");
+        setErr(release.data.message);
       } else {
-        //setComplete(true);
+        if (err === "") {
+          await storeRelease();
+        }
       }
       setIsLoading(false);
     } catch (err) {
@@ -63,22 +88,6 @@ const SaleComplete = () => {
     loadMessages();
   }, [transactionId, count]);
 
-  const storeRelease = async () => {
-    try {
-      setIsLoading(true);
-      const id = {
-        id: singleSpot.id,
-      };
-      const saveReq = await userRequest.post("transaction/release-fund", id);
-      console.log(saveReq);
-      setIsLoading(false);
-    } catch (err) {
-      console.log(err);
-      setIsLoading(false);
-      //setErr(err.data)
-    }
-  };
-
   const handleDispute = () => {};
 
   const handleSubmit = async (e) => {
@@ -87,7 +96,7 @@ const SaleComplete = () => {
     const release = await handleRelease();
     // eslint-disable-next-line
     const save = await storeRelease();
-    setComplete(true);
+    //setComplete(true);
   };
 
   const sendMessage = async () => {
@@ -135,11 +144,12 @@ const SaleComplete = () => {
               <Transaction singleSpot={singleSpot} />
               <div className="bsBtn">
                 <div className="bs-confirm">
-                  <AcceptBtn />
+                  <AcceptBtn onClick={() => setAccepted(true)} />
                   <p>I have confirmed whitelist spot</p>
                 </div>
                 <button
                 //</div>onClick={handleRelease}
+                //disabled={!accepted}
                 >
                   {isLoading ? (
                     <CircularProgress color="inherit" size="25px" />
@@ -166,7 +176,7 @@ const SaleComplete = () => {
             <form className="bsBox">
               <div className="bsBox-Top">
                 <div className="bsb-title">
-                  <Link to="/buySpot">
+                  <Link to="/home">
                     <img src={Arrow} alt="back" />
                   </Link>
                   <h1>Buy whitelist Spot</h1>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import Notification from "../../../components/Modals/Notification";
 import Avatar from "../../../assets/images/avatar.png";
@@ -10,17 +10,23 @@ import { CircularProgress } from "@material-ui/core";
 import { userRequest } from "../../../utils/requestMethods";
 //import { logger } from "../../../utils/logger";
 import { capitalizeFirstLetter } from "../../../utils/shortenAddress";
+import { AuthContext } from "../../../context/AuthContext";
 
 const Spots = (props) => {
   //const [spotsView, setSpotsView] = useState("limit");
   const [subscribed, setSubscribed] = useState("");
   const [message, setMessage] = useState("");
-  const [activeSpots, setActiveSpots] = useState([]);
+  //const [activeSpots, setActiveSpots] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [authState, setAuthState] = useContext(AuthContext);
+  const [currentUserName, setCurrentUserName] = useState("");
 
   useEffect(() => {
-    setActiveSpots(props.activeSpots);
-  }, [props]);
+    setCurrentUserName(authState.user.username);
+    // setActiveSpots(props.activeSpots);
+    console.log("00", currentUserName);
+    console.log("06", props.activeSpots[0].username);
+  }, []);
 
   const handleSubscribe = async (spotId) => {
     setIsLoading(true);
@@ -54,10 +60,15 @@ const Spots = (props) => {
         <h2>{props.title}</h2>
         {props.type === "regular" && (
           <div className="spotsRows">
-            {activeSpots &&
-              activeSpots.map((aSpot) => (
+            {
+              //props.activeSpots.username !== currentUserName &&
+              props.activeSpots.map((aSpot) => (
                 <div key={aSpot.id} className="spotSingle">
-                  <Link to={`/buySpot/${aSpot.id}`} className="spotBx">
+                  <Link
+                    to={`/buySpot/${aSpot.id}`}
+                    className={`spotBx 
+                  ${aSpot.username === currentUserName ? "spotDisable" : ""}`}
+                  >
                     <div className="spotAvi">
                       <img src={Avatar} alt="avatar" />
                     </div>
@@ -92,8 +103,15 @@ const Spots = (props) => {
                       </div>
                     </div>
                   </Link>
+
+                  {/* {aSpot.username === currentUserName && (
+                    <div className="spotsLoading">
+                      <p> No available spots in whitelist pool...</p>
+                    </div>
+                  )} */}
                 </div>
-              ))}
+              ))
+            }
           </div>
         )}
         {props.type === "monitor" && (

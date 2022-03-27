@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-//import useStateRef from "react-usestateref";
+import useStateRef from "react-usestateref";
 import { Link, useNavigate } from "react-router-dom";
 import { useParams } from "react-router";
 import "./BuySpot.scss";
@@ -7,7 +7,7 @@ import NavBar from "../../components/NavBar/NavBar";
 
 import { CircularProgress } from "@material-ui/core";
 import { publicRequest, userRequest } from "../../utils/requestMethods";
-import { logger } from "../../utils/logger";
+//import { logger } from "../../utils/logger";
 
 import Arrow from "../../assets/icons/arrow1.svg";
 import Alert from "../../assets/icons/alert.svg";
@@ -31,7 +31,9 @@ const BuySpot = () => {
   const [singleSpot, setSingleSpot] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [isLoadingTr, setIsLoadingTr] = useState(false);
-  const [err, setErr] = useState("");
+  //const [errMsg, setErrMsg, errMsgRef] = useState("");
+  const [errMsg, setErrMsg] = useState("");
+  const [newTransaction, setNewTransaction] = useState();
   //const [ev, setEv, evRef] = useStateRef([]);
 
   const {
@@ -50,59 +52,68 @@ const BuySpot = () => {
     const getSpot = async () => {
       try {
         const spotsReq = await publicRequest.get(`spot/single?id=${spotId}`);
-        logger("REQ RESPONSE: ", spotsReq.data);
+        console.log("REQ RESPONSE: ", spotsReq.data);
         setSingleSpot(spotsReq.data);
         setIsLoading(false);
       } catch (err) {
-        logger(" ERROR::: ", err);
+        console.log(" ERROR::: ", err);
       }
     };
     getSpot();
   }, [spotId]);
 
+  const storeTransaction = async () => {
+    if (errMsg === "") {
+      try {
+        setIsLoadingTr(true);
+        const id = {
+          spotId,
+        };
+        const saveReq = await userRequest.post("transaction/create", id);
+        console.log(saveReq);
+        console.log(saveReq.data.id);
+        setNewTransaction(saveReq.data.id);
+        localStorage.setItem("currentTransactionId", saveReq.data.id);
+        setIsLoadingTr(false);
+        //setStep(step + 1);
+      } catch (err) {
+        console.log(err);
+        setIsLoadingTr(false);
+        //setErr(err.data)
+      }
+    }
+  };
+
   const handleBuy = async () => {
     try {
       setIsLoadingTr(true);
       const buy = await initiateBuy(spotId);
+      console.log("buy object >>>>", buy);
       if (buy.code === -32603) {
         setIsLoadingTr(false);
-        setErr(buy.data.message);
+        setErrMsg(buy.message);
+      } else if (buy.message.search("User denied transaction signature") >= 1) {
+        setIsLoadingTr(false);
+        setErrMsg(buy.message);
       } else {
         setIsLoadingTr(false);
-        localStorage.setItem("spotToBuy", JSON.stringify(singleSpot));
-        setStep(step + 1);
+        if (errMsg === "") {
+          localStorage.setItem("spotToBuy", JSON.stringify(singleSpot));
+          // await storeTransaction()
+          setStep(step + 1);
+          //setErrMsg("");
+        }
       }
     } catch (err) {
       console.log(err);
       setIsLoadingTr(false);
-      //setErr(err?.data.message);
+      setErrMsg(err?.data?.message);
     }
     setIsLoadingTr(false);
   };
 
-  const storeTransaction = async () => {
-    try {
-      setIsLoadingTr(true);
-      const id = {
-        spotId,
-      };
-      const saveReq = await userRequest.post("transaction/create", id);
-      console.log(saveReq);
-      console.log(saveReq.data.id);
-      localStorage.setItem("currentTransactionId", saveReq.data.id);
-      setIsLoadingTr(false);
-    } catch (err) {
-      console.log(err);
-      setIsLoadingTr(false);
-      //setErr(err.data)
-    }
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // if (step >= 1 && step < 3) {
-    //   setStep(step + 1)
-    // }
     if (step === 1) {
       setIsLoadingTr(true);
       if (!hasPaidOneTimeFee) {
@@ -132,20 +143,19 @@ const BuySpot = () => {
       }
     }
     if (step === 2) {
-      // eslint-disable-next-line
-      const buy = await handleBuy();
-      // eslint-disable-next-line
-      const save = await storeTransaction();
-      // if (!err) {
-      //   localStorage.setItem("spotToBuy", JSON.stringify(singleSpot));
-      //   if (!isLoadingTr && !isLoading) {
-      //     setStep(step + 1);
-      //   }
-      // }
+      handleBuy();
     }
     if (step === 3) {
       // redirect
-      navigate("/saleComplete");
+      navigate(`/saleComplete/${newTransaction}`);
+    }
+  };
+
+  const handleBack = () => {
+    if (step > 1) {
+      setStep(step - 1);
+    } else if (step === 1) {
+      navigate("/home");
     }
   };
 
@@ -163,9 +173,9 @@ const BuySpot = () => {
               <form className="bsBox">
                 <div className="bsBox-Top">
                   <div className="bsb-title">
-                    <Link to="/home">
-                      <img src={Arrow} alt="back" />
-                    </Link>
+                    {/* <Link to="/home"> */}
+                    <img src={Arrow} alt="back" onClick={handleBack} />
+                    {/* </Link> */}
                     <h1>
                       {step === 1
                         ? "Buy whitelist spot"
@@ -191,7 +201,7 @@ const BuySpot = () => {
 
                 <div className="bsBtn">
                   {isLoadingTr && (
-                    <button onClick={handleSubmit} disabled="true">
+                    <button onClick={handleSubmit} disabled={true}>
                       <CircularProgress color="inherit" size="25px" />
                     </button>
                   )}
@@ -208,10 +218,10 @@ const BuySpot = () => {
                         : "Release funds"}
                     </button>
                   )}
-                  {err !== "" && (
+                  {errMsg !== "" && (
                     <div className="errorDesc2 animate__animate animate__fadeIn">
                       <img src={Alert} alt="alert" />
-                      <p>{err}</p>
+                      <p>{errMsg}</p>
                     </div>
                   )}
                 </div>

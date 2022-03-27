@@ -56,9 +56,19 @@ const Transaction = (props) => {
               <p>{props.singleSpot.whiteListPrice} USDC</p>
             </div>
             <div className="bsb-icons">
-              <img src={Discord} alt="discord" />
-              <img src={Instagram} alt="instagram" />
-              <img src={Twitter} alt="twitter" />
+              <a href={`https://discord.com/${props.singleSpot.userDiscordId}`}>
+                <img src={Discord} alt="discord" />
+              </a>
+              <a
+                href={`https://instagram.com/${props.singleSpot.userDiscordId}`}
+              >
+                <img src={Instagram} alt="instagram" />
+              </a>
+              <a
+                href={`https://twitter.com/${props.singleSpot.twitterUsername}`}
+              >
+                <img src={Twitter} alt="twitter" />
+              </a>
             </div>
           </div>
         </div>
