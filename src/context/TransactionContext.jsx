@@ -122,6 +122,7 @@ export const TransactionsProvider = ({ children }) => {
         const buySpot = await transactionsContract.initiateBuy(id);
         // await buySpot.wait();
         console.log(buySpot);
+        console.log(currentAccount);
         return buySpot;
       }
       setTransactionLoading(false);

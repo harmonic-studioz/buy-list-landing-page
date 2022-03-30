@@ -6,11 +6,15 @@ import { CircularProgress } from "@material-ui/core";
 //import { ShareSocial } from 'react-share-social'
 import {
   // EmailShareButton,
-  // FacebookShareButton,
+  FacebookShareButton,
   // TelegramShareButton,
+  // DiscordShareButton,
   TwitterShareButton,
   //WhatsappShareButton,
 } from "react-share";
+import Facebook from "../../assets/icons/facebook.svg";
+import Twitter from "../../assets/icons/twitter.svg";
+//import Insta from "../../assets/icons/ig.svg";
 
 import "./ListSpot.scss";
 //
@@ -370,14 +374,27 @@ const ListSpot = () => {
               )}
               {step3 === "complete" && (
                 <>
-                  <TwitterShareButton
-                    url={`https://buylistnft.com/buySpot/${newSpot.id}`}
-                    className="ls-share"
-                  >
+                  <div className="ls-share">
                     <img src={Share} alt="share" />
                     <p>Share this spot on social media</p>
-                  </TwitterShareButton>
-                  <div className="ls-socials"></div>
+                  </div>
+                  <div className="ls-socials">
+                    <TwitterShareButton
+                      url={`https://buylistnft.com/buySpot/${newSpot.id}`}
+                    >
+                      <img src={Twitter} alt="twitter" />
+                    </TwitterShareButton>
+                    {/* <DiscordShareButton
+                      url={`https://buylistnft.com/buySpot/${newSpot.id}`}
+                    >
+                      <img src={Insta} alt="IG" />
+                    </DiscordShareButton> */}
+                    <FacebookShareButton
+                      url={`https://buylistnft.com/buySpot/${newSpot.id}`}
+                    >
+                      <img src={Facebook} alt="Facebook" />
+                    </FacebookShareButton>
+                  </div>
                 </>
               )}
             </form>

@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./NavW.scss";
 import Logo from "../../assets/logo.png";
 import Search from "../../assets/icons/search.svg";
@@ -16,6 +16,7 @@ import { logger } from "../../utils/logger";
 //let socket;
 const NavWeb = (props) => {
   const Page = "Landing";
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [searchRes, setSearchRes] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -88,8 +89,14 @@ const NavWeb = (props) => {
     handleSearch();
   }, [searchTerm]);
 
-  const disconnect = async () => {
-    let isDisabled = await disonnectWallet();
+  const handleConnect = async () => {
+    if (currentAccount) {
+      let isDisabled = await disonnectWallet();
+      console.log(isDisabled);
+      //navigate("/auth");
+    } else navigate("/auth");
+
+    //let isDisabled = await disonnectWallet();
   };
 
   return (
@@ -179,16 +186,14 @@ const NavWeb = (props) => {
               </div>
             </div>
           )}
-          <Link to="/auth">
-            <button
-              className="nav_Connect"
-              //onClick={disconnect}
-            >
-              {!currentAccount
-                ? "Connect wallet"
-                : shortenAddress(currentAccount)}
-            </button>
-          </Link>
+          {/* <Link to="/auth"> */}
+          <button className="nav_Connect" onClick={handleConnect}>
+            {!currentAccount
+              ? "Connect wallet"
+              : //: shortenAddress(currentAccount)
+                "Disconnect "}
+          </button>
+          {/* </Link> */}
         </div>
       </nav>
     </div>

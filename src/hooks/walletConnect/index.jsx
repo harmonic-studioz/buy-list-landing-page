@@ -92,6 +92,10 @@ const useWalletConnect = () => {
     return new Promise(async (resolve, reject) => {
       try {
         delete window.web3;
+        localStorage.removeItem("user");
+        localStorage.removeItem("currentAccount");
+        localStorage.removeItem("chain");
+        window.location = "/auth";
         resolve(true);
       } catch (error) {
         reject(error);
