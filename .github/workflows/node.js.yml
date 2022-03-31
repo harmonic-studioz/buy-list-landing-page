@@ -25,3 +25,4 @@ jobs:
           cache: "npm"
       - run: yarn
       - run: yarn build
+      - run: mv ./build /var/www/buylistnft.com
