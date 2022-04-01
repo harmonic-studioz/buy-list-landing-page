@@ -1,0 +1,145 @@
+@import '../../variables';
+@import '../../mixins';
+
+.navContainerMobile {
+  background: #fff;
+  position: fixed;
+  z-index: 3;
+  width: 100%;
+  padding: 1em;
+  .navContentM {
+    @include flexRegular(row, space-between);
+    align-items: center;
+    width: 93%;
+    //background: pink;
+    margin: auto;
+    .logoBoxM {
+      width: 50%;
+      img {
+        width: 125px;
+      }
+    }
+    .hamBox {
+      width: 50%;
+      @include flexRegular(row, flex-end);
+      align-items: flex-end;
+      img {
+        width: 35px;
+      }
+    }
+  }
+  .nav-menu {
+    position: fixed;
+    background: #fff;
+    padding: 1em 0;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    //font-weight: 100;
+    //color: $blueMain;
+    //color: #0000;
+    .menuContent {
+      .menuTop {
+        position: relative;
+        margin: 2.5em 0 1em 0;
+        //padding: 1em;
+        //background: #bcc;
+        width: 100%;
+        .me-logo {
+          @include flexRegular(row, center);
+          width: 100%;
+          //background: pink;
+          img {
+            width: 150px;
+          }
+        }
+        .closeMenu {
+          position: absolute;
+          left: 90%;
+          top: 2%;
+          img {
+            width: 35px;
+          }
+        }
+      }
+      .menuBody {
+        //background: lavender;
+        @include flexRegular(column, center);
+
+        margin: 4em auto 0 auto;
+
+        font-weight: 700;
+        font-size: 2em;
+
+        .menuLinks {
+          list-style: none;
+          li {
+            text-align: center;
+            font-weight: lighter;
+            margin-bottom: 13vh;
+          }
+        }
+      }
+      .menuBtns {
+        @include flexRegular(row, center);
+        // button:nth-of-type(1) {
+        //   @include buttonRegular(none, 25vw, 55px);
+        //   border: 2px solid $blueMain;
+        //   color: $blueMain;
+        //   margin-right: 2em;
+        //   font-size: 1.26em;
+        // }
+        button {
+          @include buttonRegular($blueMain, 60vw, 7vh);
+          max-width: 425px;
+          color: #fff;
+          font-size: 1.2em;
+        }
+      }
+    }
+  }
+  @media (max-width: 750px) {
+    .nav-menu {
+      padding-left: 0;
+      .menuContent {
+        .menuBody {
+          margin-top: 6em;
+          font-size: 1.4em;
+        }
+        // .menuBtns {
+        //   button {
+        //     width: 40vw !important;
+        //     height: 50px !important;
+        //     font-size: 16px !important;
+        //   }
+        // }
+      }
+    }
+  }
+  @media (max-width: 420px) {
+    .navContentM {
+      .logoBoxM {
+        img {
+          margin-left: -10px;
+        }
+      }
+    }
+    .nav-menu {
+      padding-left: 0;
+      .menuContent {
+        .menuBody {
+          font-size: 1.35em;
+        }
+        .menuTop {
+          .closeMenu {
+            img {
+              width: 25px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
