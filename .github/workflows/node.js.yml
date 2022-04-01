@@ -23,6 +23,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
-      - run: yarn install
-      - run: yarn run  build
-      - run: mv ./build /var/www/buylistnft.com
+      # - run: yarn install
+      # - run: yarn run  build
+      # - run: mv ./build /var/www/buylistnft.com
