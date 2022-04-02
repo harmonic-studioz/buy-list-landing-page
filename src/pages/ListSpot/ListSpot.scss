@@ -147,7 +147,8 @@
         }
       }
       .ls-share {
-        margin: 6em auto 2em auto;
+        //background: pink;
+        margin: 3em auto 1em auto;
         text-align: center;
         @include flexRegular(row, center);
         img {
@@ -155,6 +156,13 @@
         }
         p {
           color: $blueMain;
+        }
+      }
+      .ls-socials {
+        @include flexRegular(row, center);
+        img {
+          margin-right: 1.5em;
+          cursor: pointer;
         }
       }
     }

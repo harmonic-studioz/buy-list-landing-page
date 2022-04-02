@@ -91,15 +91,17 @@ const BuySpot = () => {
       console.log("buy object >>>>", buy);
       if (buy.code === -32603) {
         setIsLoadingTr(false);
-        setErrMsg(buy.message);
-      } else if (buy.message.search("User denied transaction signature") >= 1) {
+        setErrMsg(buy.data.message);
+      } else if (
+        buy?.message?.search("User denied transaction signature") >= 1
+      ) {
         setIsLoadingTr(false);
         setErrMsg(buy.message);
       } else {
         setIsLoadingTr(false);
         if (errMsg === "") {
           localStorage.setItem("spotToBuy", JSON.stringify(singleSpot));
-          // await storeTransaction()
+          await storeTransaction();
           setStep(step + 1);
           //setErrMsg("");
         }

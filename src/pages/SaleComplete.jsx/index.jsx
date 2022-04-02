@@ -17,7 +17,7 @@ import Alert from "../../assets/icons/alert.svg";
 const SaleComplete = () => {
   const [authState] = useContext(AuthContext);
   const userId = authState.user.id;
-  console.log("user", userId);
+  console.log("currentUser", userId);
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -34,6 +34,9 @@ const SaleComplete = () => {
   const [accepted, setAccepted] = useState(false);
   //const transactionId = localStorage.getItem("currentTransactionId");
   const transactionId = useParams().transactionId;
+  const { newMsg } = useContext(TransactionContext);
+
+  const [newMsgVal, setNewMsgVal] = newMsg;
 
   const storeRelease = async () => {
     try {
@@ -79,24 +82,24 @@ const SaleComplete = () => {
         const loadReq = await userRequest.get(
           `chat?transactionId=${transactionId}`
         );
-        console.log(loadReq);
+        console.log(loadReq.data[0].senderId);
         setMessages(loadReq.data);
       } catch (err) {
         console.log(err);
       }
     };
     loadMessages();
-  }, [transactionId, count]);
+  }, [transactionId, count, newMsgVal]);
 
   const handleDispute = () => {};
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     // eslint-disable-next-line
     const release = await handleRelease();
     // eslint-disable-next-line
     const save = await storeRelease();
-    //setComplete(true);
+    setComplete(true);
   };
 
   const sendMessage = async () => {
@@ -104,7 +107,7 @@ const SaleComplete = () => {
       try {
         const details = {
           text: chatMessage,
-          transactionId: localStorage.getItem("currentTransactionId"),
+          transactionId,
         };
         const sendReq = await userRequest.post("chat", details);
         console.log(sendReq);
@@ -144,10 +147,12 @@ const SaleComplete = () => {
               <Transaction singleSpot={singleSpot} />
               <div className="bsBtn">
                 <div className="bs-confirm">
-                  <AcceptBtn onClick={() => setAccepted(true)} />
+                  <AcceptBtn onClick={() => setAccepted(!accepted)} />
                   <p>I have confirmed whitelist spot</p>
                 </div>
                 <button
+                //type="submit"
+                //onClick={handleSubmit}
                 //</div>onClick={handleRelease}
                 //disabled={!accepted}
                 >
@@ -173,7 +178,7 @@ const SaleComplete = () => {
       ) : (
         <div className="animate__animated animate__fadeIn bsContainer">
           <div className="bsContent2">
-            <form className="bsBox">
+            <form className="bsBox" onSubmit={handleSubmit}>
               <div className="bsBox-Top">
                 <div className="bsb-title">
                   <Link to="/home">
@@ -229,26 +234,33 @@ const SaleComplete = () => {
                   />
                 </div>
                 <div className="scc-body">
-                  {messages.map(
-                    (msg) =>
-                      msg.id === userId && (
-                        <div className="receiveContent">
+                  {messages.map((msg) => (
+                    <>
+                      {msg.senderId === userId ? (
+                        <div className="receiveContent" key={msg.id}>
                           <div className="receiveBox">
                             <p> {msg.text}</p>
                           </div>
                         </div>
-                      )
-                  )}
-                  {messages.map(
+                      ) : (
+                        <div className="sentContent" key={msg.id}>
+                          <div className="sentBox">
+                            <p> {msg.text}</p>
+                          </div>
+                        </div>
+                      )}
+                    </>
+                  ))}
+                  {/* {messages.map(
                     (msg) =>
-                      msg.id !== userId && (
+                      msg.id === userId && (
                         <div className="sentContent">
                           <div className="sentBox">
                             <p> {msg.text}</p>
                           </div>
                         </div>
                       )
-                  )}
+                  )} */}
                 </div>
                 <div className="scc-bottom">
                   <div className="scc-inputBox">

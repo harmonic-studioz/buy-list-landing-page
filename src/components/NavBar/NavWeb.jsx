@@ -5,7 +5,9 @@ import Logo from "../../assets/logo.png";
 import Search from "../../assets/icons/search.svg";
 import Add from "../../assets/icons/add.svg";
 import { CircularProgress } from "@material-ui/core";
-import Notification from "../../components/Modals/Notification";
+import Notification from "../../components/Modals/Notification2";
+import ReactHowler from "react-howler";
+import Audio from "../../assets/sound/alert.mp3";
 
 import { TransactionContext } from "../../context/TransactionContext";
 import UniContext from "../../context/UniContext";
@@ -31,37 +33,31 @@ const NavWeb = (props) => {
   const [newTransactionVal, setNewTransactionVal] = newTransaction;
   const [newMsgVal, setNewMsgVal] = newMsg;
 
-  // useEffect(() => {
-  // socket = io(
-  //   `${BASE_URL}/?token=${TOKEN}`,
-  //   { transports: ["websocket"] },
-  //   headers
-  // );
-  // return () => {
-  //   socket.emit("disconnect");
-  //   socket.off();
-  // };
-  // }, [BASE_URL, TOKEN]);
-
   useEffect(() => {
     console.log(newTransactionVal);
-    //if (newTransactionVal) {
-    setNotificationMsg(
-      `Payment has been made for wl #${newTransactionVal?.spotIdValue}`
-    );
-    //}
-    //if (newMsgVal) {
-    setNotificationMsg(`New chat message: "${newMsgVal?.text}"`);
-    localStorage.setItem("currentTransactionId", newMsgVal?.transactionId);
-    //}
+    if (newTransactionVal) {
+      setNotificationMsg(
+        `Payment has been made for wl #${newTransactionVal?.spotIdValue}`
+      );
+    }
+    if (newMsgVal) {
+      setNotificationMsg(`New chat message: "${newMsgVal?.text}"`);
+      localStorage.setItem("currentTransactionId", newMsgVal?.transactionId);
+    }
     setTransactionAlert(true);
   }, [newTransactionVal, newMsgVal]);
 
   const closeNotification = () => {
     setNewTransactionVal();
     setNewMsgVal();
-    //setTransactionAlert(false)
-    prompt("working");
+    setTransactionAlert(false);
+    if (newTransactionVal) {
+      navigate(`/saleComplete/${newTransactionVal?.transactionId}`);
+    }
+    if (newMsgVal) {
+      navigate(`/saleComplete/${newMsgVal?.transactionId}`);
+    }
+    // prompt("working");
   };
 
   useEffect(() => {
@@ -106,8 +102,12 @@ const NavWeb = (props) => {
           <Notification
             status={transactionAlert}
             message={notificationMsg}
-            onClick={closeNotification}
+            closeNotification={closeNotification}
           />
+        ))}
+      {(newTransactionVal && newTransactionVal !== "") ||
+        (newMsgVal && newMsgVal !== "" && (
+          <ReactHowler src={Audio} playing={true} />
         ))}
 
       <nav className={props.className}>
@@ -188,10 +188,10 @@ const NavWeb = (props) => {
           )}
           {/* <Link to="/auth"> */}
           <button className="nav_Connect" onClick={handleConnect}>
-            {!currentAccount
-              ? "Connect wallet"
+            {currentAccount && props.className !== "navContentLanding"
+              ? "Disconnect"
               : //: shortenAddress(currentAccount)
-                "Disconnect "}
+                "Connect "}
           </button>
           {/* </Link> */}
         </div>

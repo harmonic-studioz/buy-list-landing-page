@@ -1,5 +1,6 @@
 {
   "files": {
+<<<<<<< HEAD
     "main.css": "/static/css/main.d87eca23.chunk.css",
     "main.js": "/static/js/main.34d4cf7f.chunk.js",
     "main.js.map": "/static/js/main.34d4cf7f.chunk.js.map",
@@ -12,10 +13,25 @@
     "static/css/2.745c7263.chunk.css.map": "/static/css/2.745c7263.chunk.css.map",
     "static/css/main.d87eca23.chunk.css.map": "/static/css/main.d87eca23.chunk.css.map",
     "static/js/2.704a0b9b.chunk.js.LICENSE.txt": "/static/js/2.704a0b9b.chunk.js.LICENSE.txt",
+=======
+    "main.css": "/static/css/main.fb89accc.chunk.css",
+    "main.js": "/static/js/main.b85f2d97.chunk.js",
+    "main.js.map": "/static/js/main.b85f2d97.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.91ee1cb5.js",
+    "runtime-main.js.map": "/static/js/runtime-main.91ee1cb5.js.map",
+    "static/css/2.745c7263.chunk.css": "/static/css/2.745c7263.chunk.css",
+    "static/js/2.67088382.chunk.js": "/static/js/2.67088382.chunk.js",
+    "static/js/2.67088382.chunk.js.map": "/static/js/2.67088382.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/2.745c7263.chunk.css.map": "/static/css/2.745c7263.chunk.css.map",
+    "static/css/main.fb89accc.chunk.css.map": "/static/css/main.fb89accc.chunk.css.map",
+    "static/js/2.67088382.chunk.js.LICENSE.txt": "/static/js/2.67088382.chunk.js.LICENSE.txt",
+>>>>>>> 1c5d21a (feature update, bug fixes)
     "static/media/active1.fe40f10c.svg": "/static/media/active1.fe40f10c.svg",
     "static/media/active2.17b520ed.svg": "/static/media/active2.17b520ed.svg",
     "static/media/active3.2ee0ca24.svg": "/static/media/active3.2ee0ca24.svg",
     "static/media/add.5ee5e566.svg": "/static/media/add.5ee5e566.svg",
+    "static/media/alert.566ce07f.mp3": "/static/media/alert.566ce07f.mp3",
     "static/media/alert.89158fda.svg": "/static/media/alert.89158fda.svg",
     "static/media/arrow1.b62855ef.svg": "/static/media/arrow1.b62855ef.svg",
     "static/media/avatar.b61f1bb5.png": "/static/media/avatar.b61f1bb5.png",
@@ -67,8 +83,14 @@
   "entrypoints": [
     "static/js/runtime-main.91ee1cb5.js",
     "static/css/2.745c7263.chunk.css",
+<<<<<<< HEAD
     "static/js/2.704a0b9b.chunk.js",
     "static/css/main.d87eca23.chunk.css",
     "static/js/main.34d4cf7f.chunk.js"
+=======
+    "static/js/2.67088382.chunk.js",
+    "static/css/main.fb89accc.chunk.css",
+    "static/js/main.b85f2d97.chunk.js"
+>>>>>>> 1c5d21a (feature update, bug fixes)
   ]
 }

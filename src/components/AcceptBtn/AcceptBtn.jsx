@@ -6,10 +6,9 @@ const AcceptBtn = () => {
       <input
         type="checkbox"
         name="checkbox"
-        value="accept"
+        //value="accept"
         id="checkbox1"
         required
-        //onClick={this.handleCheckBox}
       />
       <span className="radio-btn">
         <i className="las la-check"></i>
