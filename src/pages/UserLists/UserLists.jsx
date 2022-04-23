@@ -116,6 +116,11 @@ const UserLists = () => {
                     />
                   ))
                 )}
+                {spots.currentSpots.length < 1 && !isLoading && (
+                  <div className="spotsLoading">
+                    <p>Nothing to see here yet...</p>
+                  </div>
+                )}
               </div>
             </div>
           </div>

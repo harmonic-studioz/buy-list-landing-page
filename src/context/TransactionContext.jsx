@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-//import { useNavigate } from 'react-router-dom'
 import { ethers } from "ethers";
 // import { contractABI, contractAddress } from "../utils/constants";
 // import { approveABI, approveAddress } from "../utils/constants";
@@ -37,6 +36,8 @@ export const TransactionsProvider = ({ children }) => {
   //   localStorage.getItem("currentAccount") || undefined
   // );
   const [transactionLoading, setTransactionLoading] = useState(false);
+  const [newTransaction, setNewTransaction] = useState();
+  const [newMsg, setNewMsg] = useState();
   const currentAccount = localStorage.getItem("currentAccount");
 
   // const connectWallet = async () => {
@@ -60,9 +61,11 @@ export const TransactionsProvider = ({ children }) => {
       setTransactionLoading(true);
       if (ethereum) {
         const transactionsContract = createEthereumContract();
-        const newSpot = await transactionsContract.create(
+        const newSpot = await transactionsContract.createSellOrder(
           inputs.wlPrice,
           inputs.mintPrice
+          // inputs.mintPrice,
+          // inputs.wlPrice
         );
         setTransactionLoading(true);
         await newSpot.wait();
@@ -119,6 +122,7 @@ export const TransactionsProvider = ({ children }) => {
         const buySpot = await transactionsContract.initiateBuy(id);
         // await buySpot.wait();
         console.log(buySpot);
+        console.log(currentAccount);
         return buySpot;
       }
       setTransactionLoading(false);
@@ -160,6 +164,8 @@ export const TransactionsProvider = ({ children }) => {
         approveSpend,
         initiateBuy,
         approvePay,
+        newTransaction: [newTransaction, setNewTransaction],
+        newMsg: [newMsg, setNewMsg],
       }}
     >
       {children}

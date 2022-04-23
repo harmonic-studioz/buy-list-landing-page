@@ -14,6 +14,7 @@ const useWalletConnect = () => {
   const [currentAccount, setCurrentAccount] = useState(
     localStorage.getItem("currentAccount") || undefined
   );
+  const [chain, setChain] = useState();
   const provider = new WalletConnectProvider({
     rpc: {
       "0xfa2": "https://rpc.testnet.fantom.network",
@@ -32,7 +33,9 @@ const useWalletConnect = () => {
 
       // Subscribe to chainId change
       provider.on("chainChanged", (chainId) => {
-        console.log(chainId);
+        console.log("chainId>>>>", chainId);
+        setChain(chainId);
+        localStorage.setItem("chain", chainId);
       });
 
       // Subscribe to session disconnection
@@ -44,6 +47,8 @@ const useWalletConnect = () => {
     }
   };
 
+  //  delete window.web3;
+
   const connectToMetaMask = async () => {
     if (window.ethereum) {
       try {
@@ -52,6 +57,9 @@ const useWalletConnect = () => {
         });
         setWeb3(new Web3(window.ethereum));
         localStorage.setItem("currentAccount", accounts[0]);
+        setChain(window.ethereum.chainId);
+        console.log("network1 >> ", window.ethereum.chainId);
+        localStorage.setItem("chain", window.ethereum.chainId);
         setCurrentAccount(accounts[0]);
       } catch (err) {
         console.log(err);
@@ -60,6 +68,39 @@ const useWalletConnect = () => {
       setError("Please install Meta mask");
       logger(error);
     }
+  };
+  // const disonnectWallet = async () => {
+  //   // await window.ethereum.request({
+  //   //   method: "wallet_requestPermissions",
+  //   //   params: [
+  //   //     {
+  //   //       eth_accounts: {},
+  //   //     },
+  //   //   ],
+  //   // });
+  //   try {
+  //     provider.disconnect();
+  //     // localStorage.removeItem("user");
+  //     // localStorage.removeItem("currentAccount");
+  //     // window.location = "/auth";
+  //     console.log("exiting");
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+  const disonnectWallet = () => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        delete window.web3;
+        localStorage.removeItem("user");
+        localStorage.removeItem("currentAccount");
+        localStorage.removeItem("chain");
+        window.location = "/auth";
+        resolve(true);
+      } catch (error) {
+        reject(error);
+      }
+    });
   };
 
   const initContracts = () => {
@@ -129,13 +170,20 @@ const useWalletConnect = () => {
   //   }, [contracts]);
 
   useEffect(() => {
+    // setChain(window.ethereum.chainId);
+    // console.log("network1 >> ", window.ethereum.chainId);
+    // localStorage.setItem("chain", window.ethereum.chainId);
     const onWalletChange = async () => {
       try {
+        //if (window.ethereum.chainId) {
+
+        // }
         // log out user on account change
         window.ethereum.on("accountsChanged", (accounts) => {
           try {
             localStorage.removeItem("user");
             localStorage.removeItem("currentAccount");
+            localStorage.removeItem("chain");
             window.location = "/auth";
             console.log("exiting");
           } catch (err) {
@@ -160,9 +208,18 @@ const useWalletConnect = () => {
         //   }
         // });
 
-        // Subscribe to chainId change
+        //Subscribe to chainId change
         window.ethereum.on("chainChanged", (chainId) => {
           console.log(chainId);
+          try {
+            localStorage.removeItem("user");
+            localStorage.removeItem("currentAccount");
+            localStorage.removeItem("chain");
+            window.location = "/auth";
+            console.log("exiting");
+          } catch (err) {
+            console.log(err);
+          }
         });
 
         // Subscribe to session disconnection
@@ -178,10 +235,11 @@ const useWalletConnect = () => {
       }
     };
     onWalletChange();
-  }, [currentAccount]);
+  }, [currentAccount, chain]);
 
   return {
     enableWalletConnect,
+    disonnectWallet,
     web3,
     connectToMetaMask,
     contracts,

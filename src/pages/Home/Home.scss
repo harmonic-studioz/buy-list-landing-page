@@ -1,5 +1,5 @@
-@import "../../variables";
-@import "../../mixins";
+@import '../../variables';
+@import '../../mixins';
 
 // Hero Section
 .heroHomeContainer {
@@ -161,6 +161,10 @@
       margin-top: 3em;
       width: 25vw;
       max-width: 300px;
+      .spotDisable {
+        pointer-events: none;
+        opacity: 0.5;
+      }
       .spotBx {
         position: relative;
         border: 1px solid #20709b;
@@ -301,6 +305,10 @@
         } //
       }
     }
+  }
+  .poolTop {
+    @include flexRegular(row, space-between);
+    width: 60%;
   }
   .spotBtm {
     @include flexRegular(row, flex-end);
