@@ -1,5 +1,5 @@
-@import "../../variables";
-@import "../../mixins";
+@import '../../variables';
+@import '../../mixins';
 
 .bsContainer {
   position: relative;
@@ -17,6 +17,7 @@
 .bsContent {
   transition: 0.3s ease-in;
   @include flexRegular(row, flex-start);
+
   width: 90%;
   max-width: 1400px;
   padding: 0;
@@ -34,7 +35,7 @@
       .bsb-title {
         @include flexRegular(row, center);
         // background: coral;
-        font-family: "Montserrat";
+        font-family: 'Montserrat';
         position: relative;
         img {
           // margin-right: 2em;
@@ -130,7 +131,7 @@
       .bsb-title {
         @include flexRegular(row, center);
         // background: coral;
-        font-family: "Montserrat";
+        font-family: 'Montserrat';
         position: relative;
         img {
           // margin-right: 2em;
@@ -446,6 +447,7 @@
 }
 
 .bs-screenshots {
+  cursor: pointer;
   margin: 2em 0 1em 0;
   h3 {
     color: #4e4b66;
@@ -457,6 +459,7 @@
       width: 25px;
       height: 25px;
       margin: 0.5em 0.5em 0.5em 0;
+      object-fit: cover;
     }
   }
 }
@@ -518,7 +521,7 @@
 .bst-walletDesc {
   margin-top: 1em;
   p {
-    font-family: "Montserrat";
+    font-family: 'Montserrat';
     color: #4e4b66;
   }
   .copyBx {

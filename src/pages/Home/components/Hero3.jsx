@@ -74,7 +74,7 @@ const Hero3 = () => {
           <p className="hhTxt">
             Welcome to the worlds first digital whitelist marketplace
           </p>
-          <Link to="/listSpot" className="hhBtn">
+          <Link to="/listOptions" className="hhBtn">
             <p>List a whitelist spot</p>
             <img src={Arrow} alt="next" />
           </Link>

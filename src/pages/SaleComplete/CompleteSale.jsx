@@ -1,106 +1,126 @@
-import { useState, useEffect, useContext } from "react";
-import { useParams } from "react-router";
-import { Link } from "react-router-dom";
-import NavBar from "../../components/NavBar/NavBar";
-import AcceptBtn from "../../components/AcceptBtn/AcceptBtn";
-import Arrow from "../../assets/icons/arrow1.svg";
-import "./SaleComplete.scss";
-import { CircularProgress } from "@material-ui/core";
-import Transaction from "../BuySpot/components/Transaction";
-import Modal01 from "../../components/Modals/Modal1";
-import ChatIcon from "../../assets/icons/chat.svg";
-import { TransactionContext } from "../../context/TransactionContext";
-import { AuthContext } from "../../context/AuthContext";
-import { userRequest } from "../../utils/requestMethods";
-import Alert from "../../assets/icons/alert.svg";
+import { useState, useEffect, useContext, useRef } from 'react'
+import { useParams } from 'react-router'
+import { Link } from 'react-router-dom'
+import NavBar from '../../components/NavBar/NavBar'
+import AcceptBtn from '../../components/AcceptBtn/AcceptBtn'
+import Arrow from '../../assets/icons/arrow1.svg'
+import './SaleComplete.scss'
+import { CircularProgress } from '@material-ui/core'
+import Transaction from '../BuySpot/components/Transaction'
+import Modal01 from '../../components/Modals/Modal1'
+import ChatIcon from '../../assets/icons/chat.svg'
+import { TransactionContext } from '../../context/TransactionContext'
+import { AuthContext } from '../../context/AuthContext'
+import { userRequest, publicRequest } from '../../utils/requestMethods'
+import Alert from '../../assets/icons/alert.svg'
 
-const SaleComplete = () => {
-  const [authState] = useContext(AuthContext);
-  const userId = authState.user.id;
-  console.log("currentUser", userId);
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+const CompleteSale = () => {
+  const [authState] = useContext(AuthContext)
+  const userId = authState.user.id
+  console.log('currentUser', userId)
+  const scrollRef = useRef()
 
-  const [chatView, setChatView] = useState(true);
-  const [complete, setComplete] = useState(false);
-  const singleSpot = JSON.parse(localStorage.getItem("spotToBuy"));
-  const [isLoading, setIsLoading] = useState(false);
-  const { approvePay } = useContext(TransactionContext);
-  const [err, setErr] = useState("");
-  const [chatMessage, setChatMessage] = useState("");
-  const [messages, setMessages] = useState([]);
-  const [count, setCount] = useState(1);
-  const [accepted, setAccepted] = useState(false);
+  const [chatView, setChatView] = useState(true)
+  const [complete, setComplete] = useState(false)
+  //const singleSpot = JSON.parse(localStorage.getItem('spotToBuy'))
+  const spotId = localStorage.getItem('spotInFocus')
+  const [singleSpot, setSingleSpot] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
+  //const { approvePay } = useContext(TransactionContext)
+  const [err, setErr] = useState('')
+  const [chatMessage, setChatMessage] = useState('')
+  const [messages, setMessages] = useState([])
+  const [count, setCount] = useState(1)
+  const [accepted, setAccepted] = useState(false)
   //const transactionId = localStorage.getItem("currentTransactionId");
-  const transactionId = useParams().transactionId;
-  const { newMsg } = useContext(TransactionContext);
+  const transactionId = useParams().transactionId
+  const { newTransaction, newMsg } = useContext(TransactionContext)
 
-  const [newMsgVal, setNewMsgVal] = newMsg;
+  const [newMsgVal, setNewMsgVal] = newMsg
+  const [newTransactionVal, setNewTransactionVal] = newTransaction
 
-  const storeRelease = async () => {
+  useEffect(() => {
+    window.scrollTo(0, 0)
+    const getSpot = async () => {
+      try {
+        console.log(spotId)
+        const spotsReq = await publicRequest.get(`spot/single?id=${spotId}`)
+        console.log('REQ RESPONSE: ', spotsReq.data)
+        setSingleSpot(spotsReq.data)
+        setIsLoading(false)
+      } catch (err) {
+        console.log(' ERROR::: ', err)
+      }
+    }
+    getSpot()
+  }, [])
+  const completeSale = async () => {
     try {
-      setIsLoading(true);
+      setIsLoading(true)
       const id = {
-        id: singleSpot.id,
-      };
-      if (err === "") {
-        const saveReq = await userRequest.post("transaction/release-fund", id);
-        console.log(saveReq);
-        setIsLoading(false);
+        //id: singleSpot.id,
+        id: spotId,
+      }
+      if (err === '') {
+        const saveReq = await userRequest.post('transaction/complete-sale', id)
+        console.log(saveReq)
+
+        setIsLoading(false)
         //setComplete(true);
       }
     } catch (err) {
-      console.log(err);
-      setIsLoading(false);
+      console.log(err)
+      setIsLoading(false)
       //setErr(err.data)
     }
-  };
+  }
 
-  const handleRelease = async () => {
-    try {
-      setIsLoading(true);
-      const release = await approvePay(singleSpot.id);
-      console.log(release);
-      if (release.code === -32603) {
-        setErr("Sorry an error occured.");
-        setErr(release.data.message);
-      } else {
-        if (err === "") {
-          await storeRelease();
-        }
-      }
-      setIsLoading(false);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  //   const handleRelease = async () => {
+  //     try {
+  //       setIsLoading(true)
+  //       const release = await approvePay(singleSpot?.id)
+  //       console.log(release)
+  //       if (release.code === -32603) {
+  //         setErr('Sorry an error occured.')
+  //         setErr(release.data.message)
+  //       } else {
+  //         if (err === '') {
+  //           await storeRelease()
+  //         }
+  //       }
+  //       setIsLoading(false)
+  //     } catch (err) {
+  //       console.log(err)
+  //     }
+  //   }
 
   useEffect(() => {
     const loadMessages = async () => {
       try {
         const loadReq = await userRequest.get(
-          `chat?transactionId=${transactionId}`
-        );
-        console.log(loadReq.data[0].senderId);
-        setMessages(loadReq.data);
+          `chat?transactionId=${transactionId}`,
+        )
+        console.log(loadReq.data)
+        setMessages(loadReq.data)
       } catch (err) {
-        console.log(err);
+        console.log(err)
       }
-    };
-    loadMessages();
-  }, [transactionId, count, newMsgVal]);
+      scrollRef.current?.scrollIntoView({ behavior: 'smooth' })
+    }
+    scrollRef.current?.scrollIntoView({ behavior: 'smooth' })
+    loadMessages()
+  }, [transactionId, count, newMsgVal, newTransactionVal])
 
-  const handleDispute = () => {};
+  const handleDispute = () => {}
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
+    event.preventDefault()
     // eslint-disable-next-line
-    const release = await handleRelease();
+    // const release = await handleRelease()
     // eslint-disable-next-line
-    const save = await storeRelease();
-    setComplete(true);
-  };
+    const save = await completeSale()
+    setComplete(true)
+  }
 
   const sendMessage = async () => {
     if (chatMessage) {
@@ -108,19 +128,20 @@ const SaleComplete = () => {
         const details = {
           text: chatMessage,
           transactionId,
-        };
-        const sendReq = await userRequest.post("chat", details);
-        console.log(sendReq);
-        setChatMessage("");
-        setCount(count + 1);
+        }
+        const sendReq = await userRequest.post('chat', details)
+        console.log(sendReq)
+        setMessages([...messages, sendReq.data])
+        setChatMessage('')
+        setCount(count + 1)
       } catch (err) {
-        console.log(err);
+        console.log(err)
       }
     }
-  };
+  }
   const handleClose = () => {
-    setComplete(false);
-  };
+    setComplete(false)
+  }
 
   return (
     <>
@@ -134,7 +155,7 @@ const SaleComplete = () => {
                   <Link to="/home">
                     <img src={Arrow} alt="back" />
                   </Link>
-                  <h1>Buy whitelist Spot</h1>
+                  <h1>Sell your whitelist Spot</h1>
                   <div className="chatIcBox">
                     <img
                       onClick={() => setChatView(!chatView)}
@@ -148,7 +169,7 @@ const SaleComplete = () => {
               <div className="bsBtn">
                 <div className="bs-confirm">
                   <AcceptBtn onClick={() => setAccepted(!accepted)} />
-                  <p>I have confirmed whitelist spot</p>
+                  <p>I have updated the whitelist spot</p>
                 </div>
                 <button
                 //type="submit"
@@ -159,10 +180,10 @@ const SaleComplete = () => {
                   {isLoading ? (
                     <CircularProgress color="inherit" size="25px" />
                   ) : (
-                    "Release funds"
+                    'Complete Sale'
                   )}
                 </button>
-                {err !== "" && (
+                {err !== '' && (
                   <div className="errorDesc2 animate__animate animate__fadeIn">
                     <img src={Alert} alt="alert" />
                     <p>{err} </p>
@@ -184,7 +205,7 @@ const SaleComplete = () => {
                   <Link to="/home">
                     <img src={Arrow} alt="back" />
                   </Link>
-                  <h1>Buy whitelist Spot</h1>
+                  <h1>Sell your whitelist Spot</h1>
                   <div className="chatIcBox">
                     {!chatView && (
                       <img
@@ -199,8 +220,9 @@ const SaleComplete = () => {
               <Transaction singleSpot={singleSpot} />
               <div className="bs-confirm">
                 <AcceptBtn />
-                <p>I have confirmed whitelist spot</p>
+                <p>I have updated the whitelist spot</p>
               </div>
+
               <div className="bsBtn">
                 <button
                 //</div>onClick={handleSubmit}
@@ -208,10 +230,10 @@ const SaleComplete = () => {
                   {isLoading ? (
                     <CircularProgress color="inherit" size="25px" />
                   ) : (
-                    "Release funds"
+                    'Complete Sale'
                   )}
                 </button>
-                {err !== "" && (
+                {err !== '' && (
                   <div className="errorDesc2 animate__animate animate__fadeIn">
                     <img src={Alert} alt="alert" />
                     <p>{err} </p>
@@ -237,13 +259,21 @@ const SaleComplete = () => {
                   {messages.map((msg) => (
                     <>
                       {msg.senderId === userId ? (
-                        <div className="receiveContent" key={msg.id}>
+                        <div
+                          className="receiveContent"
+                          key={msg.id}
+                          ref={scrollRef}
+                        >
                           <div className="receiveBox">
                             <p> {msg.text}</p>
                           </div>
                         </div>
                       ) : (
-                        <div className="sentContent" key={msg.id}>
+                        <div
+                          className="sentContent"
+                          key={msg.id}
+                          ref={scrollRef}
+                        >
                           <div className="sentBox">
                             <p> {msg.text}</p>
                           </div>
@@ -273,9 +303,9 @@ const SaleComplete = () => {
                       //   event.key === "Enter" ? sendMessage : null
                       // }
                       onKeyPress={(event) => {
-                        if (event.key === "Enter") {
-                          event.preventDefault();
-                          sendMessage();
+                        if (event.key === 'Enter') {
+                          event.preventDefault()
+                          sendMessage()
                         }
                       }}
                     />
@@ -289,16 +319,13 @@ const SaleComplete = () => {
       {complete && (
         <Modal01
           message={
-            "Congratulations, you have bought WL spot #" +
-            singleSpot.id +
-            " on " +
-            singleSpot.projectName
+            'Congratulations, you have sold your WL spot #' + singleSpot?.id
           }
           handleClose={handleClose}
         />
       )}
     </>
-  );
-};
+  )
+}
 
-export default SaleComplete;
+export default CompleteSale

@@ -1,34 +1,34 @@
-import { useEffect, useState } from "react";
-import NavBar from "../../components/NavBar/NavBar";
-import Container from "../../components/Container/Container";
+import { useEffect, useState } from 'react'
+import NavBar from '../../components/NavBar/NavBar'
+import Container from '../../components/Container/Container'
 //import Hero from "./components/Hero3";
-import Spots from "../Home/components/Spots";
-import Footer from "../../components/Footer/Footer";
-import { CircularProgress } from "@material-ui/core";
+import Spots from '../Home/components/Spots'
+import Footer from '../../components/Footer/Footer'
+import { CircularProgress } from '@material-ui/core'
 
-import { publicRequest } from "../../utils/requestMethods";
-import { logger } from "../../utils/logger";
+import { publicRequest } from '../../utils/requestMethods'
+import { logger } from '../../utils/logger'
 
 const Pool = () => {
-  const [activeSpots, setActiveSpots] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [activeSpots, setActiveSpots] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scrollTo(0, 0)
 
     const getActiveSpots = async () => {
       try {
-        const spotsReq = await publicRequest.get("spot/get-spots");
+        const spotsReq = await publicRequest.get('spot/get-spots')
         //logger('REQ RESPONSE: ', spotsReq.data.result)
-        setActiveSpots(spotsReq.data.result);
-        setIsLoading(false);
+        setActiveSpots(spotsReq.data.result)
+        setIsLoading(false)
       } catch (err) {
-        logger(" ERROR::: ", err);
-        setIsLoading(false);
+        logger(' ERROR::: ', err)
+        setIsLoading(false)
       }
-    };
-    getActiveSpots();
-  }, []);
+    }
+    getActiveSpots()
+  }, [])
 
   return (
     <>
@@ -46,6 +46,7 @@ const Pool = () => {
               title="Whitelist Pool"
               type="regular"
               screen="all"
+              page="pool"
             />
           )
         )}
@@ -53,7 +54,7 @@ const Pool = () => {
         <Footer />
       </Container>
     </>
-  );
-};
+  )
+}
 
-export default Pool;
+export default Pool

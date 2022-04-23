@@ -1,8 +1,8 @@
-import ReactDOM from "react-dom";
+import ReactDOM from 'react-dom'
 //import { Link } from 'react-router-dom'
-import Close from "../../../assets/icons/close-circle.svg";
+//import Close from "../../../assets/icons/close-circle.svg";
 
-const portalElement = document.getElementById("overlayMain");
+const portalElement = document.getElementById('overlayMain')
 
 const imageModal = (props) => {
   return (
@@ -12,7 +12,7 @@ const imageModal = (props) => {
           className="animate__animated animate__fadeIn modalOverlay"
           onClick={props.handleClose}
         ></div>,
-        portalElement
+        portalElement,
       )}
       {ReactDOM.createPortal(
         <div className="animate__animated animate__zoomInUp modal2">
@@ -23,16 +23,16 @@ const imageModal = (props) => {
                   ? props.singleSpot.discordShot
                   : props.imgView === 2
                   ? props.singleSpot.twitterShot
-                  : ""
+                  : ''
               }
               alt="screenshot"
             />
           </div>
         </div>,
-        portalElement
+        portalElement,
       )}
     </>
-  );
-};
+  )
+}
 
-export default imageModal;
+export default imageModal

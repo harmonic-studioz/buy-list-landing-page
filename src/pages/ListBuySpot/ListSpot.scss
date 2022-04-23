@@ -1,5 +1,5 @@
-@import "../../variables";
-@import "../../mixins";
+@import '../../variables';
+@import '../../mixins';
 
 .lsContainer {
   position: relative;
@@ -57,7 +57,7 @@
         .lsb-title {
           @include flexRegular(row, center);
           // background: coral;
-          font-family: "Montserrat";
+          font-family: 'Montserrat';
           position: relative;
           img {
             // margin-right: 2em;
@@ -88,7 +88,7 @@
           //background: pink;
           margin-bottom: 2em;
           h2 {
-            font-family: "Montserrat";
+            font-family: 'Montserrat';
             text-align: center;
             font-size: 1.2em;
             font-weight: 500;
@@ -233,5 +233,72 @@
   p {
     font-size: 14px;
     color: #ed2e7e;
+  }
+}
+.errorDesc3 {
+  margin-top: 1em;
+  //background: pink;
+  @include flexRegular(row, center);
+  img {
+    margin-right: 0.6em;
+  }
+  p {
+    font-size: 14px;
+    color: #ed2e7e;
+    text-align: center;
+  }
+}
+
+.optionBoxes {
+  //background: pink;
+  width: 55%;
+  max-width: 800px;
+  margin: auto;
+  margin-top: 2em;
+  @include flexRegular(row, space-between);
+}
+// .optionBoxdddddd {
+//   @include flexRegular(row, center);
+//   border: 1px solid #20709b;
+//   border-radius: 12px;
+//   padding: 1em;
+//   //margin-right: 4em;
+//   height: 200px;
+//   width: 25vw;
+//   max-width: 300px;
+//   p {
+//     margin-right: 2em;
+//     font-size: 1.3em;
+//   }
+//   cursor: pointer;
+//   &:hover {
+//     transform: scale(1.1);
+//     backdrop-filter: blur(0px);
+//     background: linear-gradient(
+//       25.28deg,
+//       rgba(255, 255, 255, 0.42) 0%,
+//       rgba(255, 255, 255, 0.12) 100%
+//     );
+//   }
+// }
+
+// macbook width 1280
+@media (max-width: 1080px) {
+  .optionBoxes {
+    //background: pink;
+    padding: 0 2em;
+    width: 100%;
+  }
+  .optionBox {
+    width: 40vw;
+  }
+}
+@media (max-width: 650px) {
+  .optionBoxes {
+    @include flexRegular(column, center);
+  }
+  .optionBox {
+    width: 80vw;
+    margin-bottom: 3em;
   }
 }

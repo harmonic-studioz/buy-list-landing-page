@@ -1,8 +1,8 @@
-import { useState, useEffect, useContext } from "react";
-import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
-import useStateRef from "react-usestateref";
-import { CircularProgress } from "@material-ui/core";
+import { useState, useEffect, useContext } from 'react'
+import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
+import useStateRef from 'react-usestateref'
+import { CircularProgress } from '@material-ui/core'
 //import { ShareSocial } from 'react-share-social'
 import {
   // EmailShareButton,
@@ -11,94 +11,97 @@ import {
   // DiscordShareButton,
   TwitterShareButton,
   //WhatsappShareButton,
-} from "react-share";
-import Facebook from "../../assets/icons/facebook.svg";
-import Twitter from "../../assets/icons/twitter.svg";
+} from 'react-share'
+import Facebook from '../../assets/icons/facebook.svg'
+import Twitter from '../../assets/icons/twitter.svg'
 //import Insta from "../../assets/icons/ig.svg";
 
-import "./ListSpot.scss";
+import './ListSpot.scss'
 //
-import Saly from "../../assets/images/saly02.svg";
-import Arrow from "../../assets/icons/arrow1.svg";
-import Share from "../../assets/icons/share.svg";
+import Saly from '../../assets/images/saly02.svg'
+import Arrow from '../../assets/icons/arrow1.svg'
+import Share from '../../assets/icons/share.svg'
 //
-import NavBar from "../../components/NavBar/NavBar";
-import D1 from "./components/Details1";
-import D2 from "./components/Details2";
-import D3 from "./components/Details3";
-import Complete from "./components/Complete";
+import NavBar from '../../components/NavBar/NavBar'
+import D1 from './components/Details1'
+import D2 from './components/Details2'
+import D3 from './components/Details3'
+import Complete from './components/Complete'
 
-import Active1 from "../../assets/icons/steps/active1.svg";
-import Active2 from "../../assets/icons/steps/active2.svg";
-import Active3 from "../../assets/icons/steps/active3.svg";
-import Comp1 from "../../assets/icons/steps/comp1.svg";
-import Comp2 from "../../assets/icons/steps/comp2.svg";
-import Comp3 from "../../assets/icons/steps/comp3.svg";
-import Unseen2 from "../../assets/icons/steps/unseen2.svg";
-import Unseen3 from "../../assets/icons/steps/unseen3.svg";
+import Active1 from '../../assets/icons/steps/active1.svg'
+import Active2 from '../../assets/icons/steps/active2.svg'
+import Active3 from '../../assets/icons/steps/active3.svg'
+import Comp1 from '../../assets/icons/steps/comp1.svg'
+import Comp2 from '../../assets/icons/steps/comp2.svg'
+import Comp3 from '../../assets/icons/steps/comp3.svg'
+import Unseen2 from '../../assets/icons/steps/unseen2.svg'
+import Unseen3 from '../../assets/icons/steps/unseen3.svg'
 
-import { TransactionContext } from "../../context/TransactionContext";
+import { TransactionContext } from '../../context/TransactionContext'
 //import UniContext from "../../context/UniContext";
-import { userRequest } from "../../utils/requestMethods";
-import { logger } from "../../utils/logger";
+import { userRequest } from '../../utils/requestMethods'
+import { logger } from '../../utils/logger'
 
 const ListSpot = () => {
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+    window.scrollTo(0, 0)
+  }, [])
 
-  const [step1, setStep1] = useState("active");
-  const [step2, setStep2] = useState("unseen");
-  const [step3, setStep3] = useState("unseen");
-  const [file, setFile] = useState("");
-  const [file2, setFile2] = useState("");
+  const [step1, setStep1] = useState('active')
+  const [step2, setStep2] = useState('unseen')
+  const [step3, setStep3] = useState('unseen')
+  const [file, setFile] = useState('')
+  const [file2, setFile2] = useState('')
   const [inputs, setInputs] = useState({
-    projectName: "",
-    discordLink: "",
-    twitterLink: "",
-    mintPrice: "",
-    mintToken: "",
-    mintDate: "",
-    discordId: "",
-    twitterName: "",
-    wlNumber: "", //
-    wlPrice: "", //
-  });
+    projectName: '',
+    discordLink: '',
+    twitterLink: '',
+    mintPrice: '',
+    mintToken: '',
+    mintDate: '',
+    discordId: '',
+    twitterName: '',
+    wlNumber: '', //
+    wlPrice: '', //
+  })
   const [response, setResponse] = useState({
-    error: "",
-    success: "",
-  });
-  const [isLoading, setIsLoading] = useState(false);
-  const [ev, setEv, evRef] = useStateRef([]);
-  const [newSpot, setNewSpot] = useState([]);
+    error: '',
+    success: '',
+  })
+  const [isLoading, setIsLoading] = useState(false)
+  const [ev, setEv, evRef] = useStateRef([])
+  const [newSpot, setNewSpot] = useState([])
 
-  const { createSpotInContract, transactionLoading, createEthereumContract } =
-    useContext(TransactionContext);
+  const {
+    createSpotInContract,
+    transactionLoading,
+    createEthereumContract,
+  } = useContext(TransactionContext)
 
-  const { newTransaction } = useContext(TransactionContext);
-  const [newTransactionVal, setNewTransactionVal] = newTransaction;
+  const { newTransaction } = useContext(TransactionContext)
+  const [newTransactionVal, setNewTransactionVal] = newTransaction
   //const { currentAccount, createNewSpot } = useContext(UniContext);
 
   useEffect(() => {
     const onCreateSpotInContract = async () => {
-      const transactionsContract = createEthereumContract();
+      const transactionsContract = createEthereumContract()
       transactionsContract.on(
-        "SpotStateChanged",
+        'SpotStateChanged',
         (spotId, fromState, toState) => {
-          const spotIdValue = spotId.toString();
+          const spotIdValue = spotId.toString()
           setEv({
             spotIdValue,
             fromState,
             toState,
-          });
+          })
           setTimeout(() => {
-            setNewTransactionVal(evRef.current);
-          }, 1000);
-          console.log(evRef.current.spotIdValue, evRef.current);
-        }
-      );
-    };
-    onCreateSpotInContract();
+            setNewTransactionVal(evRef.current)
+          }, 1000)
+          console.log(evRef.current.spotIdValue, evRef.current)
+        },
+      )
+    }
+    onCreateSpotInContract()
   }, [
     createEthereumContract,
     setEv,
@@ -106,41 +109,41 @@ const ListSpot = () => {
     transactionLoading,
     isLoading,
     setNewTransactionVal,
-  ]);
+  ])
 
   const inputHandler = (event) => {
     setInputs({
       ...inputs,
       [event.target.name]: event.target.value,
-    });
-  };
+    })
+  }
   const fileHandler = (e) => {
-    setFile(e.target.files[0]);
-  };
+    setFile(e.target.files[0])
+  }
   const fileHandler2 = (e) => {
-    setFile2(e.target.files[0]);
-  };
+    setFile2(e.target.files[0])
+  }
 
   const createSpotInDb = async () => {
-    setIsLoading(true);
+    setIsLoading(true)
     setResponse({
       ...response,
-      error: "",
-    });
+      error: '',
+    })
     try {
-      let listDetails = new FormData();
-      listDetails.append("id", evRef.current.spotIdValue);
-      listDetails.append("projectName", inputs.projectName);
-      listDetails.append("mintPrice", inputs.mintPrice);
-      listDetails.append("mintDate", inputs.mintDate);
-      listDetails.append("mintToken", inputs.mintToken);
-      listDetails.append("discordChannel", inputs.discordLink);
-      listDetails.append("userDiscordId", inputs.discordId);
-      listDetails.append("twitterPage", inputs.twitterLink);
-      listDetails.append("twitterUsername", inputs.twitterName);
-      listDetails.append("whiteListPrice", inputs.wlPrice);
-      listDetails.append("twitterShot", file, file.name);
-      listDetails.append("discordShot", file2, file2.name);
+      let listDetails = new FormData()
+      listDetails.append('id', evRef.current.spotIdValue)
+      listDetails.append('projectName', inputs.projectName)
+      listDetails.append('mintPrice', inputs.mintPrice)
+      listDetails.append('mintDate', inputs.mintDate)
+      listDetails.append('mintToken', inputs.mintToken)
+      listDetails.append('discordChannel', inputs.discordLink)
+      listDetails.append('userDiscordId', inputs.discordId)
+      listDetails.append('twitterPage', inputs.twitterLink)
+      listDetails.append('twitterUsername', inputs.twitterName)
+      listDetails.append('whiteListPrice', inputs.wlPrice)
+      listDetails.append('twitterShot', file, file.name)
+      listDetails.append('discordShot', file2, file2.name)
 
       // const listDetails = {
       //   projectName: inputs.projectName,
@@ -155,83 +158,83 @@ const ListSpot = () => {
       //   whiteListPrice: inputs.wlPrice, // less than half of mint Price
       // }
 
-      logger(listDetails);
+      logger(listDetails)
       const createSpotInDBReq = await userRequest.post(
-        "spot/create",
-        listDetails
-      );
-      logger("REQ RESPONSE: ", createSpotInDBReq);
-      setNewSpot(createSpotInDBReq.data);
-      setIsLoading(false);
-      setStep3("complete");
+        'spot/create',
+        listDetails,
+      )
+      logger('REQ RESPONSE: ', createSpotInDBReq)
+      setNewSpot(createSpotInDBReq.data)
+      setIsLoading(false)
+      setStep3('complete')
     } catch (err) {
-      logger(" ERROR::: ", err);
+      logger(' ERROR::: ', err)
       setResponse({
-        error: err?.response?.data?.error || "Sorry, something went wrong.",
-        success: "",
-      });
-      setIsLoading(false);
+        error: err?.response?.data?.error || 'Sorry, something went wrong.',
+        success: '',
+      })
+      setIsLoading(false)
     }
-  };
+  }
 
   const createListSpot = async () => {
     if (inputs.wlPrice < inputs.mintPrice / 2) {
-      const inContract = await createSpotInContract(inputs);
+      const inContract = await createSpotInContract(inputs)
       if (inContract.code !== 4001) {
-        setIsLoading(true);
+        setIsLoading(true)
         //await createSpotInDb();
         setTimeout(async () => {
-          await createSpotInDb();
-          setIsLoading(false);
-        }, 2500);
-        console.log("Success");
+          await createSpotInDb()
+          setIsLoading(false)
+        }, 2500)
+        console.log('Success')
         setResponse({
-          error: "",
-          success: "",
-        });
-        setIsLoading(false);
+          error: '',
+          success: '',
+        })
+        setIsLoading(false)
       } else {
-        setIsLoading(false);
+        setIsLoading(false)
       }
       //setIsLoading(false);
     } else {
-      setIsLoading(false);
+      setIsLoading(false)
       setResponse({
-        error: "Price must be below half of the projects mint price",
-        success: "",
-      });
+        error: 'Price must be below half of the projects mint price',
+        success: '',
+      })
     }
-  };
+  }
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    if (step1 === "active") {
-      setStep1("complete");
-      setStep2("active");
+    e.preventDefault()
+    if (step1 === 'active') {
+      setStep1('complete')
+      setStep2('active')
     }
-    if (step2 === "active") {
-      setStep2("complete");
-      setStep3("active");
+    if (step2 === 'active') {
+      setStep2('complete')
+      setStep3('active')
     }
-    if (step3 === "active") {
-      createListSpot();
+    if (step3 === 'active') {
+      createListSpot()
     }
-  };
+  }
   const handleBack = (e) => {
-    e.preventDefault();
-    if (step2 === "active") {
-      setStep2("unseen");
-      setStep1("active");
+    e.preventDefault()
+    if (step2 === 'active') {
+      setStep2('unseen')
+      setStep1('active')
     }
-    if (step3 === "active") {
-      setStep3("unseen");
-      setStep2("active");
+    if (step3 === 'active') {
+      setStep3('unseen')
+      setStep2('active')
     }
-    if (step3 === "complete") {
-      setStep3("active");
-      logger(ev);
+    if (step3 === 'complete') {
+      setStep3('active')
+      logger(ev)
     }
-  };
+  }
 
   return (
     <>
@@ -269,22 +272,22 @@ const ListSpot = () => {
             <form className="lsBox" onSubmit={handleSubmit}>
               <div className="lsBox-Top">
                 <div className="lsb-title">
-                  <Link to="/home">
+                  <Link to="/listOptions">
                     <img src={Arrow} alt="back" />
                   </Link>
-                  <h1>Post whitelist Ad</h1>
+                  <h1>Post A Buy Ad</h1>
                 </div>
                 <div className="animate__animated animate__fadeIn lsb-nav">
                   <img
-                    src={step1 === "active" ? Active1 : Comp1}
+                    src={step1 === 'active' ? Active1 : Comp1}
                     alt="step one"
                   />
                   <div></div>
                   <img
                     src={
-                      step2 === "unseen"
+                      step2 === 'unseen'
                         ? Unseen2
-                        : step2 === "active"
+                        : step2 === 'active'
                         ? Active2
                         : Comp2
                     }
@@ -293,9 +296,9 @@ const ListSpot = () => {
                   <div></div>
                   <img
                     src={
-                      step3 === "unseen"
+                      step3 === 'unseen'
                         ? Unseen3
-                        : step3 === "active"
+                        : step3 === 'active'
                         ? Active3
                         : Comp3
                     }
@@ -304,17 +307,17 @@ const ListSpot = () => {
                 </div>
                 <div className="ld-title">
                   <h2>
-                    {step1 === "active"
-                      ? "NFT project details"
-                      : step2 === "active"
-                      ? "User details"
-                      : step3 === "active"
-                      ? "Pricing"
-                      : "Spot uploaded!"}
+                    {step1 === 'active'
+                      ? 'NFT project details'
+                      : step2 === 'active'
+                      ? 'User details'
+                      : step3 === 'active'
+                      ? 'Pricing'
+                      : 'Spot uploaded!'}
                   </h2>
                 </div>
               </div>
-              {step1 === "active" && (
+              {step1 === 'active' && (
                 <D1
                   projectName={inputs.projectName}
                   discordLink={inputs.discordLink}
@@ -325,7 +328,7 @@ const ListSpot = () => {
                   inputHandler={inputHandler}
                 />
               )}
-              {step2 === "active" && (
+              {step2 === 'active' && (
                 <D2
                   discordId={inputs.discordId}
                   twitterName={inputs.twitterName}
@@ -336,7 +339,7 @@ const ListSpot = () => {
                   file2={file2}
                 />
               )}
-              {step3 === "active" && (
+              {step3 === 'active' && (
                 <D3
                   wlNumber={inputs.wlNumber}
                   wlPrice={inputs.wlPrice}
@@ -344,15 +347,15 @@ const ListSpot = () => {
                   response={response}
                 />
               )}
-              {step3 === "complete" && <Complete singleSpot={newSpot} />}
+              {step3 === 'complete' && <Complete singleSpot={newSpot} />}
 
-              {step3 !== "complete" && (
+              {step3 !== 'complete' && (
                 <>
                   <div className="ls-btns">
                     <button
                       onClick={handleBack}
                       className={`${
-                        step1 === "active" ? "opaque" : "ls-btn-b"
+                        step1 === 'active' ? 'opaque' : 'ls-btn-b'
                       }`}
                     >
                       Back
@@ -366,13 +369,13 @@ const ListSpot = () => {
                       {isLoading ? (
                         <CircularProgress color="inherit" size="25px" />
                       ) : (
-                        "Save"
+                        'Save'
                       )}
                     </button>
                   </div>
                 </>
               )}
-              {step3 === "complete" && (
+              {step3 === 'complete' && (
                 <>
                   <div className="ls-share">
                     <img src={Share} alt="share" />
@@ -402,7 +405,7 @@ const ListSpot = () => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default ListSpot;
+export default ListSpot
