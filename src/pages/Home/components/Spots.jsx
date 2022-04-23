@@ -1,51 +1,52 @@
-import { useEffect, useState, useContext } from "react";
-import { Link } from "react-router-dom";
-import Notification from "../../../components/Modals/Notification";
-import Avatar from "../../../assets/images/avatar.png";
-import Arrow from "../../../assets/icons/spot_arrow.svg";
-import Busd from "../../../assets/icons/busd.svg";
-import Bell from "../../../assets/icons/bell.svg";
-import Eth from "../../../assets/icons/eth.svg";
-import { CircularProgress } from "@material-ui/core";
-import { userRequest } from "../../../utils/requestMethods";
+import { useEffect, useState, useContext } from 'react'
+import { Link } from 'react-router-dom'
+import Notification from '../../../components/Modals/Notification'
+import Avatar from '../../../assets/images/avatar.png'
+import Arrow from '../../../assets/icons/spot_arrow.svg'
+import Busd from '../../../assets/icons/busd.svg'
+import Bell from '../../../assets/icons/bell.svg'
+import Eth from '../../../assets/icons/eth.svg'
+import { CircularProgress } from '@material-ui/core'
+import { userRequest } from '../../../utils/requestMethods'
 //import { logger } from "../../../utils/logger";
-import { capitalizeFirstLetter } from "../../../utils/shortenAddress";
-import { AuthContext } from "../../../context/AuthContext";
+import { capitalizeFirstLetter } from '../../../utils/shortenAddress'
+import { AuthContext } from '../../../context/AuthContext'
+import Arrow2 from '../../../assets/icons/arrow1.svg'
 
 const Spots = (props) => {
   //const [spotsView, setSpotsView] = useState("limit");
-  const [subscribed, setSubscribed] = useState("");
-  const [message, setMessage] = useState("");
+  const [subscribed, setSubscribed] = useState('')
+  const [message, setMessage] = useState('')
   //const [activeSpots, setActiveSpots] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [authState, setAuthState] = useContext(AuthContext);
-  const [currentUserName, setCurrentUserName] = useState("");
+  const [isLoading, setIsLoading] = useState(false)
+  const [authState, setAuthState] = useContext(AuthContext)
+  const [currentUserName, setCurrentUserName] = useState('')
 
   useEffect(() => {
-    setCurrentUserName(authState.user.username);
+    setCurrentUserName(authState.user.username)
     // setActiveSpots(props.activeSpots);
-    console.log("00", currentUserName);
-    console.log("06", props.activeSpots[0].username);
-  }, []);
+    // console.log("00", currentUserName);
+    // console.log("06", props.activeSpots[0].username);
+  }, [])
 
   const handleSubscribe = async (spotId) => {
-    setIsLoading(true);
+    setIsLoading(true)
     try {
       const id = {
         projectId: spotId,
-      };
-      const subReq = await userRequest.post("projects/subscription", id);
+      }
+      const subReq = await userRequest.post('projects/subscription', id)
       //logger("REQ RESPONSE: ", subReq);
       //setActiveSpots(spotsReq.data.result);
       //console.log(subReq.data.message);
-      setMessage(subReq.data.message);
-      setIsLoading(false);
-      setSubscribed(!subscribed);
+      setMessage(subReq.data.message)
+      setIsLoading(false)
+      setSubscribed(!subscribed)
     } catch (err) {
-      console.log(" ERROR::: ", err);
-      setIsLoading(false);
+      console.log(' ERROR::: ', err)
+      setIsLoading(false)
     }
-  };
+  }
 
   return (
     <div className="spotsContainer">
@@ -57,8 +58,27 @@ const Spots = (props) => {
       )}
 
       <div className="spotsContent">
-        <h2>{props.title}</h2>
-        {props.type === "regular" && (
+        {props.page === 'pool' ? (
+          <div className="poolTop">
+            <Link to="/home">
+              <img src={Arrow2} alt="back" />
+            </Link>
+            <h2>{props.title}</h2>
+          </div>
+        ) : (
+          <h2>{props.title}</h2>
+        )}
+        {/* {props.page === 'pool' ? (
+          <div className="bsb-title">
+            <Link to="/home">
+              <img src={Arrow2} alt="back" />
+            </Link>
+            <h1>Your lists</h1>
+          </div>
+        ) : (
+          <h2>{props.title}</h2>
+        )} */}
+        {props.type === 'regular' && (
           <div className="spotsRows">
             {
               //props.activeSpots.username !== currentUserName &&
@@ -67,7 +87,7 @@ const Spots = (props) => {
                   <Link
                     to={`/buySpot/${aSpot.id}`}
                     className={`spotBx 
-                  ${aSpot.username === currentUserName ? "spotDisable" : ""}`}
+                  ${aSpot.username === currentUserName ? 'spotDisable' : ''}`}
                   >
                     <div className="spotAvi">
                       <img src={Avatar} alt="avatar" />
@@ -75,9 +95,9 @@ const Spots = (props) => {
                     <div className="spot_SingleContent">
                       <div className="spotTxt">
                         <p className="spotTitle">
-                          {aSpot.projectName} ({aSpot?.mintToken || "Eth"})
+                          {aSpot.projectName} ({aSpot?.mintToken || 'Eth'})
                         </p>
-                        {props.type === "regular" ? (
+                        {props.type === 'regular' ? (
                           <div className="spotDesc">
                             <p>WL #{aSpot?.id}</p>
                             <div className="spotAmt">
@@ -114,7 +134,7 @@ const Spots = (props) => {
             }
           </div>
         )}
-        {props.type === "monitor" && (
+        {props.type === 'monitor' && (
           <div className="spotsRows">
             {props.activeSpots &&
               props.activeSpots.map((aSpot) => (
@@ -127,9 +147,9 @@ const Spots = (props) => {
                     <div className="spot_SingleContent2">
                       <div className="spotTxt">
                         <p className="spotTitle">
-                          {aSpot.projectName} {aSpot?.mintToken || "(Eth)"}
+                          {aSpot.projectName} {aSpot?.mintToken || '(Eth)'}
                         </p>
-                        {props.type === "regular" ? (
+                        {props.type === 'regular' ? (
                           <div className="spotDesc">
                             <p>WL #{aSpot?.whiteListNo}</p>
                             <div className="spotAmt">
@@ -169,7 +189,7 @@ const Spots = (props) => {
                         <img src={Arrow} alt="arrow" />
                       </div>
                       <div className="m-date">
-                        {props.type === "monitor" && (
+                        {props.type === 'monitor' && (
                           <p>Dropping : {aSpot.mintDate.substr(0, 10)}</p>
                         )}
                       </div>
@@ -189,15 +209,15 @@ const Spots = (props) => {
             <p onClick={() => setSpotsView("limit")}>SEE LESS</p>
           </div>
         )} */}
-        {props.screen === "less" &&
-          props.type === "regular" &&
+        {props.screen === 'less' &&
+          props.type === 'regular' &&
           props.activeSpots.length > 3 && (
             <Link to="/pool" className="spotBtm">
               <p>SEE ALL</p>
             </Link>
           )}
-        {props.screen === "less" &&
-          props.type !== "regular" &&
+        {props.screen === 'less' &&
+          props.type !== 'regular' &&
           props.activeSpots.length > 3 && (
             <Link to="/upcoming" className="spotBtm">
               <p>SEE ALL</p>
@@ -205,7 +225,7 @@ const Spots = (props) => {
           )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Spots;
+export default Spots
