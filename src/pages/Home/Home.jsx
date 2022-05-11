@@ -12,6 +12,7 @@ import { publicRequest } from '../../utils/requestMethods'
 import { logger } from '../../utils/logger'
 import { TransactionContext } from '../../context/TransactionContext'
 import { AuthContext } from '../../context/AuthContext'
+import UniContext from '../../context/UniContext'
 
 import Notification from '../../components/Modals/Notification2'
 import ReactHowler from 'react-howler'
@@ -27,6 +28,7 @@ const Home = () => {
   const [transactionAlert, setTransactionAlert] = useState(false)
   const [notificationMsg, setNotificationMsg] = useState('')
 
+  const { disonnectWallet } = useContext(UniContext)
   const { newTransaction, newMsg } = useContext(TransactionContext)
 
   const [newMsgVal, setNewMsgVal] = newMsg
@@ -92,6 +94,9 @@ const Home = () => {
       } catch (err) {
         logger(' ERROR::: ', err)
         setIsLoading(false)
+        if (err?.response?.data?.error === 'token no longer valid') {
+          disonnectWallet()
+        }
       }
     }
     getActiveSpots()
@@ -103,6 +108,9 @@ const Home = () => {
         setIsLoading(false)
       } catch (err) {
         logger(' ERROR::: ', err)
+        if (err?.response?.data?.error === 'token no longer valid') {
+          disonnectWallet()
+        }
       }
     }
     getCollections()
