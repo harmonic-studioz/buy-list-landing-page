@@ -11,6 +11,7 @@ import Audio from '../../assets/sound/alert.mp3'
 
 import { TransactionContext } from '../../context/TransactionContext'
 import UniContext from '../../context/UniContext'
+import { AuthContext } from '../../context/AuthContext'
 //import { shortenAddress } from '../../utils/shortenAddress'
 import { publicRequest } from '../../utils/requestMethods'
 import { logger } from '../../utils/logger'
@@ -30,6 +31,8 @@ const NavWeb = (props) => {
 
   const { newTransaction, newMsg } = useContext(TransactionContext)
   const { disonnectWallet } = useContext(UniContext)
+  const [authState] = useContext(AuthContext)
+  const userId = authState.user.id
 
   const [newTransactionVal, setNewTransactionVal] = newTransaction
   const [newMsgVal, setNewMsgVal] = newMsg

@@ -72,7 +72,8 @@ const Hero3 = () => {
             }}
           />
           <p className="hhTxt">
-            Welcome to the worlds first digital whitelist marketplace
+             Welcome to the world’s first NFT whitelist marketplace.
+
           </p>
           <Link to="/listOptions" className="hhBtn">
             <p>List a whitelist spot</p>

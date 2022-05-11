@@ -38,7 +38,7 @@ import Unseen2 from '../../assets/icons/steps/unseen2.svg'
 import Unseen3 from '../../assets/icons/steps/unseen3.svg'
 
 import { TransactionContext } from '../../context/TransactionContext'
-//import UniContext from "../../context/UniContext";
+import UniContext from '../../context/UniContext'
 import { userRequest } from '../../utils/requestMethods'
 import { logger } from '../../utils/logger'
 
@@ -77,7 +77,7 @@ const ListSpot = () => {
     transactionLoading,
     createEthereumContract,
   } = useContext(TransactionContext)
-
+  const { disonnectWallet } = useContext(UniContext)
   // const { newTransaction } = useContext(TransactionContext)
   //const [newTransactionVal, setNewTransactionVal] = newTransaction
   //const { currentAccount, createNewSpot } = useContext(UniContext);
@@ -195,6 +195,9 @@ const ListSpot = () => {
         success: '',
       })
       setIsLoading(false)
+      if (err?.response?.data?.error === 'token no longer valid') {
+        disonnectWallet()
+      }
     }
   }
 
@@ -221,7 +224,7 @@ const ListSpot = () => {
     } else {
       setIsLoading(false)
       setResponse({
-        error: 'Price must be below half of the projects mint price',
+        error: "Price must be below half of the project's mint price",
         success: '',
       })
     }
@@ -247,7 +250,7 @@ const ListSpot = () => {
       } else {
         setResponse({
           ...response,
-          error: 'Please enter a valid url!',
+          error: 'Please enter a valid url ( include "https://" )',
         })
       }
     }
