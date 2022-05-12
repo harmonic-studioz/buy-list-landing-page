@@ -32,7 +32,7 @@ const NavWeb = (props) => {
   const { newTransaction, newMsg } = useContext(TransactionContext)
   const { disonnectWallet } = useContext(UniContext)
   const [authState] = useContext(AuthContext)
-  const userId = authState.user.id
+  const userId = authState?.user?.id
 
   const [newTransactionVal, setNewTransactionVal] = newTransaction
   const [newMsgVal, setNewMsgVal] = newMsg
