@@ -10,6 +10,7 @@ import Spot from '../../components/Spot/Spot'
 import Arrow from '../../assets/icons/arrow1.svg'
 
 import UniContext from '../../context/UniContext'
+import { AuthContext } from '../../context/AuthContext'
 
 const UserLists = () => {
   const [tab, setTab] = useState('userSpots')
@@ -21,11 +22,16 @@ const UserLists = () => {
   const [isLoading, setIsLoading] = useState(true)
 
   const { disonnectWallet } = useContext(UniContext)
+  const [authState] = useContext(AuthContext)
+  const user = authState?.user
 
   useEffect(() => {
     window.scrollTo(0, 0)
     const getUserSpots = async () => {
+      const hardToken = JSON.parse(localStorage.getItem('user'))?.tokens?.token
       try {
+        console.log(user)
+        console.log(hardToken)
         const spotsReq = await userRequest.get('spot/owned')
         //logger(spotsReq);
         //logger('REQ RESPONSE: ', spotsReq.data.result)
@@ -39,7 +45,7 @@ const UserLists = () => {
         logger(' ERROR::: ', err)
         setIsLoading(false)
         if (err?.response?.data?.error === 'token no longer valid') {
-          disonnectWallet()
+          window.location.reload()
         }
       }
     }

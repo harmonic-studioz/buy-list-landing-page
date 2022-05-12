@@ -35,6 +35,11 @@ const Home = () => {
   const [newTransactionVal, setNewTransactionVal] = newTransaction
 
   useEffect(() => {
+    if (localStorage.getItem('reloadCount') < 1) window.location.reload()
+    localStorage.setItem('reloadCount', 1)
+  }, [])
+
+  useEffect(() => {
     console.log(newTransactionVal)
     if (newTransactionVal) {
       setNotificationMsg(
@@ -82,6 +87,7 @@ const Home = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0)
+
     setCurrentUserName(authState.user.username)
     const getActiveSpots = async () => {
       try {

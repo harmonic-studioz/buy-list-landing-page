@@ -196,7 +196,7 @@ const ListSpot = () => {
       })
       setIsLoading(false)
       if (err?.response?.data?.error === 'token no longer valid') {
-        disonnectWallet()
+        //
       }
     }
   }
