@@ -6,7 +6,7 @@ import Search from '../../assets/icons/search.svg'
 import Add from '../../assets/icons/add.svg'
 import { CircularProgress } from '@material-ui/core'
 import Notification from '../../components/Modals/Notification2'
-import ReactHowler from 'react-howler'
+//import ReactHowler from 'react-howler'
 //import Audio from '../../assets/sound/alert.mp3'
 
 import { TransactionContext } from '../../context/TransactionContext'
@@ -161,7 +161,7 @@ const NavWeb = (props) => {
             message={notificationMsg}
             closeNotification={closeNotification}
           />
-          <ReactHowler src={Audio} playing={true} />
+          {/* <ReactHowler src={Audio} playing={true} /> */}
         </>
       )}
 

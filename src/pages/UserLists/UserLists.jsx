@@ -45,7 +45,7 @@ const UserLists = () => {
         logger(' ERROR::: ', err)
         setIsLoading(false)
         if (err?.response?.data?.error === 'token no longer valid') {
-          window.location.reload()
+          //window.location.reload()
         }
       }
     }
@@ -77,7 +77,7 @@ const UserLists = () => {
         logger(' ERROR::: ', err)
         setIsLoading(false)
         if (err?.response?.data?.error === 'token no longer valid') {
-          disonnectWallet()
+          //disonnectWallet()
         }
       }
     } else {
