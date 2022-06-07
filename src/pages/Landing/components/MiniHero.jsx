@@ -36,7 +36,9 @@ const MiniHero = () => {
             NFT whitelists for everyone,
             <br /> <span>Wagmi!</span>
           </h2>
-          <button>Buy spot</button>
+          <a href="https://forms.gle/RqkCWaFqhqwNXYLS7">
+            <button>Buy spot</button>
+          </a>
         </div>
         <motion.img
           className="mRocket"

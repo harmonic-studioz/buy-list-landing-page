@@ -94,6 +94,7 @@ const ReleaseFunds = () => {
       setIsLoading(false)
     } catch (err) {
       console.log(err)
+      setComplete(true)
     }
   }
 
@@ -122,7 +123,6 @@ const ReleaseFunds = () => {
     const release = await handleRelease()
     // eslint-disable-next-line
     const save = await storeRelease()
-    setComplete(true)
   }
 
   const sendMessage = async () => {

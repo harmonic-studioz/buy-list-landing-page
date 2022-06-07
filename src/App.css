@@ -45,6 +45,10 @@ button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
+.disabledFull {
+  opacity: 0.2;
+  cursor: not-allowed;
+}
 .pdt-major {
   padding-top: 6em;
 }

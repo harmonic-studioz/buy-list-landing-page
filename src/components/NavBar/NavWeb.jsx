@@ -242,7 +242,10 @@ const NavWeb = (props) => {
             </div>
           )}
           {/* <Link to="/auth"> */}
-          <button className="nav_Connect" onClick={handleConnect}>
+          <button
+            className="nav_Connect disabledFull"
+            //onClick={handleConnect}
+          >
             {currentAccount && props.className !== 'navContentLanding'
               ? 'Disconnect'
               : //: shortenAddress(currentAccount)
