@@ -23,11 +23,11 @@ const Hero = () => {
           </div>
           <div className="heroBtns">
             <a href="https://forms.gle/RqkCWaFqhqwNXYLS7">
-              <button className="btnOutline">Buy Spot</button>
+              <button className="btnOutline">Buy Request</button>
             </a>
-            <a href="https://forms.gle/muup2JkGjFBepNJL9">
+            {/* <a href="https://forms.gle/muup2JkGjFBepNJL9">
               <button className="btnFill">Sell Spot</button>
-            </a>
+            </a> */}
           </div>
           <div className="shapeBox1">
             <motion.img

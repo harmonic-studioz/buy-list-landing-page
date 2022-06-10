@@ -243,6 +243,7 @@ const NavWeb = (props) => {
           )}
           {/* <Link to="/auth"> */}
           <button
+            //className="nav_Connect "
             className="nav_Connect disabledFull"
             //onClick={handleConnect}
           >

@@ -1,79 +1,79 @@
-import { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import Signup from "./Signup";
-import Arrow from "../../assets/icons/arrow1.svg";
-import Metamask from "../../assets/icons/metamask.svg";
-import Wc from "../../assets/icons/wc.png";
-import Check from "../../assets/icons/checkmark.svg";
-import { CircularProgress } from "@material-ui/core";
+import { useState, useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
+import Signup from './Signup'
+import Arrow from '../../assets/icons/arrow1.svg'
+import Metamask from '../../assets/icons/metamask.svg'
+import Wc from '../../assets/icons/wc.png'
+import Check from '../../assets/icons/checkmark.svg'
+import { CircularProgress } from '@material-ui/core'
 
-import { TransactionContext } from "../../context/TransactionContext";
-import UniContext from "../../context/UniContext";
-import { AuthContext } from "../../context/AuthContext";
+import { TransactionContext } from '../../context/TransactionContext'
+import UniContext from '../../context/UniContext'
+import { AuthContext } from '../../context/AuthContext'
 import {
   capitalizeFirstLetter,
   shortenAddress,
-} from "../../utils/shortenAddress";
-import { publicRequest } from "../../utils/requestMethods";
-import { logger } from "../../utils/logger";
+} from '../../utils/shortenAddress'
+import { publicRequest } from '../../utils/requestMethods'
+import { logger } from '../../utils/logger'
 
 const Connect = () => {
-  let navigate = useNavigate();
+  let navigate = useNavigate()
 
-  const [currentScreen, setCurrentScreen] = useState("Connect");
-  const [connected, setConnected] = useState(false);
+  const [currentScreen, setCurrentScreen] = useState('Connect')
+  const [connected, setConnected] = useState(false)
   const [response, setResponse] = useState({
-    error: "",
-    success: "",
-  });
+    error: '',
+    success: '',
+  })
   const {
     initSocketFromLogin,
     enableWalletConnect,
     connectToMetaMask,
     currentAccount,
-  } = useContext(UniContext);
-  const chain = localStorage.getItem("chain");
+  } = useContext(UniContext)
+  const chain = localStorage.getItem('chain')
   //const { connectWallet, currentAccount } = useContext(TransactionContext);
 
-  const [authState, setAuthState] = useContext(AuthContext);
+  const [authState, setAuthState] = useContext(AuthContext)
   //const currentAccount = localStorage.getItem("currentAccount");
 
   const handlePrevScreen = () => {
     if (connected) {
-      setConnected(false);
+      setConnected(false)
     } else {
-      navigate("/");
+      navigate('/')
     }
-  };
+  }
 
   const handleLogin = async () => {
     if (currentAccount) {
       setAuthState({
         ...authState,
         isFetching: true,
-      });
+      })
       setResponse({
         ...response,
-        error: "",
-      });
-      const chain = localStorage.getItem("chain");
-      console.log("currentChain", chain);
-      if (chain === "0xfa2") {
+        error: '',
+      })
+      const chain = localStorage.getItem('chain')
+      console.log('currentChain', chain)
+      if (chain === '0xfa2') {
         try {
           const newUser = {
             walletAddress: currentAccount,
-          };
-          const loginReq = await publicRequest.post("auth/login", newUser);
-          logger("REQ RESPONSE: ", loginReq);
+          }
+          const loginReq = await publicRequest.post('auth/login', newUser)
+          logger('REQ RESPONSE: ', loginReq)
           setAuthState({
             ...authState,
             user: loginReq.data,
             isFetching: false,
             error: false,
-          });
+          })
           //console.log(authState);
-          initSocketFromLogin(loginReq.data.tokens.token);
-          navigate("/home");
+          initSocketFromLogin(loginReq.data.tokens.token)
+          navigate('/home')
 
           //logger('REQ RESPONSE: ', authState.user)
         } catch (err) {
@@ -81,27 +81,27 @@ const Connect = () => {
             ...authState,
             isFetching: false,
             error: true,
-          });
-          logger(" ERROR::: ", err);
-          if (err.response.data.error === "user not found") {
+          })
+          logger(' ERROR::: ', err)
+          if (err.response.data.error === 'user not found') {
             setResponse({
-              error: "User not found, please signup",
-              success: "",
-            });
-          } else if (err.response.data.error === "email not verified") {
+              error: 'User not found, please signup',
+              success: '',
+            })
+          } else if (err.response.data.error === 'email not verified') {
             setResponse({
               error: err?.response.data.error,
-              success: "",
-            });
-            localStorage.setItem("usermail", err?.response.data.userData.email);
+              success: '',
+            })
+            localStorage.setItem('usermail', err?.response.data.userData.email)
             setTimeout(() => {
-              navigate("/auth/verify");
-            }, 1000);
+              navigate('/auth/verify')
+            }, 1000)
           } else {
             setResponse({
               error: err?.response.data.error,
-              success: "",
-            });
+              success: '',
+            })
           }
         }
       } else {
@@ -109,22 +109,22 @@ const Connect = () => {
           ...authState,
           isFetching: false,
           error: true,
-        });
+        })
         setResponse({
-          error: "Wrong chain, please switch to recommended chain.",
-          success: "",
-        });
+          error: 'Wrong chain, please switch to recommended chain.',
+          success: '',
+        })
       }
     }
-  };
+  }
 
   const handleSubmit = async () => {
-    setCurrentScreen("Signup");
-  };
+    setCurrentScreen('Signup')
+  }
 
   return (
     <div className="connectContent">
-      {currentScreen === "Connect" && (
+      {currentScreen === 'Connect' && (
         <>
           <div className="connectTop">
             <img onClick={handlePrevScreen} src={Arrow} alt="back" />
@@ -180,14 +180,14 @@ const Connect = () => {
               {authState.isFetching ? (
                 <CircularProgress color="inherit" size="25px" />
               ) : (
-                "Signup"
+                'Signup'
               )}
             </button>
           </div>
           {currentAccount && (
             <div className="coTop_txt2">
               <p>
-                Already have an account?{" "}
+                Already have an account?{' '}
                 <span onClick={handleLogin}> login here</span>
               </p>
             </div>
@@ -196,9 +196,9 @@ const Connect = () => {
           <p>{response.success}</p>
         </>
       )}
-      {currentScreen === "Signup" && <Signup />}
+      {currentScreen === 'Signup' && <Signup />}
     </div>
-  );
-};
+  )
+}
 
-export default Connect;
+export default Connect

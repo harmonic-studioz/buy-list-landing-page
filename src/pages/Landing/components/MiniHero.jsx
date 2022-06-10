@@ -37,7 +37,7 @@ const MiniHero = () => {
             <br /> <span>Wagmi!</span>
           </h2>
           <a href="https://forms.gle/RqkCWaFqhqwNXYLS7">
-            <button>Buy spot</button>
+            <button>Buy request</button>
           </a>
         </div>
         <motion.img

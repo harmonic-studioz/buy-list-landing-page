@@ -34,9 +34,11 @@
       font-weight: lighter;
     }
     .heroBtns {
-      width: 100%;
+      @include flexRegular(column, center);
+      width: 50%;
       //background: skyblue;
-      margin-top: 3em;
+      //margin-top: 3em;
+      margin-top: 0;
       position: relative;
       z-index: 1;
       .btnFill {

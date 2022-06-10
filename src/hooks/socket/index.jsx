@@ -8,12 +8,12 @@ const useSockets = () => {
   const { newTransaction, newMsg } = useContext(TransactionContext)
   const [newTransactionVal, setNewTransactionVal] = newTransaction
   const [newMsgVal, setNewMsgVal] = newMsg
-  useEffect(() => {
-    if (user) {
-      user !== 'null' &&
-        setSocket(io(`${url}?token=${JSON.parse(user).tokens.token}`))
-    }
-  }, [url, user])
+  // useEffect(() => {
+  //   if (user) {
+  //     user !== 'null' &&
+  //       setSocket(io(`${url}?token=${JSON.parse(user).tokens.token}`))
+  //   }
+  // }, [url, user])
 
   useEffect(() => {
     socket?.on('transaction-change', (msg) => {
