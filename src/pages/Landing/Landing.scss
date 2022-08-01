@@ -5,47 +5,32 @@
 .heroContainer {
   padding: 7em 0 0 0;
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
 .heroContent {
   @include flexRegular(row, flex-start);
   align-items: flex-start;
   width: 98%;
   margin: auto;
-<<<<<<< HEAD
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
   .heroIntro {
     @include flexRegular(column, flex-start);
     align-items: center;
     width: 60%;
     //background: pink;
     padding: 4em 0 0 0;
-<<<<<<< HEAD
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
     //position: relative;
     h1 {
       font-weight: 600;
       font-size: 58px;
       font-family: 'Montserrat';
-<<<<<<< HEAD
       width: 90%;
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
       span {
         color: #20709b;
       }
     }
-<<<<<<< HEAD
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
     p {
       margin: 2em 0;
       width: 74%;
@@ -54,10 +39,7 @@
       color: #4e4b66;
       font-weight: lighter;
     }
-<<<<<<< HEAD
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
     .heroBtns {
       //@include flexRegular(column, center);
       width: 100%;
@@ -66,10 +48,7 @@
       margin-top: 0;
       position: relative;
       z-index: 1;
-<<<<<<< HEAD
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
       .btnFill {
         @include buttonRegular(none, 16vw, 50px);
         max-width: 261px;
@@ -81,28 +60,19 @@
           color: #fff;
         }
       }
-<<<<<<< HEAD
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
       .btnOutline {
         @include buttonRegular($blueMain, 16vw, 50px);
         max-width: 261px;
         color: #fff;
         margin-right: 3em;
-<<<<<<< HEAD
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
         &:hover {
           background: #2b96cf;
         }
       }
     }
-<<<<<<< HEAD
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
     .shapeBox1 {
       img {
         position: absolute;
@@ -113,110 +83,75 @@
       }
     }
   }
-<<<<<<< HEAD
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
   .heroImgBox {
     @include flexRegular(column, flex-start);
     width: 40%;
     padding: 3.5em 0 0 0;
     //background: cornsilk;
     align-items: flex-end;
-<<<<<<< HEAD
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
     //position: relative;
     .salyBox {
       img {
         width: 100%;
       }
     }
-<<<<<<< HEAD
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
     .shape2 {
       cursor: grab;
       margin-top: 6em;
     }
   }
 }
-<<<<<<< HEAD
 
 @media (max-width: 820px) {
   .heroContent {
     @include flexRegular(column-reverse, flex-start);
 
-=======
-@media (max-width: 820px) {
-  .heroContent {
-    @include flexRegular(column-reverse, flex-start);
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
     .heroImgBox {
       @include flexRegular(column, flex-start);
       width: 100%;
       padding: 1.5em 0 0 0;
       align-items: center;
-<<<<<<< HEAD
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
       //background: pink;
       .salyBox {
         img {
           width: 100%;
         }
       }
-<<<<<<< HEAD
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
       .shape2 {
         display: none;
       }
     }
-<<<<<<< HEAD
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
     .heroIntro {
       width: 100%;
       //background: lavender;
       margin-top: 1em;
-<<<<<<< HEAD
 
       h1 {
         width: 100%;
       }
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
       p {
         font-size: 1.2em;
         line-height: 34px;
         width: 90%;
       }
-<<<<<<< HEAD
 
       .heroBtns {
         @include flexRegular(column, flex-start);
 
-=======
-      .heroBtns {
-        @include flexRegular(column, flex-start);
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
         .btnFill {
           @include buttonRegular(none, 90vw, 70px);
           max-width: 561px;
           border: 2px solid $blueMain;
           font-size: 1.15em;
         }
-<<<<<<< HEAD
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
         .btnOutline {
           @include buttonRegular($blueMain, 90vw, 70px);
           max-width: 561px;
@@ -225,10 +160,7 @@
           font-size: 1.15em;
         }
       }
-<<<<<<< HEAD
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
       .shapeBox1 {
         img {
           position: absolute;
@@ -239,10 +171,7 @@
     }
   }
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
 @media (max-width: 420px) {
   .heroContent {
     .heroImgBox {
@@ -252,39 +181,26 @@
         }
       }
     }
-<<<<<<< HEAD
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
     .heroIntro {
       h1 {
         font-size: 2.5em;
       }
-<<<<<<< HEAD
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
       p {
         font-size: 1em;
         line-height: 30px;
       }
-<<<<<<< HEAD
 
       .heroBtns {
 
-=======
-      .heroBtns {
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
         .btnFill,
         .btnOutline {
           height: 60px;
           font-size: 1em;
         }
       }
-<<<<<<< HEAD
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
       .shapeBox1 {
         img {
           width: 80%;
@@ -296,20 +212,14 @@
     }
   }
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
 // Hero Section end
 
 // Steps Section
 .stepsContainer {
   margin: 9em 0 3em 0;
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
 .stepsContent {
   h2 {
     font-family: 'Montserrat';
@@ -318,10 +228,7 @@
     margin-bottom: 2em;
     padding-left: 0.5em;
   }
-<<<<<<< HEAD
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
   .stepBox {
     position: relative;
     background: #fffef9;
@@ -332,37 +239,25 @@
     margin: 2em 0 7em 0;
     @include flexRegular(row, flex-start);
     align-items: center;
-<<<<<<< HEAD
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
     .stepImg,
     .stepTxt {
       margin-right: 1.5em;
     }
-<<<<<<< HEAD
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
     .stepTxt {
       h3 {
         font-family: 'Montserrat';
         font-weight: 600;
       }
-<<<<<<< HEAD
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
       p {
         font-weight: lighter;
         width: 95%;
         font-size: 0.9em;
         margin-top: 1em;
       }
-<<<<<<< HEAD
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
       ul {
         padding-left: 2em;
         font-weight: lighter;
@@ -373,20 +268,14 @@
         //list-style-type: decimal;
       }
     }
-<<<<<<< HEAD
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
     .stepCard {
       bottom: -90px;
       position: absolute;
       right: 5px;
       //background: lavender;
       padding-right: 2em;
-<<<<<<< HEAD
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
       img {
         filter: drop-shadow(0px 32px 64px rgba(17, 17, 17, 0.08));
         border-radius: 8px;
@@ -397,18 +286,12 @@
       }
     }
   }
-<<<<<<< HEAD
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
   .stepCardM {
     display: none;
   }
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
 @media (max-width: 1080px) {
   .stepsContent {
     .stepBox {
@@ -416,10 +299,7 @@
         p {
           width: 65%;
         }
-<<<<<<< HEAD
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
         ul {
           width: 65%;
         }
@@ -427,50 +307,34 @@
     }
   }
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
 @media (max-width: 815px) {
   .stepsContent {
     h2 {
       text-align: center;
     }
-<<<<<<< HEAD
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
     .stepBox {
       width: 95%;
       margin: 0 auto 7.5em auto;
       padding: 2.5em 1em;
-<<<<<<< HEAD
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
       .stepImg {
         img {
           width: 44px;
           height: 44px;
         }
       }
-<<<<<<< HEAD
 
       .stepTxt {
 
-=======
-      .stepTxt {
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
         p,
         ul {
           padding-left: 0;
           width: 100%;
         }
       }
-<<<<<<< HEAD
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
       .stepCard {
         display: none;
         // top: 120%;
@@ -479,10 +343,7 @@
         // @include flexRegular(row, center);
       }
     }
-<<<<<<< HEAD
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
     .stepCardM {
       display: block;
       position: relative;
@@ -494,10 +355,7 @@
       align-items: center;
       margin-top: -130px;
       margin-bottom: 2em;
-<<<<<<< HEAD
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
       img {
         width: 70%;
         filter: drop-shadow(0px 32px 64px rgba(17, 17, 17, 0.08));
@@ -506,10 +364,7 @@
     }
   }
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
 // Steps Section end
 
 // Mini Hero Section
@@ -517,20 +372,14 @@
   margin: 20em 0 5em 0;
   padding: 1em;
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
 .mHeroContent {
   position: relative;
   padding: 1em 0;
   max-width: 1100px;
   //background: pink;
   margin: auto;
-<<<<<<< HEAD
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
   .mStar {
     position: absolute;
     left: 0;
@@ -538,53 +387,35 @@
     width: 133px;
     cursor: grab;
   }
-<<<<<<< HEAD
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
   .mHeroTxt {
     @include flexRegular(column, center);
     //background: cornsilk;
     font-family: 'Montserrat';
     text-align: center;
-<<<<<<< HEAD
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
     h2 {
       font-size: 2.18em;
       font-weight: 600;
       line-height: 37px;
-<<<<<<< HEAD
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
       span {
         color: $blueMain;
       }
     }
-<<<<<<< HEAD
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
     button {
       margin: 2.5em 0;
       @include buttonRegular($blueMain, 18vw, 50px);
       max-width: 270px;
       color: #fff;
-<<<<<<< HEAD
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
       &:hover {
         background: #2b96cf;
       }
     }
   }
-<<<<<<< HEAD
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
   .mRocket {
     position: absolute;
     right: 180px;
@@ -593,20 +424,14 @@
     cursor: grab;
   }
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
 @media (max-width: 1080px) {
   .mHeroContent {
     .mRocket {
       top: -120px;
       right: 10px;
     }
-<<<<<<< HEAD
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
     .mHeroTxt {
       button {
         width: 60vw;
@@ -614,44 +439,28 @@
     }
   }
 }
-<<<<<<< HEAD
 
 @media (max-width: 820px) {
   .mHeroContent {
     width: 90%;
 
-=======
-@media (max-width: 820px) {
-  .mHeroContent {
-    width: 90%;
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
     .mStar,
     .mRocket {
       width: 93px;
     }
   }
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
 @media (max-width: 420px) {
   .mHeroContent {
     .mStar {
       width: 73px;
     }
-<<<<<<< HEAD
 
-=======
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
     .mHeroTxt {
       h2 {
         font-size: 1.8em;
       }
     }
   }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8

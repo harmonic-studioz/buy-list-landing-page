@@ -77,24 +77,16 @@ const Hero = () => {
                 visible: {
                   scale: 1,
                   opacity: 1,
-<<<<<<< HEAD
                   y: [15, 0, 15],
                   //y: [30, 0, 30],
-=======
-                  y: [50, 0, 50],
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
                   transition: {
                     //delay: 1.8,
                     //duration: 1.2,
                     type: 'spring',
                     y: {
                       repeat: Infinity,
-<<<<<<< HEAD
                       //duration: 2.4,
                       duration: 1.4,
-=======
-                      duration: 2.4,
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
                       ease: 'linear',
                     },
                   },

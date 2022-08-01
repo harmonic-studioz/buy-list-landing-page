@@ -116,20 +116,10 @@ const FAQ = () => {
             <div className="faqLabel">Can I sell above mint price? </div>
             <div className="faqContent">
               <p>
-<<<<<<< HEAD
                 * You are advised to sell at a reasonable price for ease of sale, preferably below the mint price of the project.
                 <br />
                 <br />* Free mint lists are advised to sell at less than $50 per spot for ease of sale .
                 <br />
-=======
-                * No, you cannot sell above mint price .
-                <br />
-                <br />* List ads are only valid if sell price is set at 50% less
-                than mint price .
-                <br />
-                <br />* This allows risk-sharing and helps Buylist ensure an
-                ethical and fair market.
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
               </p>
             </div>
           </div>
@@ -210,11 +200,7 @@ const FAQ = () => {
               <p>What is the payment method on BuyList?</p>
             </div>
             <div className="faqContentsm">
-<<<<<<< HEAD
               <p>The payment method is USDC.</p>
-=======
-              <p>The payment method is BUSD.</p>
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
             </div>
           </div>
           <div className="faqContentBx">
@@ -223,17 +209,9 @@ const FAQ = () => {
             </div>
             <div className="faqContent">
               <p>
-<<<<<<< HEAD
                 * A one-off payment of 10 USDC is required to transact with a seller .
                 <br />
                 <br /> * A 5% deduction from the seller is tenable to users of Buylist.
-=======
-                * A one-off payment of 20 BUSD is required to transact with a
-                seller and a subsequent payment of 5BUSD.
-                <br />
-                <br /> * A 2% deduction from the seller is tenable to users of
-                Buylist.
->>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
                 <br />
                 <br /> * No other fee is required to use Buylist.
               </p>
