@@ -6,7 +6,7 @@ const NavBar = (props) => {
   return (
     <>
       <NavWeb className={props.className} />
-      {/* <NavMobile className={props.className} /> */}
+      <NavMobile className={props.className} />
     </>
   );
 };
