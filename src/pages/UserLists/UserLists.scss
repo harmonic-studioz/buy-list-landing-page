@@ -1,0 +1,25 @@
+@import '../../variables';
+@import '../../mixins';
+
+.ylContent {
+  margin: 3.5em 0 5em 0;
+  //background: pink;
+}
+.ylTabs {
+  //background: lavender;
+  @include flexRegular(row, space-around);
+}
+.ylTab {
+  color: #98a6b5;
+  padding: 0.5em 0;
+  //margin-right: 5em;
+  cursor: pointer;
+}
+.ylTabActive {
+  border-bottom: 4px solid #20709b;
+  border-radius: 4px;
+  color: #20709b;
+  padding: 0.3em 0;
+  cursor: pointer;
+  //   margin-right: 5em;
+}

@@ -151,7 +151,6 @@ const NavWeb = (props) => {
             message={notificationMsg}
             closeNotification={closeNotification}
           />
-
         </>
       )}
       {newTransactionVal && newTransactionVal !== '' && (

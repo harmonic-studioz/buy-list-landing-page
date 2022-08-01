@@ -14,7 +14,11 @@ const NavMobile = (props) => {
   useEffect(() => {
     const t1 = gsap.timeline({ paused: true })
     t1.to(navContainer, 1, {
+<<<<<<< HEAD
       right: 0,
+=======
+      left: 0,
+>>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
       ease: Power3.easeInOut,
     })
     let menuLogo = document.getElementById('mLogo')

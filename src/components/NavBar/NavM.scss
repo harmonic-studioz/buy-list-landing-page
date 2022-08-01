@@ -7,27 +7,39 @@
   z-index: 3;
   width: 100%;
   padding: 1em;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
   .navContentM {
     @include flexRegular(row, space-between);
     align-items: center;
     width: 93%;
     //background: pink;
     margin: auto;
+<<<<<<< HEAD
 
     .logoBoxM {
       width: 50%;
       margin-top: 6px;
 
+=======
+    .logoBoxM {
+      width: 50%;
+>>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
       img {
         width: 125px;
       }
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
     .hamBox {
       width: 50%;
       @include flexRegular(row, flex-end);
       align-items: flex-end;
+<<<<<<< HEAD
 
       img {
         width: 30px;
@@ -35,22 +47,37 @@
     }
   }
 
+=======
+      img {
+        width: 35px;
+      }
+    }
+  }
+>>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
   .nav-menu {
     position: fixed;
     background: #fff;
     padding: 1em 0;
     top: 0;
+<<<<<<< HEAD
     right: -100%;
     width: 100%;
     height: 100%;
     z-index: 1;
 
+=======
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+>>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
     //font-weight: 100;
     //color: $blueMain;
     //color: #0000;
     .menuContent {
       .menuTop {
         position: relative;
+<<<<<<< HEAD
         margin: .5em 0 1em 0;
         //padding: 1em;
         //background: #bcc;
@@ -63,22 +90,42 @@
 
           //background: pink;
 
+=======
+        margin: 2.5em 0 1em 0;
+        //padding: 1em;
+        //background: #bcc;
+        width: 100%;
+        .me-logo {
+          @include flexRegular(row, center);
+          width: 100%;
+          //background: pink;
+>>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
           img {
             width: 150px;
           }
         }
+<<<<<<< HEAD
 
         .closeMenu {
           position: absolute;
           left: 85%;
           top: -2em;
 
+=======
+        .closeMenu {
+          position: absolute;
+          left: 90%;
+          top: 2%;
+>>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
           img {
             width: 35px;
           }
         }
       }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
       .menuBody {
         //background: lavender;
         @include flexRegular(column, center);
@@ -90,7 +137,10 @@
 
         .menuLinks {
           list-style: none;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
           li {
             text-align: center;
             font-weight: lighter;
@@ -98,10 +148,15 @@
           }
         }
       }
+<<<<<<< HEAD
 
       .menuBtns {
         @include flexRegular(row, center);
 
+=======
+      .menuBtns {
+        @include flexRegular(row, center);
+>>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
         // button:nth-of-type(1) {
         //   @include buttonRegular(none, 25vw, 55px);
         //   border: 2px solid $blueMain;
@@ -118,17 +173,26 @@
       }
     }
   }
+<<<<<<< HEAD
 
   @media (max-width: 750px) {
     .nav-menu {
       padding-left: 0;
 
+=======
+  @media (max-width: 750px) {
+    .nav-menu {
+      padding-left: 0;
+>>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
       .menuContent {
         .menuBody {
           margin-top: 6em;
           font-size: 1.4em;
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
         // .menuBtns {
         //   button {
         //     width: 40vw !important;
@@ -139,7 +203,10 @@
       }
     }
   }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
   @media (max-width: 420px) {
     .navContentM {
       .logoBoxM {
@@ -148,15 +215,23 @@
         }
       }
     }
+<<<<<<< HEAD
 
     .nav-menu {
       padding-left: 0;
 
+=======
+    .nav-menu {
+      padding-left: 0;
+>>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
       .menuContent {
         .menuBody {
           font-size: 1.35em;
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8
         .menuTop {
           .closeMenu {
             img {
@@ -167,4 +242,8 @@
       }
     }
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 9e2cbdee2204558c2020eab8101c0613cec705e8

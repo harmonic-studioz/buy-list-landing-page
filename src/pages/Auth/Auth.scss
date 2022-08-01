@@ -1,0 +1,308 @@
+@import "../../variables";
+@import "../../mixins";
+
+.authContainer {
+  position: relative;
+  padding-top: 3em;
+  background: radial-gradient(
+    76.91% 98.11% at 66.15% 86.6%,
+    #e6faff 0%,
+    #fff1f1 55.21%,
+    #fefdf8 100%
+  );
+  min-height: 100vh;
+}
+.authContent {
+  @include flexRegular(row, flex-start);
+  width: 90%;
+  max-width: 1400px;
+  margin: auto;
+  align-items: flex-start;
+  .authLeft {
+    width: 50%;
+    height: 100%;
+    @include flexRegular(column, flex-start);
+    align-items: flex-start;
+    .authLogo {
+      img {
+        width: 173px;
+        height: 39px;
+        margin-left: 0;
+      }
+    }
+    .authImg {
+      //margin-top: 7em;
+      //align-self: baseline;
+      img {
+        width: 400px;
+        position: absolute;
+        bottom: 0px;
+      }
+    }
+  }
+  .authRight {
+    width: 50%;
+    height: 100%;
+    //background: rgb(93, 81, 83);
+    .authBox {
+      width: 90%;
+      max-width: 608px;
+      margin: auto;
+      background: #fffef9;
+      box-shadow: 0px 20px 24px rgba(17, 17, 17, 0.06);
+      border-radius: 12px;
+      padding: 2.5em 4em 2em 4em;
+    }
+  }
+}
+.connectContent {
+  .connectTop {
+    @include flexRegular(row, flex-start);
+    align-items: flex-start;
+    img {
+      margin-right: 1em;
+      margin-top: 1em;
+      cursor: pointer;
+    }
+    .coTop_txt {
+      text-align: center;
+      //background: pink;
+      width: 100%;
+      h1 {
+        font-family: $fontAlt;
+        font-size: 1.5em;
+        //font-size: 24px;
+        line-height: 42px;
+        font-weight: 600;
+      }
+      h5 {
+        font-family: $fontAlt;
+        font-size: 1.5em;
+        //font-size: 24px;
+        line-height: 42px;
+        font-weight: 600;
+        text-align: center;
+      }
+      span {
+        color: $blueMain;
+      }
+      p {
+        font-weight: lighter;
+      }
+    }
+  }
+  .connectBox {
+    width: 80%;
+    margin: 4em auto 2em auto;
+    padding: 0 2em;
+    border: 1px solid #d9dbe9a1;
+    box-sizing: border-box;
+    border-radius: 4px;
+    .connectBtn {
+      @include flexRegular(row, space-between);
+      margin: 2.5em 0;
+      cursor: pointer;
+      //background: pink;
+      p {
+        font-weight: 600;
+      }
+      .connectWallet {
+        width: 25px;
+        height: 25px;
+      }
+    }
+  }
+  .coTop_txt2 {
+    margin-top: 1em;
+    text-align: center;
+    p {
+      font-weight: lighter;
+      span {
+        color: $blueMain;
+        cursor: pointer;
+      }
+    }
+  }
+  .errorMsg {
+    text-align: center;
+    margin-top: 0.5em;
+    color: #ed2e7e;
+  }
+  .successMsg {
+    text-align: center;
+    margin-top: 0.5em;
+    color: #599c45;
+  }
+  .connectInputs {
+    margin: 3em 0;
+  }
+  .connectInputBx {
+    margin-top: 1em;
+    //background: lavender;
+    input {
+      margin: 0.5em 0;
+      width: 30vw;
+      max-width: 390px;
+      height: 54px;
+      border-radius: 32px;
+      border: 2px solid #ebedef;
+      font-size: 0.9em;
+      box-shadow: 0px 10px 10px rgba(95, 90, 247, 0.03);
+      background: none;
+      padding-left: 1.2em;
+      outline: none;
+    }
+  }
+  .connectCompleteBx {
+    @include flexRegular(column, center);
+    margin: 4em auto 2em auto;
+    //background: lavender;
+    text-align: center;
+    img {
+      margin-bottom: 1em;
+    }
+    .connectedtxt {
+      color: #6e7191;
+      font-size: 0.9em;
+      margin-bottom: 1em;
+      width: 80%;
+    }
+    .connectAdd {
+      @include flexRegular(column, center);
+      border: 1px solid #20709b;
+      border-radius: 80px;
+      height: 45px;
+      width: 16vw;
+      max-width: 250px;
+      padding: auto 0.5em;
+      overflow: hidden;
+      p {
+        font-size: 15px;
+        color: #20709b;
+        font-weight: 600;
+      }
+    }
+  }
+}
+.loginBx {
+  margin-top: 5em;
+  @include flexRegular(row, center);
+  button {
+    @include buttonRegular($blueMain, 24vw, 50px);
+    max-width: 330px;
+    font-size: 0.88em;
+    //margin-bottom: 7em;
+    color: #fff;
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.4;
+    }
+    &:hover {
+      background: #2b96cf;
+    }
+  }
+}
+.lbx-bg {
+  button {
+    width: 30vw !important;
+    max-width: 370px !important;
+    margin-bottom: 7em !important;
+  }
+}
+// macbook width 1280
+@media (max-width: 1080px) {
+  .authContent {
+    .authLeft {
+      width: 45%;
+      //background: pink;
+      padding-left: 2em;
+    }
+    .authRight {
+      width: 55%;
+      .authBox {
+        width: 90%;
+        padding: 2.5em 2em 2em 2em;
+        //background: rgb(190, 171, 91);
+      }
+      .coTop_txt {
+        //background: pink;
+        width: 90%;
+        p {
+          width: 90%;
+        }
+      }
+    }
+  }
+}
+@media (max-width: 820px) {
+  .authContent {
+    @include flexRegular(row, center);
+    .authLeft {
+      display: none;
+    }
+    .authRight {
+      width: 90%;
+    }
+  }
+}
+@media (max-width: 450px) {
+  .authContainer {
+    padding: 0;
+    background: #fff;
+  }
+  .authContent {
+    width: 100%;
+    max-width: none;
+    .authRight {
+      width: 100%;
+      .authBox {
+        width: 100%;
+        max-width: none;
+        border-radius: 0;
+        padding: 2.5em 1em;
+        box-shadow: none;
+      }
+    }
+  }
+  .connectContent {
+    .connectTop {
+      img {
+        margin-right: 2em;
+      }
+      .coTop_txt {
+        text-align: left;
+      }
+    }
+    .connectBox {
+      width: 95%;
+    }
+    .connectCompleteBx {
+      .connectAdd {
+        width: 25vw;
+        max-width: 400px;
+        min-width: 200px;
+      }
+    }
+    .connectInputBx {
+      input {
+        width: 90vw;
+        max-width: none;
+      }
+    }
+  }
+  .loginBx {
+    button {
+      width: 75vw;
+    }
+  }
+  .lbx-bg {
+    button {
+      width: 80vw !important;
+      max-width: 450px !important;
+      margin-bottom: 7em !important;
+    }
+  }
+  .mg-left_1 {
+    margin-left: 1em;
+  }
+}
