@@ -87,12 +87,17 @@
   .heroImgBox {
     @include flexRegular(column, flex-start);
     width: 40%;
-    padding: 3.5em 0 0 0;
+    padding: 1.5em 0 0 0;
     //background: cornsilk;
     align-items: flex-end;
 
     //position: relative;
     .salyBox {
+      width: 43vw;
+      //background: pink;
+      margin-top: -4em;
+      //margin-left: -8em;
+
       img {
         width: 100%;
       }
@@ -116,7 +121,15 @@
       align-items: center;
 
       //background: pink;
+      // .salyBox {
+      //   img {
+      //     width: 100%;
+      //   }
+      // }
       .salyBox {
+        width: 100vw;
+        margin-top: -3em;
+
         img {
           width: 100%;
         }

@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import heroImg from '../../../assets/images/salyr.png' // salyc.png pr salyr.png
+import heroImg from '../../../assets/saly.svg' // salyc.png pr salyr.png
 import shape1 from '../../../assets/shapes/topology.svg'
 import shape2 from '../../../assets/shapes/herost.svg'
 
@@ -63,9 +63,12 @@ const Hero = () => {
               src={heroImg}
               alt="buyList"
               //drag
-              whileHover={{
-                scale: 1.1,
-              }}
+              // whileHover={{
+              //   scale: 1.1,
+              //   transition: {
+              //     duration: 1.3,
+              //   }
+              // }}
               initial="hidden"
               animate="visible"
               variants={{
@@ -81,12 +84,12 @@ const Hero = () => {
                   //y: [30, 0, 30],
                   transition: {
                     //delay: 1.8,
-                    //duration: 1.2,
+                    duration: 1.6,
                     type: 'spring',
                     y: {
                       repeat: Infinity,
                       //duration: 2.4,
-                      duration: 1.4,
+                      duration: 6.4,
                       ease: 'linear',
                     },
                   },
