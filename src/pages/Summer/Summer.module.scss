@@ -246,6 +246,11 @@
     padding: 3em 6em;
 }
 
+.modalBody2 {
+    @include flexRegular(column, center);
+    align-items: center;
+}
+
 .completeModal {
     top: 25vh;
     padding: 1em 4em;

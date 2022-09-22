@@ -19,11 +19,14 @@ export const Summer = () => {
             document.getElementById('overlayS').classList.add(style.overlay)
             //setShowModal(!showModal)
         }
-        document.getElementById('backS').onclick = function () {
-            t1.reversed(!t1.reversed())
-            document.getElementById('overlayS').classList.toggle(style.overlay)
-            setShowModal(!showModal)
+        if (document.getElementById('backS')) {
+            document.getElementById('backS').onclick = function () {
+                t1.reversed(!t1.reversed())
+                document.getElementById('overlayS').classList.toggle(style.overlay)
+                setShowModal(!showModal)
+            }
         }
+
         document.getElementById('overlayS').onclick = function () {
             t1.reversed(!t1.reversed())
             document.getElementById('overlayS').classList.toggle(style.overlay)

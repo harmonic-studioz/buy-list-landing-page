@@ -6,9 +6,9 @@ import { CircularProgress } from '@material-ui/core'
 import emailjs from 'emailjs-com'
 
 
-export const Modals = () => {
+export const Modals = (props) => {
     const [isLoading, setIsLoading] = useState()
-    const [completed, setCompleted] = useState()
+    const [completed, setCompleted] = useState(false)
     const [userInput, setUserInput] = useState({
         name: '',
         email: '',
@@ -34,13 +34,15 @@ export const Modals = () => {
                 userName: userInput.name,
                 userEmail: userInput.email,
                 userPhone: userInput.phone,
-
             }
+
+            //setCompleted(true)
 
             emailjs.send('service_buylist01', 'template_buylist01', formFields).then(
                 function (response) {
-                    console.log('SUCCESS!', response.status, response.text)
                     setCompleted(true)
+                    console.log('SUCCESS!', response.status, response.text)
+
                 },
                 function (error) {
                     console.log('FAILED...', error)
@@ -59,14 +61,14 @@ export const Modals = () => {
         <>
 
             <div className={style.modalContainer}>
-                {!completed && (
-                    <form onSubmit={handleSubmit} className={style.modal}
-                        // ref={(el) => {
-                        //     modalB = el
-                        // }}
-                        id="formBoxS"
-                    >
 
+                <div className={style.modal}
+                    // ref={(el) => {
+                    //     modalB = el
+                    // }}
+                    id="formBoxS"
+                > {!completed && (
+                    <form onSubmit={handleSubmit} >
                         <div className={style.modalTop}>
                             <img src={Back} alt="back"
                                 //onClick={handleModal} 
@@ -109,18 +111,32 @@ export const Modals = () => {
                             </div>
                         </div>
                         <div className={style.modalBtn}>
-                            <button type='submit' disabled={isLoading}>
+                            <button type='submit' disabled={isLoading} id="submitBtn">
                                 {isLoading ? (
                                     <CircularProgress color="inherit" size="25px" />
                                 ) : (
                                     'Register now'
                                 )}
                             </button>
-                            {errMsg && (<p>{errMsg}</p>)}
+                            {errMsg && (<p className='redTxt'>{errMsg}</p>)}
                         </div>
-                    </form>
-                )}
-                {completed && (
+                    </form>)}
+                    {completed && (
+                        <div>
+                            <div className={style.modalBody2}>
+                                <div className={style.complete}>
+                                    <img
+                                        className='animate__animated animate__jackInTheBox animation__duration-3s '
+                                        src={Check} alt="complete" />
+                                </div>
+                                <div className={style.checkTxt}>
+                                    <h2>Registration successful!</h2>
+                                    <p>Congratulations, you have succesfully reserved a seat for this class, we will reach out to you with further details.</p>
+                                </div>
+                            </div>
+                        </div>)}
+                </div>
+                {/* {completed && (
                     <div className={style.completeModal} id="formBoxS">
                         <div className={style.modalBody}>
                             <div className={style.complete}>
@@ -133,7 +149,7 @@ export const Modals = () => {
                                 <p>Congratulations, you have succesfully reserved a seat for this class, we will reach out to you with further details.</p>
                             </div>
                         </div>
-                    </div>)}
+                    </div>)} */}
             </div>
         </>
     )

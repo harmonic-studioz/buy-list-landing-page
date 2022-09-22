@@ -1,11 +1,11 @@
-import { useEffect, useState, useContext } from 'react'
+import { useEffect, useState, useContext, useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import './NavW.scss'
 import Logo from '../../assets/logo.png'
 import Search from '../../assets/icons/search.svg'
 import Add from '../../assets/icons/add.svg'
 import { CircularProgress } from '@material-ui/core'
-import Notification from '../../components/Modals/Notification2'
+//import Notification from '../../components/Modals/Notification2'
 //import ReactHowler from 'react-howler'
 //import Audio from '../../assets/sound/alert.mp3'
 
@@ -16,8 +16,15 @@ import { AuthContext } from '../../context/AuthContext'
 import { publicRequest } from '../../utils/requestMethods'
 import { logger } from '../../utils/logger'
 
+import { gsap, Power3 } from 'gsap'
+import { Modals } from '../../pages/Summer/Modals/Modals'
+import style from '../../pages/Summer/Summer.module.scss'
+
 //let socket;
 const NavWeb = (props) => {
+  const [showModal, setShowModal] = useState(false)
+  let { signUpBtn } = useRef()
+
   const Page = 'Landing'
   const navigate = useNavigate()
   const [searchTerm, setSearchTerm] = useState('')
@@ -107,6 +114,38 @@ const NavWeb = (props) => {
   //   // prompt("working");
   // }
 
+  // useEffect(() => {
+  //   const t1 = gsap.timeline({ paused: true })
+  //   signUpBtn.onclick = function () {
+  //     t1.reversed(!t1.reversed())
+  //     document.getElementById('overlayS').classList.add(style.overlay)
+  //     //setShowModal(!showModal)
+  //   }
+  //   if (document.getElementById('backS')) {
+  //     document.getElementById('backS').onclick = function () {
+  //       t1.reversed(!t1.reversed())
+  //       document.getElementById('overlayS').classList.toggle(style.overlay)
+  //       setShowModal(!showModal)
+  //     }
+  //   }
+
+  //   document.getElementById('overlayS').onclick = function () {
+  //     t1.reversed(!t1.reversed())
+  //     document.getElementById('overlayS').classList.toggle(style.overlay)
+  //     setShowModal(!showModal)
+  //   }
+
+
+  //   t1.to('#formBoxS', 0, {
+  //     duration: -.1,
+  //     y: 0,
+  //     ease: Power3.easeInOut,
+  //   })
+
+  //   t1.reverse()
+
+  // }, [showModal])
+
   useEffect(() => {
     const handleSearch = async () => {
       if (searchTerm.length >= 3) {
@@ -143,8 +182,15 @@ const NavWeb = (props) => {
   // }
 
   return (
-    <div className="navContainer">
-      {/* {newMsgVal && newMsgVal !== '' && (
+    <>
+      {/* <div className={`animate__animated animate__fadeIn`} id="overlayS" ></div>
+      <Modals
+        //handleModal={handleModal}
+        showModal={showModal}
+      /> */}
+
+      <div className="navContainer">
+        {/* {newMsgVal && newMsgVal !== '' && (
         <>
           <Notification
             status={true}
@@ -164,18 +210,18 @@ const NavWeb = (props) => {
         </>
       )} */}
 
-      <nav className={props.className}>
-        {Page === 'Landing' && (
-          <Link to="/" className="logoBox">
-            <img src={Logo} alt="logo" />
-          </Link>
-        )}
-        {Page !== 'Landing' && (
-          <Link className="logoBox" to="/">
-            <img src={Logo} alt="logo" />
-          </Link>
-        )}
-        {/* <ul className="navMid">
+        <nav className={props.className}>
+          {Page === 'Landing' && (
+            <Link to="/" className="logoBox">
+              <img src={Logo} alt="logo" />
+            </Link>
+          )}
+          {Page !== 'Landing' && (
+            <Link className="logoBox" to="/">
+              <img src={Logo} alt="logo" />
+            </Link>
+          )}
+          {/* <ul className="navMid">
           <a href="/#works">
             <li className="hvr-underline-from-left">How it works </li>
           </a>
@@ -193,65 +239,68 @@ const NavWeb = (props) => {
             </Link>
           )}
         </ul> */}
-        <div className="navRight">
-          <div className="navSearch ">
-            <input
-              type="text"
-              placeholder="Search project"
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-            <img src={Search} alt="search" />
-          </div>
-          {searchTerm.length >= 3 && searchRes.length < 1 && (
-            <div className="animate__animated animate__fadeIn navSearchRes">
-              <div className="nsr-content">
-                <div className="nr-content">
-                  <p>
-                    Sorry, we dont seem to have this project in our library.
-                  </p>
-                  <Link to="/postProject" className="nsr-btm">
-                    <span>Add it to your library</span>
-                    <img src={Add} alt="add" />
-                  </Link>
+          <div className="navRight">
+            <div className="navSearch ">
+              <input
+                type="text"
+                placeholder="Search project"
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              <img src={Search} alt="search" />
+            </div>
+            {searchTerm.length >= 3 && searchRes.length < 1 && (
+              <div className="animate__animated animate__fadeIn navSearchRes">
+                <div className="nsr-content">
+                  <div className="nr-content">
+                    <p>
+                      Sorry, we dont seem to have this project in our library.
+                    </p>
+                    <Link to="/postProject" className="nsr-btm">
+                      <span>Add it to your library</span>
+                      <img src={Add} alt="add" />
+                    </Link>
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
-          {searchTerm.length >= 3 && searchRes.length >= 1 && (
-            <div className="animate__animated animate__fadeIn navSearchRes">
-              <div className="nsr-content">
-                {isLoading ? (
-                  <div className="spotsLoading-sm">
-                    <CircularProgress color="inherit" size="25px" />
-                  </div>
-                ) : (
-                  <div className="sr-content">
-                    {searchRes.map((result) => (
-                      <Link
-                        to={`/buySpot/${result.id}`}
-                        className="sr-single"
-                        key={result.id}
-                      >
-                        <p>{result.projectName}</p>
-                      </Link>
-                    ))}
-                  </div>
-                )}
+            )}
+            {searchTerm.length >= 3 && searchRes.length >= 1 && (
+              <div className="animate__animated animate__fadeIn navSearchRes">
+                <div className="nsr-content">
+                  {isLoading ? (
+                    <div className="spotsLoading-sm">
+                      <CircularProgress color="inherit" size="25px" />
+                    </div>
+                  ) : (
+                    <div className="sr-content">
+                      {searchRes.map((result) => (
+                        <Link
+                          to={`/buySpot/${result.id}`}
+                          className="sr-single"
+                          key={result.id}
+                        >
+                          <p>{result.projectName}</p>
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
-          )}
-          {/* <Link to="/auth"> */}
-          <button
-            //className="nav_Connect "
-            className="nav_Connect "
-          //onClick={handleConnect}
-          >
-            Sign up
-          </button>
-          {/* </Link> */}
-        </div>
-      </nav>
-    </div>
+            )}
+            {/* <Link to="/auth"> */}
+            {/* <button
+              //className="nav_Connect "
+              className="nav_Connect "
+              //onClick={handleConnect}
+              ref={(el) => {
+                signUpBtn = el
+              }}
+            >
+              Sign up
+            </button> */}
+            {/* </Link> */}
+          </div>
+        </nav>
+      </div>  </>
   )
 }
 

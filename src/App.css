@@ -72,6 +72,13 @@ button:disabled {
   padding-top: 6em;
 }
 
+.redTxt {
+  margin: .5em 0;
+  font-size: 14px;
+  color: #ed2e7e;
+  text-align: center;
+}
+
 /* ul {
   list-style: none;
 } */
