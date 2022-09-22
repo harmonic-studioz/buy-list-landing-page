@@ -119,11 +119,13 @@ const NavMobile = (props) => {
 
           {/* <Link to="/auth" className="menuBtns" id="menuBtns"> */}
           <div className="menuBtns" id="menuBtns">
-            <button className="disabledFull">
+            {/* <button className="disabledFull">
               {!currentAccount
                 ? 'Connect wallet'
-                : shortenAddress(currentAccount)}
-            </button>
+                : ''//shortenAddress(currentAccount)
+              }
+            </button> */}
+            <button className="disabledFull">Connect</button>
           </div>
           {/* </Link> */}
         </div>

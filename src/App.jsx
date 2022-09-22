@@ -23,6 +23,7 @@ import Landing from './pages/Landing/Landing'
 
 import { AuthContext } from './context/AuthContext'
 import UniContext from './context/UniContext'
+import { Summer } from './pages/Summer/Summer'
 //import useWalletConnect from './hooks/walletConnect'
 
 //import useSockets from './hooks/socket'
@@ -46,6 +47,7 @@ const App = () => {
             element={authState.user ? <Home /> : <Auth />}
           ></Route> */}
         {/* <Route path="/home" element={<Home />}></Route> */}
+        <Route path="/summer-class" element={<Summer />}></Route>
         {/* <Route path="/pool" element={<Pool />}></Route>
           <Route path="/upcoming" element={<Upcoming />}></Route>
           <Route path="/listOptions" element={<ListOptions />}></Route>

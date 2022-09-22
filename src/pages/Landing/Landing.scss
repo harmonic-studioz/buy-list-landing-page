@@ -4,6 +4,81 @@
 // Hero Section
 .heroContainer {
   padding: 7em 0 0 0;
+  //position: relative;
+}
+
+.announcement {
+  top: 6.5em;
+  position: absolute;
+  //background: lavender;
+  background-color: linear-gradient(89.88deg, #3E95C4 13.01%, #209B8C 99.79%);
+  animation: background-change infinite 14s reverse;
+  animation: background-change2 infinite 15s reverse;
+  //animation: name duration timing-function delay iteration-count direction fill-mode;
+  color: #FFF;
+  width: 100%;
+  //height: 35px;
+  height: 45px;
+  left: 0;
+  padding: 0.9em;
+  //padding: 1.1em 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: .2s ease-in;
+}
+
+.announceContent {
+  //padding: 1em 0 1em 100%;
+  padding-left: 40%;
+  // padding-top: 1em;
+  // padding-bottom: 1em;
+  animation: slide 6s infinite linear reverse;
+  //animation: name duration timing-function delay iteration-count direction fill-mode;
+  //animation-delay: 2.9s;
+  display: inline-block;
+  //height: 600px;
+}
+
+@keyframes slide {
+  100% {
+    transform: translate(-100%, 0);
+  }
+}
+
+
+@keyframes background-change {
+  from {
+    // transform: rotate(0deg);
+    background: linear-gradient(89.88deg, #3E95C4 13.01%, #209B8C 99.79%);
+    transition: .2s ease-in;
+    //background-color: red;
+  }
+
+  to {
+    //transform: rotate(360deg);
+    background: linear-gradient(89.88deg, #3E95C4 13.01%, #B47921 99.79%);
+    transition: .2s ease-in;
+    //background-color: green;
+  }
+}
+
+@keyframes background-change2 {
+  from {
+    // transform: rotate(0deg);
+    background: linear-gradient(89.88deg, #3E95C4 13.01%, #209B8C 99.79%);
+    //transition: .2s ease-in;
+
+  }
+
+  to {
+    //transform: rotate(360deg);
+    //background: linear-gradient(89.88deg, #3E95C4 13.01%, #B47921 99.79%);
+    background: linear-gradient(89.88deg, #3E95C4 13.01%, #8E47A7 99.79%);
+    //transition: .2s ease-in;
+  }
 }
 
 .heroContent {
