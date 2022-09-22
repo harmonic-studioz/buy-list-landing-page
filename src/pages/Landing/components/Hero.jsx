@@ -8,17 +8,19 @@ const Hero = () => {
   return (
     <section className="heroContainer">
       <div className="heroContent">
-        <div className="announcement">
-          <div className="announceContent">
-            <p>SIGN UP FOR BUYLIST SUMMER CLASS !     - </p>
+        {/* <Link to="/summer-class">
+          <div className="announcement">
+            <div className="announceContent">
+              <p>SIGN UP FOR BUYLIST SUMMER CLASS !     - </p>
+            </div>
+            <div className="announceContent">
+              <p>SIGN UP FOR BUYLIST SUMMER CLASS !     - </p>
+            </div>
+            <div className="announceContent">
+              <p>SIGN UP FOR BUYLIST SUMMER CLASS !     - </p>
+            </div>
           </div>
-          <div className="announceContent">
-            <p>SIGN UP FOR BUYLIST SUMMER CLASS !     - </p>
-          </div>
-          <div className="announceContent">
-            <p>SIGN UP FOR BUYLIST SUMMER CLASS !     - </p>
-          </div>
-        </div>
+        </Link> */}
         <div className="heroIntro">
           <div className="heroTextBox">
             <h1>
