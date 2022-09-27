@@ -26,12 +26,14 @@ const Hero = () => {
             <h1>
               Buy and Sell
               <span> NFT </span>
-              whitelist spots easily in a fair market.
+              whitelist spots easily.
+              {/* <p>in a fair market.</p>  */}
             </h1>
             <p>
-              Grind for a whitelist spot and easily sell on BuyList; buy in
+              {/* Grind for a whitelist spot and easily sell on BuyList; buy in
               simple steps without grinding; curate upcoming mints and set
-              reminders.
+              reminders. */}
+              Grind for a whitelist and sell in our marketplace; Buy a spot without grinding.
             </p>
           </div>
           <div className="heroBtns">
