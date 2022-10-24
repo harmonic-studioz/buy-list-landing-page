@@ -226,7 +226,7 @@
 
 .modal,
 .completeModal {
-    transform: translateY(120%);
+    transform: translateY(-150%);
     position: fixed;
     width: 38vw;
     min-width: 350px;
@@ -345,6 +345,7 @@
     .modal,
     .completeModal {
         width: 45vw;
+        transform: translateY(140%);
     }
 
     .modalTop {

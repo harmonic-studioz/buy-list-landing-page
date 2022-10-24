@@ -17,7 +17,7 @@ import { publicRequest } from '../../utils/requestMethods'
 import { logger } from '../../utils/logger'
 
 import { gsap, Power3 } from 'gsap'
-import { Modals } from '../../pages/Summer/Modals/Modals'
+import { Modals } from '../../pages/Summer/Modals/Modals2'
 import style from '../../pages/Summer/Summer.module.scss'
 
 //let socket;
@@ -114,37 +114,37 @@ const NavWeb = (props) => {
   //   // prompt("working");
   // }
 
-  // useEffect(() => {
-  //   const t1 = gsap.timeline({ paused: true })
-  //   signUpBtn.onclick = function () {
-  //     t1.reversed(!t1.reversed())
-  //     document.getElementById('overlayS').classList.add(style.overlay)
-  //     //setShowModal(!showModal)
-  //   }
-  //   if (document.getElementById('backS')) {
-  //     document.getElementById('backS').onclick = function () {
-  //       t1.reversed(!t1.reversed())
-  //       document.getElementById('overlayS').classList.toggle(style.overlay)
-  //       setShowModal(!showModal)
-  //     }
-  //   }
+  useEffect(() => {
+    const t1 = gsap.timeline({ paused: true })
+    signUpBtn.onclick = function () {
+      t1.reversed(!t1.reversed())
+      document.getElementById('overlaySm').classList.add(style.overlay)
+      //setShowModal(!showModal)
+    }
+    if (document.getElementById('backSm')) {
+      document.getElementById('backSm').onclick = function () {
+        t1.reversed(!t1.reversed())
+        document.getElementById('overlaySm').classList.toggle(style.overlay)
+        setShowModal(!showModal)
+      }
+    }
 
-  //   document.getElementById('overlayS').onclick = function () {
-  //     t1.reversed(!t1.reversed())
-  //     document.getElementById('overlayS').classList.toggle(style.overlay)
-  //     setShowModal(!showModal)
-  //   }
+    document.getElementById('overlaySm').onclick = function () {
+      t1.reversed(!t1.reversed())
+      document.getElementById('overlaySm').classList.toggle(style.overlay)
+      setShowModal(!showModal)
+    }
 
 
-  //   t1.to('#formBoxS', 0, {
-  //     duration: -.1,
-  //     y: 0,
-  //     ease: Power3.easeInOut,
-  //   })
+    t1.to('#formBoxSm', 0, {
+      duration: -.1,
+      y: 0,
+      ease: Power3.easeInOut,
+    })
 
-  //   t1.reverse()
+    t1.reverse()
 
-  // }, [showModal])
+  }, [showModal])
 
   useEffect(() => {
     const handleSearch = async () => {
@@ -196,11 +196,11 @@ const NavWeb = (props) => {
 
   return (
     <>
-      <div className={`animate__animated animate__fadeIn`} id="overlayS" ></div>
-      {/* <Modals
+      <div className={`animate__animated animate__fadeIn`} id="overlaySm" ></div>
+      <Modals
         //handleModal={handleModal}
         showModal={showModal}
-      /> */}
+      />
 
       <div className="navContainer">
         {/* {newMsgVal && newMsgVal !== '' && (
@@ -300,7 +300,7 @@ const NavWeb = (props) => {
               </div>
             )}
             {/* <Link to="/auth"> */}
-            {/* <button
+            <button
               //className="nav_Connect "
               className="nav_Connect "
               onClick={() => props.handleSignUp}
@@ -309,7 +309,7 @@ const NavWeb = (props) => {
               }}
             >
               Sign up
-            </button> */}
+            </button>
             {/* </Link> */}
           </div>
         </nav>
