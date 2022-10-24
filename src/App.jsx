@@ -6,7 +6,7 @@ import 'aos/dist/aos.css'
 import 'animate.css'
 import AOS from 'aos'
 import Landing from './pages/Landing/Landing'
-// import Auth from './pages/Auth/Auth'
+import Auth from './pages/Auth/Auth'
 // import Verification from './pages/Auth/Verification'
 //import Home from './pages/Home/Home'
 // import Pool from './pages/Pool/Pool'
@@ -40,8 +40,8 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/" element={<Landing />}></Route>
-        {/* <Route path="/auth" element={<Auth />}></Route>
-          <Route path="/auth/verify" element={<Verification />}></Route> */}
+        <Route path="/auth" element={<Auth />}></Route>
+        {/* <Route path="/auth/verify" element={<Verification />}></Route> */}
         {/* <Route
             path="/home"
             element={authState.user ? <Home /> : <Auth />}

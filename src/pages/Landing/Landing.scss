@@ -8,8 +8,9 @@
 }
 
 .announcement {
-  top: 6.5em;
-  position: absolute;
+  top: 6.3em;
+  position: fixed;
+  z-index: 6;
   //background: lavender;
   background-color: linear-gradient(89.88deg, #3E95C4 13.01%, #209B8C 99.79%);
   animation: background-change infinite 14s reverse;

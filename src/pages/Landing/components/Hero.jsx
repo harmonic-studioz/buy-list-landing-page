@@ -8,7 +8,7 @@ const Hero = () => {
   return (
     <section className="heroContainer">
       <div className="heroContent">
-        {/* <Link to="/summer-class">
+        <Link to="/summer-class">
           <div className="announcement">
             <div className="announceContent">
               <p>SIGN UP FOR BUYLIST SUMMER CLASS !     - </p>
@@ -20,7 +20,7 @@ const Hero = () => {
               <p>SIGN UP FOR BUYLIST SUMMER CLASS !     - </p>
             </div>
           </div>
-        </Link> */}
+        </Link>
         <div className="heroIntro">
           <div className="heroTextBox">
             <h1>

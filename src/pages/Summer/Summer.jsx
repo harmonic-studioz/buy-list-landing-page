@@ -13,6 +13,7 @@ export const Summer = () => {
     const [showModal, setShowModal] = useState(false)
     let { signUpBtn } = useRef()
     useEffect(() => {
+
         const t1 = gsap.timeline({ paused: true })
         signUpBtn.onclick = function () {
             t1.reversed(!t1.reversed())
@@ -39,10 +40,43 @@ export const Summer = () => {
             y: 0,
             ease: Power3.easeInOut,
         })
-
         t1.reverse()
 
+
+
+
+
     }, [showModal])
+    const handleSignUp = () => {
+        const t1 = gsap.timeline({ paused: true })
+        signUpBtn.onclick = function () {
+            t1.reversed(!t1.reversed())
+            document.getElementById('overlayS').classList.add(style.overlay)
+            //setShowModal(!showModal)
+        }
+        if (document.getElementById('backS')) {
+            document.getElementById('backS').onclick = function () {
+                t1.reversed(!t1.reversed())
+                document.getElementById('overlayS').classList.toggle(style.overlay)
+                setShowModal(!showModal)
+            }
+        }
+
+        document.getElementById('overlayS').onclick = function () {
+            t1.reversed(!t1.reversed())
+            document.getElementById('overlayS').classList.toggle(style.overlay)
+            setShowModal(!showModal)
+        }
+
+
+        t1.to('#formBoxS', 0, {
+            duration: -.1,
+            y: 0,
+            ease: Power3.easeInOut,
+        })
+        t1.reverse()
+
+    }
 
     return (
         <>
@@ -53,7 +87,7 @@ export const Summer = () => {
                 showModal={showModal}
             />
             {/* } */}
-            <NavBar className="navContentLanding" />
+            <NavBar className="navContentLanding" handleSignUp={handleSignUp} showModal={showModal} />
             <Container>
                 <div className={style.container}>
                     <div className={style.content}>

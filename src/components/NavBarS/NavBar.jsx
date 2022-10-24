@@ -5,8 +5,8 @@ import NavMobile from "./NavMobile";
 const NavBar = (props) => {
   return (
     <>
-      <NavWeb className={props.className} />
-      <NavMobile className={props.className} />
+      <NavWeb className={props.className} handleSignUp={props.handleSignUp} showModal={props.showModal} />
+      <NavMobile className={props.className} handleSignUp={props.handleSignUp} showModal={props.showModal} />
     </>
   );
 };

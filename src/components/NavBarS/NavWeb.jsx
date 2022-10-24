@@ -181,10 +181,23 @@ const NavWeb = (props) => {
   //   //let isDisabled = await disonnectWallet();
   // }
 
+  // useEffect(() => {
+  //   // const handleBtn = () => {
+
+  //   // }
+  //   // handleBtn()
+  //   props.handleSignUp()
+
+
+  // }, [props.showModal])
+
+
+
+
   return (
     <>
-      {/* <div className={`animate__animated animate__fadeIn`} id="overlayS" ></div>
-      <Modals
+      <div className={`animate__animated animate__fadeIn`} id="overlayS" ></div>
+      {/* <Modals
         //handleModal={handleModal}
         showModal={showModal}
       /> */}
@@ -290,7 +303,7 @@ const NavWeb = (props) => {
             {/* <button
               //className="nav_Connect "
               className="nav_Connect "
-              //onClick={handleConnect}
+              onClick={() => props.handleSignUp}
               ref={(el) => {
                 signUpBtn = el
               }}
