@@ -70,7 +70,10 @@ const NavMobile = (props) => {
     <div className="navContainerMobile">
       <nav className="navContentM">
         <div className="logoBoxM">
-          <img src={Logo} alt="logo" />
+          <Link to="/" className="logoBox">
+            <img src={Logo} alt="logo" />
+          </Link>
+
         </div>
         {/* <div className="hamBox">
           <img src={Hamburger} alt="hamburger" />
